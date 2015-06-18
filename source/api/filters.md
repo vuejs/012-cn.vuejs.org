@@ -32,14 +32,14 @@ order: 7
 **例子：**
 
 ``` html
-{&#123;count&#125;} {&#123;count | pluralize item&#125;}
+{{count}} {{count | pluralize 'item'}}
 ```
 
 *1 => '1 item'*  
 *2 => '2 items'*
 
 ``` html
-{&#123;date&#125;}{&#123;date | pluralize st nd rd th&#125;}
+{{date}}{{date | pluralize 'st' 'nd' 'rd' 'th'}}
 ```
 
 结果为:
@@ -57,7 +57,7 @@ order: 7
 使用 `JSON.stringify()` 来处理值而不是直接将其字符串化（如 `[object Object]`)。这个 filter 接受一个可选参数来指定缩进级别（默认是 2）。
 
 ``` html
-<pre>{&#123;$data | json 4&#125;}</pre>
+<pre>{{$data | json 4}}</pre>
 ```
 
 ### key
@@ -79,7 +79,7 @@ order: 7
 **例子：**
 
 ``` html
-<input v-on="keyup:doSomething | key enter">
+<input v-on="keyup:doSomething | key 'enter'">
 ```
 
 只有按回车键（enter）时才会调用 `doSomething` 。
@@ -96,7 +96,7 @@ order: 7
 ``` html
 <input v-model="searchText">
 <ul>
-  <li v-repeat="users | filterBy searchText">{&#123;name&#125;}</li>
+  <li v-repeat="users | filterBy searchText">{{name}}</li>
 </ul>
 ```
 
@@ -107,7 +107,7 @@ order: 7
 ``` html
 <input v-model="searchText">
 <ul>
-  <li v-repeat="users | filterBy searchText in name">{&#123;name&#125;}</li>
+  <li v-repeat="users | filterBy searchText in name">{{name}}</li>
 </ul>
 ```
 
@@ -117,7 +117,7 @@ order: 7
 
 ``` html
 <ul>
-  <li v-repeat="users | filterBy '555' in 'phone'">{&#123;name&#125;}</li>
+  <li v-repeat="users | filterBy '555' in 'phone'">{{name}}</li>
 </ul>
 ```
 
@@ -132,7 +132,7 @@ order: 7
 
 ``` html
 <ul>
-  <li v-repeat="users | orderBy field reverse">{&#123;name&#125;}</li>
+  <li v-repeat="users | orderBy field reverse">{{name}}</li>
 </ul>
 ```
 
@@ -150,6 +150,6 @@ new Vue({
 
 ``` html
 <ul>
-  <li v-repeat="users | orderBy 'name' -1">{&#123;name&#125;}</li>
+  <li v-repeat="users | orderBy 'name' -1">{{name}}</li>
 </ul>
 ```
