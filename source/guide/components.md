@@ -47,150 +47,192 @@ Vue.component('my-component', {
 
 ``` html
 <!-- 父级模板 -->
-<div v-component="my-component"></div>
-```
-
-如果你愿意，也能以自定义元素标签的形式使用组件：
-
-``` html
 <my-component></my-component>
 ```
 
-<p class="tip">为了避免与本地元素发生命名冲突，也为了与 W3C 自定义元素规范一致，组件的 ID **必须**包含一个连字符 `-` 才能作为自定义标签使用。</p>
-
-理解 `Vue.extend()` 和 `Vue.component()` 的区别至关重要。由于 `Vue` 本身是一个构造函数， `Vue.extend()` 是一个**类继承方法**。它用来创建一个 `Vue` 的子类并返回其构造函数。而另一方面，`Vue.component()` 是一个类似 `Vue.directive()` 和 `Vue.filter()` 的**资源注册方法**。它作用是建立指定的构造函数与 ID 字符串间的关系，从而让 Vue.js 能在模板中使用它。直接向 `Vue.component()` 传递 options 时，它会在内部调用 `Vue.extend()`。
-
-Vue.js 支持两种不同的 API 规范：基于类的命令式的 Backbone 风格 API，以及基于标记的声明式的 Web Components 风格 API。如果你感到困惑，想一下通过 `new Image()` 和通过 `<img>` 标签这两种创建图片元素的方式。它们都在各自的适用场景下发挥着作用，为了尽可能灵活，Vue.js 同时提供这两种方式。
-
-## 数据继承
-
-### 显式数据传递
-
-默认情况下，组件有**独立作用域**。这意味着你无法在子组件的模板中引用父级的数据。可以通过 `v-with` 命令把数据显式传递给拥有独立作用域的子组件。
-
-#### 向下传递子 `$data` 对象
-
-只给出 keypath 而不传递参数时，父级上相应的数据会传递给子级作为 `$data` 对象。这意味着传递的数据必须是一个对象，并且它会覆盖子组件可能包含的默认 `$data` 对象。
-
-**示例：**
-
-``` html
-<div id="demo-1">
-  <p v-component="user-profile" v-with="user"></p>
-</div>
-```
+你无需在全局注册所有组件。你可以限制一个组件仅对另一个组件及其后代可用，只要在 `components` 选项中传入这个组件即可（这种封装形式同样适用于其他资源，例如指令和过滤器）：
 
 ``` js
-// 先注册组件
-Vue.component('user-profile', {
-  template: '{&#123;name&#125;}<br>{&#123;email&#125;}'
-})
-// `user` 对象会传递给子级
-// 作为 $data
-var parent = new Vue({
-  el: '#demo-1',
-  data: {
-    user: {
-      name: 'Foo Bar',
-      email: 'foo@bar.com'
+var Parent = Vue.extend({
+  components: {
+    child: {
+      // child 只能被
+      // Parent 及其后代组件使用
     }
   }
 })
+```
+
+理解 `Vue.extend()` 和 `Vue.component()` 的区别至关重要。由于 `Vue` 本身是一个构造函数， `Vue.extend()` 是一个**类继承方法**。它用来创建一个 `Vue` 的子类并返回其构造函数。而另一方面，`Vue.component()` 是一个类似 `Vue.directive()` 和 `Vue.filter()` 的**资源注册方法**。它作用是建立指定的构造函数与 ID 字符串间的关系，从而让 Vue.js 能在模板中使用它。直接向 `Vue.component()` 传递 options 时，它会在内部调用 `Vue.extend()`。
+
+Vue.js 支持两种不同风格的调用组件的 API：命令式的基于构造函数的 API，以及基于模板的声明式的 Web Components 风格 API。如果你感到困惑，想一下通过 `new Image()` 和通过 `<img>` 标签这两种创建图片元素的方式。它们都在各自的适用场景下发挥着作用，为了尽可能灵活，Vue.js 同时提供这两种方式。
+
+<p class="tip">`table` 元素对能出现在其内部的元素类型有限制，因此自定义元素会被提到外部而且无法正常渲染。在那种情况下你可以使用组件命令式语法： `<tr v-component="my-component"></tr>`。注意这种语法只在 table 元素上有效。</p>
+
+## 数据流
+
+### 通过 prop 传递数据
+
+默认情况下，组件有**独立作用域**。这意味着你无法在子组件的模板中引用父级的数据。为了传递数据到拥有独立作用域的子组件中，我们需要用到 `prop`。
+
+一个“prop”是指组件的数据对象上的一个预期会从父级组件取得的字段。一个子组件需要通过 [`prop` 选项](/api/options.html#props)显式声明它希望获得的 prop：
+
+``` js
+Vue.component('child', {
+  // 声明 prop
+  props: ['msg'],
+  // prop 可以在模板内部被使用，
+  // 也可以类似 `this.msg` 这样来赋值
+  template: '<span>{{msg}}</span>'
+})
+```
+
+然后，我们可以像这样向这个组件传递数据：
+
+``` html
+<child msg="hello!"></child>
 ```
 
 **结果：**
 
-<div id="demo-1" class="demo"><p v-component="user-profile" v-with="user"></p></div>
+<div id="prop-example-1" class="demo"><child msg="hello!"></child></div>
 <script>
-  Vue.component('user-profile', {
-    template: '{&#123;name&#125;}<br>{&#123;email&#125;}'
-  })
-  var parent = new Vue({
-    el: '#demo-1',
-    data: {
-      user: {
-        name: 'Foo Bar',
-        email: 'foo@bar.com'
+new Vue({
+  el: '#prop-example-1',
+  components: {
+    child: {
+      props: ['msg'],
+      template: '<span>{&#123;msg&#125;}</span>'
+    }
+  }
+})
+</script>
+
+#### 动态 prop
+
+我们同样能够从父级向下传递动态数据。例如：
+
+``` html
+<div>
+  <input v-model="parentMsg">
+  <br>
+  <child msg="{{parentMsg}}"></child>
+</div>
+```
+
+**结果:**
+
+<div id="demo-2" class="demo"><input v-model="parentMsg"><br><child msg="{&#123;parentMsg&#125;}"></child></div>
+<script>
+new Vue({
+  el: '#demo-2',
+  data: {
+    parentMsg: 'Inherited message'
+  },
+  components: {
+    child: {
+      props: ['msg'],
+      template: '<span>{&#123;msg&#125;}</span>'
+    }
+  }
+})
+</script>
+
+<p class="tip">暴露 `$data` 作为 prop 也是可行的。传入的值必须是一个对象，它会被用来替换组件默认的 `$data` 对象。</p>
+
+### 传递回调作为 prop
+
+同样可以向下传递一个方法或语句作为子组件的一个回调方法。从而可以进行命令式的、解耦的父级—子级通信：
+
+``` js
+Vue.component('parent', {
+  // ...
+  methods: {
+    onChildLoaded: function (msg) {
+      console.log(msg)
+    }
+  }
+})
+
+Vue.component('child', {
+  // ...
+  props: ['on-load'],
+  ready: function () {
+    // 带有连字符的 prop 会被转换成驼峰式
+    this.onLoad('message from child!')
+  }
+})
+```
+
+``` html
+<!-- 父级模板 -->
+<child on-load="{{onChildLoaded}}"></child>
+```
+
+### prop 绑定类型
+
+默认情况下，所有 prop 都会在子级和父级的属性之间建立一个**单向向下传递**的绑定关系：当父级的属性更新时，它将向下同步至子级，反之则不会。这种默认设定是为了防止子级组件意外篡改父级的状态，那将很难推导应用的数据流。不过也可以显式指定一个双向或者一次性的绑定：
+
+对比这些语法：
+
+``` html
+<!-- 默认情况下，单向绑定 -->
+<child msg="{{parentMsg}}"></child>
+<!-- 显式双向绑定 -->
+<child msg="{{@ parentMsg}}"></child>
+<!-- 显示一次性绑定 -->
+<child msg="{{* parentMsg}}"></child>
+```
+
+双向绑定会反向同步子级的 `msg` 属性到父级的 `parentMsg` 属性。一次性绑定在完成之后不会在父级和子级之间同步未来发生的变化。
+
+<p class="tip">注意如果传递的 prop 值是对象或数组，将会是引用传递。在子级改动对象或数组将会影响到父级的状态，这种情况会无视你使用的绑定的类型。</p>
+
+### 检验 prop
+
+组件可以检验获得的 prop。在开发给他人使用的组件时这会很有用，由于对 prop 的有效性检验是组件 API 的重要组成部分，并且能保证用户正确地使用了组件。与直接把 prop 定义成字符串不同，你可以使用包含有效性要求的对象：
+
+``` js
+Vue.component('example', {
+  props: [
+    // 类型检查
+    {
+      name: 'on-something',
+      type: Function
+    },
+    // 存在检查
+    {
+      name: 'required-prop',
+      type: String,
+      required: true
+    },
+    // 自定义检验函数
+    {
+      name: 'greater-than-ten',
+      validator: function (value) {
+        return value > 10
       }
     }
-  })
-</script>
-
-#### 向下传递单个属性
-
-`v-with` 也能以 `v-with="childProp: parentProp"` 的形式传入一个参数来使用。也就是把 `parent[parentProp]` 向下传递给子级，作为子级的属性 `child[childProp]`。从 0.11.5 版本开始，这将会在两者之间建立一个双向的数据绑定（0.11 的更早版本此绑定是单向的）。
-
-**示例：**
-
-``` html
-<div id="demo-2">
-  <input v-model="parentMsg">
-  <p v-component="child" v-with="childMsg : parentMsg">
-    <!-- 实际上表示 "把 `parentMsg` 绑定到我的 `childMsg` 属性上" -->
-  </p>
-</div>
-```
-
-``` js
-new Vue({
-  el: '#demo-2',
-  data: {
-    parentMsg: 'Inherited message'
-  },
-  components: {
-    child: {
-      template: '<span>{&#123;childMsg&#125;}</span>'
-    }
-  }
+  ]
 })
 ```
 
-**结果**
+其中 `type` 可以是以下任一本地构造函数：
 
-<div id="demo-2" class="demo"><input v-model="parentMsg"><p v-component="child" v-with="childMsg:parentMsg"></p></div>
-<script>
-new Vue({
-  el: '#demo-2',
-  data: {
-    parentMsg: 'Inherited message'
-  },
-  components: {
-    child: {
-      template: '<span v-text="childMsg"></span>'
-    }
-  }
-})
-</script>
+- String
+- Number
+- Boolean
+- Function
+- Object
+- Array
 
-#### 使用 `paramAttributes` 参数标识
+另外，`type` 还可以是自定义构造函数，断言将会是一个 `instanceof` 检查。
 
-同样可以通过 [`paramAttributes`](../api/options.html#paramAttributes) 选项（会被编译成 `v-with` ）来暴露一个看起来更像自定义元素的接口。
+如果 prop 检验不通过，Vue 会拒绝这次针对子组件的赋值，并且在使用开发版本时会抛出一个警告。
 
-``` html
-<div id="demo-3">
-  <input v-model="parentMsg">
-  <child-component child-msg="{{parentMsg}}"></child-component>
-</div>
-```
+如果 prop 无需任何验证，依然可以使用字符串，并且可以在 option 数组中混用字符串和对象类型的 prop。
 
-``` js
-new Vue({
-  el: '#demo-3',
-  data: {
-    parentMsg: 'Inherited message'
-  },
-  components: {
-    'child-component': {
-      paramAttributes: ['child-msg'],
-      // 连字符分隔的属性会被转成驼峰形式，
-      // 所以“child-msg”成了“this.childMsg”
-      template: '<span>{&#123;childMsg&#125;}</span>'
-    }
-  }
-})
-```
-
-### 作用域继承
+### 继承父级作用域
 
 如果有需要，你也可以使用 `inherit: true` 选项来让子组件通过原型链继承父级的全部属性：
 
@@ -214,7 +256,7 @@ parent.a = 3
 console.log(child.a) // -> 3
 ```
 
-这里有一点需要注意：由于 Vue 示例上的数据属性都是 getter/setter，设置 `child.a = 2` 会直接改变 `parent.a` 的值，而非在子级创建一个新属性遮蔽父级中的属性：
+这里有一点需要注意：由于 Vue 实例上的数据属性都是 getter/setter，设置 `child.a = 2` 会直接改变 `parent.a` 的值，而非在子级创建一个新属性遮蔽父级中的属性：
 
 ``` js
 child.a = 4
@@ -228,7 +270,7 @@ console.log(child.hasOwnProperty('a')) // -> false
 
 ``` html
 <!-- 父模板 -->
-<div v-component v-show="active" v-on="click:onClick"></div>
+<my-component v-show="active" v-on="click:onClick"></my-component>
 ```
 
 这里的命令（ `v-show` 和 `v-on` ）会在父作用域编译，所以 `active` 和 `onClick` 的取值取决于父级。任何子模版中的命令和插值都会在子作用域中编译。这样使得上下级组件间更好地分离。
@@ -251,7 +293,7 @@ var MyComponent = Vue.extend({
 
 ## 动态组件
 
-你可以通过在 `v-component` 命令中使用 Mustache 标签的方式在组件间动态切换，还能与路由一起使用实现“页面切换”：
+你可以使用保留的 `<component>` 元素在组件间动态切换来实现“页面切换”：
 
 ``` js
 new Vue({
@@ -268,17 +310,17 @@ new Vue({
 ```
 
 ``` html
-<div v-component="{&#123;currentView&#125;}">
+<component is="{{currentView}}">
   <!-- 内容随 vm.currentview 一同改变！ -->
-</div>
+</component>
 ```
 
 如果希望被切换出去的组件保持存活，从而保留它的当前状态或者避免反复重新渲染，你可以加上 `keep-alive` 命令参数：
 
 ``` html
-<div v-component="{&#123;currentView&#125;}" keep-alive>
+<component is="{{currentView}}" keep-alive>
   <!-- 不活跃的的组件会被缓存！ -->
-</div>
+</component>
 ```
 
 ### 过渡控制
@@ -292,7 +334,7 @@ new Vue({
 **示例：**
 
 ``` html
-<div v-component="&#123;{view}&#125;" wait-for="data-loaded"></div>
+<component is="{{view}}" wait-for="data-loaded"></component>
 ```
 ``` js
 // 组件定义
@@ -323,26 +365,26 @@ new Vue({
 
 ``` html
 <!-- 先淡出，之后淡入 -->
-<div v-component="&#123;{view}&#125;"
+<component
+  is="{{view}}"
   v-transition="fade"
   transition-mode="out-in">
-</div>
+</component>
 ```
 
 ## 列表与组件
 
-对于一个对象数组，你可以把 `v-component` 和 `v-repeat` 组合使用。这种场景下，对于数组中的每个对象，都以该对象为数据创建一个子 ViewModel，以指定组件作为构造函数。
+对于一个对象数组，你可以把组件和 `v-repeat` 组合使用。这种场景下，对于数组中的每个对象，都以该对象为 `$data` 创建一个子组件，以指定组件作为构造函数。
 
 ``` html
-<ul id="demo-4">
-  <!-- 复用我们之前注册过的 user-profile 组件 -->
-  <li v-repeat="users" v-component="user-profile"></li>
+<ul id="list-example">
+  <user-profile v-repeat="users"></user-profile>
 </ul>
 ```
 
 ``` js
-var parent2 = new Vue({
-  el: '#demo-4',
+new Vue({
+  el: '#list-example',
   data: {
     users: [
       {
@@ -354,16 +396,22 @@ var parent2 = new Vue({
         email: 'bruce@lee.com'
       }
     ]
+  },
+  components: {
+    'user-profile': {
+      template: '<li>{{name}} {{email}}</li>',
+      replace: true
+    }
   }
 })
 ```
 
 **结果：**
 
-<ul id="demo-4" class="demo"><li v-repeat="users" v-component="user-profile"></li></ul>
+<ul id="list-example" class="demo"><user-profile v-repeat="users"></user-profile></ul>
 <script>
 var parent2 = new Vue({
-  el: '#demo-4',
+  el: '#list-example',
   data: {
     users: [
       {
@@ -375,9 +423,28 @@ var parent2 = new Vue({
         email: 'bruce@lee.com'
       }
     ]
+  },
+  components: {
+    'user-profile': {
+      template: '<li>{&#123;name&#125;} - {&#123;email&#125;}</li>',
+      replace: true
+    }
   }
 })
 </script>
+
+### 在组件循环中使用标识符
+
+在组件中标识符语法同样适用，并且被循环的数据会被设置成组件的一个属性，以标识符作为键名：
+
+``` html
+<ul id="list-example">
+  <!-- 在组件内部可以通过 `this.user` 访问数据 -->
+  <user-profile v-repeat="user:users"></user-profile>
+</ul>
+```
+
+<p class="tip">注意一旦组件跟 `v-repeat` 一同使用，同样的作用域规则也会被应用到该组件容器上的其他命令。结果就是，你在父级模板中将获取不到 `$index`；只能在组件自身的模板中获取。<br><br>或者，你也可以通过循环 `<template>` 来建立一个媒介作用域，但是大多数情况下在组件内部使用 `$index` 是更好的实践。</p>
 
 ## 子组件引用
 
@@ -385,7 +452,7 @@ var parent2 = new Vue({
 
 ``` html
 <div id="parent">
-  <div v-component="user-profile" v-ref="profile"></div>
+  <user-profile v-ref="profile"></user-profile>
 </div>
 ```
 
@@ -399,47 +466,42 @@ var child = parent.$.profile
 
 ## 事件系统
 
-虽然你可以直接访问一个 ViewModel 的子级与父级，但是通过内建的事件系统进行跨组件通讯更为便捷。这还能使你的代码进一步解耦，变得更易于维护。一旦建立了上下级关系，就能使用 ViewModel 的 [事件示例方法](../api/instance-methods.html#Events) 来分发和触发事件。
+虽然你可以直接访问一个 Vue 实例的子级与父级，但是通过内建的事件系统进行跨组件通讯更为便捷。这还能使你的代码进一步解耦，变得更易于维护。一旦建立了上下级关系，就能使用组件的 [事件实例方法](../api/instance-methods.html#Events) 来分发和触发事件。
 
 ``` js
-var Child = Vue.extend({
-  created: function () {
-    this.$dispatch('child-created', this)
-  }
-})
-
 var parent = new Vue({
-  template: '<div v-component="child"></div>',
-  components: {
-    child: Child
-  },
+  template: '<child></child>',
   created: function () {
     this.$on('child-created', function (child) {
       console.log('new child created: ')
       console.log(child)
     })
+  },
+  components: {
+    child: {
+      created: function () {
+        this.$dispatch('child-created', this)
+      }
+    }
   }
 })
 ```
 
 <script>
-var Child = Vue.extend({
-  created: function () {
-    this.$dispatch('child-created', this)
-  }
-})
-
 var parent = new Vue({
-  el: document.createElement('div'),
-  template: '<div v-component="child"></div>',
-  components: {
-    child: Child
-  },
+  template: '<child></child>',
   created: function () {
     this.$on('child-created', function (child) {
       console.log('new child created: ')
       console.log(child)
     })
+  },
+  components: {
+    child: {
+      created: function () {
+        this.$dispatch('child-created', this)
+      }
+    }
   }
 })
 </script>
@@ -486,7 +548,7 @@ MyComponent
 
 在创建可复用组件时，我们通常需要在宿主元素中访问和重用原始数据，而它们并非组件的一部分（类似 Angular 的“transclusion”概念）。 Vue.js 实现了一套内容插入机制，它和目前的 Web Components 规范草案兼容，使用特殊的 `<content>` 元素作为原始内容的插入点。
 
-<p class="tip">注意：“transcluded”内容在父组件的作用域中编译。</p>
+<p class="tip">**关键提示**：transclude 的内容会在父级作用域中编译，而非子级作用域。</p>
 
 ### 单插入点
 
@@ -502,27 +564,29 @@ MyComponent
 使用该组件的父标签：
 
 ``` html
-<div v-component="my-component">
+<my-component>
   <p>This is some original content</p>
   <p>This is some more original content</p>
-</div>
+</my-component>
 ```
 
 渲染结果如下：
 
 ``` html
-<div>
+<my-component>
   <h1>This is my component!</h1>
   <p>This is some original content</p>
   <p>This is some more original content</p>
-</div>
+</my-component>
 ```
 
 ### 多插入点
 
 `<content>` 元素有一个特殊属性 `select`，需要赋值为一个 CSS 选择器。可以使用多个包含不同 `select` 属性的 `<content>` 插入点，它们会被原始内容中与选择器匹配的部分所替代。
 
-`multi-insertion-component` 的模板：
+<p class="tip">从 0.11.6 起，`<content>` 选择器只能匹配宿主节点的顶级子节点。从而表现与 Shaddow DOM 规范一致，并且可以避免意外地选中嵌套的 transclude 内容中不需要的节点。</p>
+
+举例来说，假设有一个带有如下模板的 `multi-insertion` 组件：
 
 ``` html
 <content select="p:nth-child(3)"></content>
@@ -533,23 +597,61 @@ MyComponent
 父标签：
 
 ``` html
-<div v-component="multi-insertion-component">
+<multi-insertion>
   <p>One</p>
   <p>Two</p>
   <p>Three</p>
-</div>
+</multi-insertion>
 ```
 
 渲染结果如下：
 
 ``` html
-<div>
+<multi-insertion>
   <p>Three</p>
   <p>Two</p>
   <p>One</p>
-</div>
+</multi-insertion>
 ```
 
 内容插入机制能很好地控制对原始内容的操作和显示，使组件极为灵活多变易于组合。
+
+## 行内模板
+
+在 0.11.6 中，为组件引入了一个特殊的参数属性： `inline-template`。当传递了这个参数时，组件会使用自己内部的内容作为模板而非 transclude 的内容。这会使模板编写更灵活。
+
+``` html
+<my-component inline-template>
+  <p>These are compiled as the component's own template</p>
+  <p>Not parent's transclusion content.</p>
+</my-component>
+```
+
+## 异步组件
+
+<p class="tip">异步组件只在 Vue ^0.12.0 版本中支持。</p>
+
+在大型项目中，我们可能需要把应用分割成小的组成部分，并且只在实际用到一个组件的时候加载它。为了让这种操作更容易，Vue.js 允许把组件定义成一个异步确定组件定义的工厂方法。Vue.js 只会在需要渲染该组件时才触发相应的工厂方法，并且为了之后能再次渲染会缓存结果。例如：
+
+``` js
+Vue.component('async-example', function (resolve, reject) {
+  setTimeout(function () {
+    resolve({
+      template: '<div>I am async!</div>'
+    })
+  }, 1000)
+})
+```
+
+工厂方法会收到一个 `resolve` 回调方法，应该在从服务器获得组件定义之后调用它。你也可以通过调用 `reject(reason)` 来提示加载失败。这里的 `setTimeout` 只是用作简单的演示；具体如何获取组件完全取决于你。有一种不错的手段是把异步组件和 [Webpack 的分离功能](http://webpack.github.io/docs/code-splitting.html)结合使用：
+
+``` js
+Vue.component('async-webpack-example', function (resolve) {
+  // 这个特殊的 require 语法会通知 webpack
+  // 自动把构建后的代码分割成
+  // 会通过 ajax 请求自动加载的 bundle。
+  require(['./my-async-component'], resolve)
+})
+```
 
 下一节：[过渡效果](../guide/transitions.html)
