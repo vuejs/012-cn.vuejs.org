@@ -9,8 +9,8 @@ order: 5
 
 ``` html
 <ul id="demo">
-  <li v-repeat="items" class="item-{&#123;$index&#125;}">
-    {&#123;$index&#125;} - {&#123;parentMsg&#125;} {&#123;childMsg&#125;}
+  <li v-repeat="items" class="item-{{$index}}">
+    {{$index}} - {{parentMsg}} {{childMsg}}
   </li>
 </ul>
 ```
@@ -51,7 +51,7 @@ var demo = new Vue({
 ``` html
 <ul id="tags">
   <li v-repeat="tags">
-    {&#123;$value&#125;}
+    {{$value}}
   </li>
 </ul>
 ```
@@ -84,7 +84,7 @@ new Vue({
 <ul id="users">
   <!-- think of this as "for each user in users" -->
   <li v-repeat="user: users">
-    {&#123;user.name&#125;} - {&#123;user.email&#125;}
+    {{user.name}} - {{user.email}}
   </li>
 </ul>
 ```
@@ -164,8 +164,8 @@ demo.items = demo.items.filter(function (item) {
 ``` js
 {
   items: [
-    { _uid: 88f869d, ... },
-    { _uid: 7496c10, ... }
+    { _uid: '88f869d', ... },
+    { _uid: '7496c10', ... }
   ]
 }
 ```
@@ -184,9 +184,9 @@ demo.items = demo.items.filter(function (item) {
 
 ``` html
 <ul id="repeat-object">
-  <li v-repeat="primitiveValues">{&#123;$key&#125;} : {&#123;$value&#125;}</li>
+  <li v-repeat="primitiveValues">{{$key}} : {{$value}}</li>
   <li>===</li>
-  <li v-repeat="objectValues">{&#123;$key&#125;} : {&#123;msg&#125;}</li>
+  <li v-repeat="objectValues">{{$key}} : {{msg}}</li>
 </ul>
 ```
 
@@ -234,7 +234,7 @@ new Vue({
 })
 </script>
 
-<p class="tip">在ECMAScript 5中，当一个新属性添加到对象中时，或者从对象中删除一个属性时，没有办法检测到。要解决这个问题，观察对象将被添加两个方法：`$add(key, value)` 和 `$delete(key)`。这些方法可以被用于在添加、删除观察对象的属性时触发期望的视图更新。</p>
+<p class="tip">在ECMAScript 5中，当一个新属性添加到对象中时，或者从对象中删除一个属性时，没有办法检测到。要解决这个问题，观察对象将被添加三个方法: `$add(key, value)`, `$set(key, value)` 和 `$delete(key)`。这些方法可以被用于在添加 / 删除观察对象的属性时触发期望的视图更新。方法 `$add` 和 `$set` 的不同之处在于当指定的键已经在对象中存在时 `$add` 将提前返回，所以调用 `obj.$add(key)` 并不会以 `undefined` 覆盖已有的值。</p>
 
 ## 迭代值域
 
@@ -242,7 +242,7 @@ new Vue({
 
 ``` html
 <div id="range">
-    <div v-repeat="val">Hi! {&#123;$index&#125;}</div>
+    <div v-repeat="val">Hi! {{$index}}</div>
 </div>
 ```
 
