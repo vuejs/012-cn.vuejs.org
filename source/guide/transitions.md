@@ -1,29 +1,29 @@
-title: Transition System
+title: 过渡效果
 type: guide
 order: 12
 ---
 
-With Vue.js' transition system you can apply automatic transition effects when elements are inserted into or removed from the DOM. Vue.js will automatically add/remove CSS classes at appropriate times to trigger CSS transitions or animations for you, and you can also provide JavaScript hook functions to perform custom DOM manipulations during the transition.
+通过Vue.js的过渡系统，在节点插入/移除DOM的过程中，你可以轻松的运用自动过渡效果。Vue.js将会在适当的时机添加/移除CSS classes来触发CSS过渡/动画效果，你也提供相应的JavaScript钩子函数在动画过渡期间执行自定义的DOM操作。
 
-With the directive `v-transition="my-transition"` applied, Vue will:
+通过使用`v-transition="my-transition"`指令的运用，Vue将会：
 
-1. Try to find a JavaScript transition hooks object registered either through `Vue.transition(id, hooks)` or passed in with the `transitions` option, using the id `"my-transition"`. If it finds it, it will call the appropriate hooks at different stages of the transition.
+1. 试着找到一个注册过的JavaScript钩子对象，无论是通过`Vue.transition(id, hooks)`，`transitions` 选项，或者使用id `"my-transition"`。 如果找到此对象，则在过渡动画不同的阶段调用相应的钩子
 
-2. Automatically sniff whether the target element has CSS transitions or CSS animations applied, and add/remove the CSS classes at the appropriate times.
+2. 自动探测目标元素是否应用了CSS 过渡效果或者动画效果， 并在适当的时机添加/移除CSS classes
 
-3. If no JavaScript hooks are provided and no CSS transitions/animations are detected, the DOM operation (insertion/removal) is executed immediately on next frame.
+3. 如果没有提供JavaScript钩子函数或者检测到相应的CSS 过渡/动画效果， DOM的操作（插入/移除）则会在下一帧立即执行
 
-<p class="tip">All Vue.js transitions are triggered only if the DOM manipulation was applied through Vue.js, either by a built-in directive, e.g. `v-if`, or by one of Vue's instance methods, e.g. `vm.$appendTo()`.</p>
+<p class="tip">所有的Vue.js过渡效果只会在通过Vue.js应用的DOM操作，或者通过内建指令，比如`v-if`，或者通过Vue的实例方法，比如`vm.$appendTo()`触发</p>
 
-## CSS Transitions
+## CSS 过渡效果
 
-A typical CSS transition looks like this:
+一个典型的CSS过渡效果定义如下：
 
 ``` html
 <div v-if="show" v-transition="expand">hello</div>
 ```
 
-You also need to define CSS rules for `.expand-transition`, `.expand-enter` and `.expand-leave` classes:
+你还需要定义CSS规则给 `.expand-transition`, `.expand-enter` 和 `.expand-leave` 三个classes:
 
 ``` css
 .expand-transition {
@@ -40,7 +40,7 @@ You also need to define CSS rules for `.expand-transition`, `.expand-enter` and 
 }
 ```
 
-In addition, you can provide JavaScript hooks:
+此外，你也可以提供JavaScript钩子:
 
 ``` js
 Vue.transition('expand', {
@@ -122,37 +122,37 @@ new Vue({
 })
 </script>
 
-The classes being added and toggled are based on the value of your `v-transition` directive. In the case of `v-transition="fade"`, the class `.fade-transition` will be always present, and the classes `.fade-enter` and `.fade-leave` will be toggled automatically at the right moments. When no value is provided they will default to `.v-transition`, `.v-enter` and `.v-leave`.
+这些class根据`v-transition`指令指定的值进行添加和切换。在指定`v-transition="fade"`这个例子中，CSS类`.fade-transition` 将会一直存在，CSS类`.fade-enter` 和 `.fade-leave`将会在正确的时机自动切换。当没有提供这些值的时候，将会切换会默认的`.v-transition`, `.v-enter` 和 `.v-leave`。
 
-When the `show` property changes, Vue.js will insert or remove the `<p>` element accordingly, and apply transition classes as specified below:
+当`show`属性发生变化，Vue.js依据其变化来插入/移除`<p>`元素，并使用过渡class，具体如下：
 
-- When `show` becomes false, Vue.js will:
-  1. Call `beforeLeave` hook;
-  2. Apply `v-leave` class to the element to trigger the transition;
-  3. Call `leave` hook;
-  4. Wait for the transition to finish; (listening to a `transitionend` event)
-  5. Remove the element from the DOM and remove `v-leave` class.
-  6. Call `afterLeave` hook.
+- 当`show`为false时，Vue.js将会：
+  1. 调用 `beforeLeave` 钩子;
+  2. 在元素上应用CSS类 `v-leave`来触发过渡效果
+  3. 调用 `leave` 钩子;
+  4. 等待过渡效果执行完毕； (监听 `transitionend` 事件)
+  5. 从DOM中移除元素并且移除CSS类 `v-leave`。
+  6. 调用 `afterLeave` 钩子。
 
-- When `show` becomes true, Vue.js will:
-  1. Call `beforeEnter` hook;
-  2. Apply `v-enter` class to the element;
-  3. Insert it into the DOM;
-  4. Call `enter` hook;
-  5. Force a CSS layout so `v-enter` is actually applied, then remove the `v-enter` class to trigger a transition back to the element's original state.
-  6. Wait for the transition to finish;
-  7. Call `afterEnter` hook.
+- 当`show`为true时，Vue.js将会：
+  1. 调用 `beforeEnter` 钩子;
+  2. 将 `v-enter` 应用到元素上;
+  3. 将元素插入DOM;
+  4. 调用 `enter` 钩子;
+  5. 强制CSS布局，`v-enter` 将会自动被应用, 然后移除CSS类 `v-enter` 来触发元素回归到原本的状态。
+  6. 等待过渡效果执行完毕;
+  7. 调用 `afterEnter` 钩子.
 
-In addition, if you remove an element when its enter transition is in progress, the `enterCancelled` hook will be called to give you the opportunity to clean up changes or timers created in `enter`. Vice-versa for leaving transitions.
+此外，如果删除一个正在执行进入的过渡效果的元素时，`enterCancelled` 钩子将会被执行，可以用于清除变化或者在`enter`时创建的计时器，当执行离开过渡掉过的时候也可以如此操作。
 
-All of the above hook functions are called with their `this` contexts set to the associated Vue instances. If the element is the root node of a Vue instance, that instance will be used as the context. Otherwise, the context will be the owner instance of the transition directive.
+上述所有的猴子函数执行时，其`this`指向相应的Vue实例。如果元素本身为Vue实例的根节点，则此实例被应用为当前上下文，否则，上下文环境则为过渡指令所属的实例
 
-Finally, the `enter` and `leave` can optionally take a second callback argument. When you do so, you are indicating that you want to explicitly control when the transition should end, so instead of waiting for the CSS `transitionend` event, Vue.js will expect you to eventually call the callback to finish the transition. For example:
+最后`enter` 与 `leave`可以设置第二个参数设置回调。这样做即表示当你调用此回调来替代原有的`transitionend` 事件，此时Vue.js会期望通过执行此回调来表示过渡效果执行完毕。比如：
 
 ``` js
 enter: function (el) {
-  // no second argument, transition end
-  // determined by CSS transitionend event
+  // 无第二个参数
+  // 过渡效果结束是通过CSS 过渡结束事件来确定
 }
 ```
 
@@ -160,18 +160,17 @@ vs.
 
 ``` js
 enter: function (el, done) {
-  // with the second argument, the transition
-  // will only end when `done` is called.
+  // 有第二个参数
+  // 过渡效果结束是当`done` 被调用
 }
 ```
+<p class="tip">当多个元素同时执行过渡效果是，Vue.js会批量处理他们并只会触发一次强制布局</p>
 
-<p class="tip">When multiple elements are being transitioned together, Vue.js batches them and only applies one forced layout.</p>
+## CSS 动画
 
-## CSS Animations
+CSS 动画通过与CSS过渡效果一样的方式进行调用，区别就是动画中`v-enter`并不会在节点插入DOM后马上移除，而是在`animationend`回调时移除
 
-CSS animations are applied in the same way with CSS transitions, the difference being that `v-enter` is not removed immediately after the element is inserted, but on an `animationend` callback.
-
-**Example:** (omitting prefixed CSS rules here)
+**示例：** (省略了css前缀的规则)
 
 ``` html
 <span v-show="show" v-transition="bounce">Look at me!</span>
@@ -278,9 +277,9 @@ new Vue({
 })
 </script>
 
-## JavaScript Only Transitions
+## 只应用JavaScript的过渡效果
 
-You can also use just the JavaScript hooks without defining any CSS rules. When using JavaScript only transitions, the `done` callbacks are required for the `enter` and `leave` hooks, otherwise they will be called synchronously and the transition will finish immediately. The following example registers a custom JavaScript transition using jQuery:
+你也可以只使用JavaScript钩子，不定义任何CSS规则。当只使用JavaScript的过渡效果，`enter`和`leave`钩子需要`done`回调，否则他将会被同步调用，过渡将立即结束。下面的示例中使用jQuery来注册一个自定义JavaScript的过渡效果：
 
 ``` js
 Vue.transition('fade', {
@@ -304,36 +303,36 @@ Vue.transition('fade', {
 })
 ```
 
-Then you can use it by providing the transition id to `v-transition`, same deal:
+之后你就可以通过给`v-transition`指定过渡ID来应用,比如：
 
 ``` html
 <p v-transition="fade"></p>
 ```
 
-<p class="tip">If the element with a JavaScript-only transition happens to have other CSS transitions or animations applied, it may intefere with Vue's transition detection. In such cases you can add `css: false` to your transition object to explicitly disable Vue from sniffing CSS-related transitions.</p>
+<p class="tip">如果一个只使用JavaScript定义过渡效果的元素恰巧拥有其他的过渡效果或者动画效果被应用时，可能会与Vue的过渡定义冲突。碰到这样的状况时，你可以通过给你的过渡对象增加`css: false`来禁止Vue监听CSS相关的过渡效果</p>
 
-## Staggering Transitions
+## 惊人的过渡效果
 
-It's possible to create staggering transitions when using `v-transition` with `v-repeat`. You can do this either by adding a `stagger`, `enter-stagger` or `leave-stagger` attribute to your transitioned element:
+当时同时使用`v-transition` 和 `v-repeat`时这种惊人的过渡效果是可能产生的。你可以通过增加一个`stagger`, `enter-stagger` 或者 `leave-stagger`属性应用于你的元素：
 
 ``` html
 <div v-repeat="list" v-transition stagger="100"></div>
 ```
 
-Or, you can provide a `stagger`, `enterStagger` or `leaveStagger` hook for finer-grained control:
+或者你也可以提供`stagger`, `enterStagger` 或 `leaveStagger` 钩子来进行细粒度的控制
 
 ``` js
 Vue.transition('stagger', {
   stagger: function (index) {
-    // increase delay by 50ms for each transitioned item,
-    // but limit max delay to 300ms
+    // 为每个过渡项增加50ms的延迟,
+    // 但是最大延迟为300ms
     return Math.min(300, index * 50)
   }
 })
 ```
 
-Example:
+例如：
 
 <iframe width="100%" height="200" style="margin-left:10px" src="http://jsfiddle.net/yyx990803/ujqrsu6w/embedded/result,html,js,css" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
-Next: [Building Larger Apps](/guide/application.html).
+下一节：[创建大型应用](../guide/application.html).
