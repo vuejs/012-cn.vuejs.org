@@ -311,9 +311,9 @@ Vue.transition('fade', {
 
 <p class="tip">如果一个只使用JavaScript定义过渡效果的元素恰巧拥有其他的过渡效果或者动画效果被应用时，可能会与Vue的过渡定义冲突。碰到这样的状况时，你可以通过给你的过渡对象增加`css: false`来禁止Vue监听CSS相关的过渡效果</p>
 
-## 惊人的过渡效果
+## 渐进过渡效果
 
-当时同时使用`v-transition` 和 `v-repeat`时这种惊人的过渡效果是可能产生的。你可以通过增加一个`stagger`, `enter-stagger` 或者 `leave-stagger`属性应用于你的元素：
+当同时使用 `v-transition` 和 `v-repeat` 时，我们可以创建渐进的过渡效果。你可以通过为你的过渡元素增加一个 `stagger`, `enter-stagger` 或者 `leave-stagger` 特性来完成它：
 
 ``` html
 <div v-repeat="list" v-transition stagger="100"></div>
