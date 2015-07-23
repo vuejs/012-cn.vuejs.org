@@ -76,16 +76,16 @@ new Vue({
 
 当监听键盘事件时，我们常常需要判断常用的 key code。Vue.js 提供了一个特殊的只能用在 `v-on` 指令的过滤器：`key`。它接收一个表示 key code 的参数并完成判断：
 
-```
+``` html
 <!-- only call vm.submit() when the keyCode is 13 -->
 <input v-on="keyup:submit | key 13">
 ```
 
 它也预置了一些常用的按键名：
 
-```
+``` html
 <!-- same as above -->
-<input v-on="keyup:submit | key enter">
+<input v-on="keyup:submit | key 'enter'">
 ```
 
 API 索引中有 [key 过滤器预置的完整列表](../api/filters.html#key).
