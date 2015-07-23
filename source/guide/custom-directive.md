@@ -111,6 +111,27 @@ var demo = new Vue({
 })
 </script>
 
+### 多重条款
+
+逗号分隔的参数被绑定为多重指令的实例。在下面的例子中，指令方法被调用两次：
+
+``` html
+<div v-demo="color: 'white', text: 'hello!'"></div>
+```
+
+利用闭合值的对象标识符，你可以实现单一绑定全部参数：
+
+``` html
+<div v-demo="{color: 'white', text: 'hello!'}"></div>
+```
+
+``` js
+Vue.directive('demo', function (value) {
+  console.log(value) // Object {color: 'white', text: 'hello!'}
+})
+```
+
+
 ## 直接指令
 
 如果在创建自定义指令的时候传入 `isLiteral: true` ，那么属性值就会被看成直接字符串，并被指定为该指令的`表达式`。指令不会试图建
@@ -208,6 +229,35 @@ Vue.directive('my-directive', {
 
 你可以选择给指令提供一个优先级数（默认是0）。同一个元素上优先级越高的指令会比其他的指令处理得早一些。优先级一样的指令会按照其在元素属性列表中出现的顺序依次处理，但是不能保证这个顺序在不同的浏览器中是一致的。
 
-你可以去[API reference](../api/directives.html)看一些内置指令的优先级。另外，`v-repeat`, `v-if` 以及 `v-component` 被视为“终端指令”，它们在编译过程中始终拥有最高的优先级。
+你可以去[API reference](../api/directives.html)看一些内置指令的优先级。另外，逻辑控制指令`v-repeat`, `v-if`被视为“终端指令”，它们在编译过程中始终拥有最高的优先级。
+
+## 元素指令
+
+有时候，我们可能想要我们的指令被用于自定义元素的form中，而不是作为一个属性。这与Angular的`E`类指令的概念非常相似。元素指令向一个成熟的组件（本向导随后将解释它），提供一个轻量化的选择。你可以注册一个自定义的元素指令，像这样：
+
+``` js
+Vue.elementDirective('my-directive', {
+  // same API as normal directives
+  bind: function () {
+    // manipulate this.el...
+  }
+})
+```
+
+然后, 替代:
+
+``` html
+<div v-my-directive></div>
+```
+
+我们可以写成:
+
+``` html
+<my-directive></my-directive>
+```
+
+元素指令不能接受参数或表达式，但是它可以读取元素的属性，来决定它的行为。
+
+与通常的指令有个很大的不同，元素指令是**终端**式的，这意味着，一旦Vue遇到一个元素指令，它将导致元素及它的子元素独立 - 只有元素指令可以操作该元素及其子元素。
 
 下面，我们来看怎样写一个[自定义过滤器](../guide/custom-filter.html)。
