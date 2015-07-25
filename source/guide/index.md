@@ -53,7 +53,7 @@ Vue 实例代理了它们观察到的数据对象的所有属性。所以一旦�
 
 数据对象有时是突变的，所以修改数据的引用和修改 `vm.$data` 具有相同的效果。这也意味着多个 Vue 实例可以观察同一份数据。在较大型的应用程序中，我们也推荐将 Vue 实例作为纯粹的视图看待，同时把数据处理逻辑放在更独立的外部数据层。
 
-值得提醒的是，一旦数据被观察，Vue.js 就不会再侦测到新加入或删除的属性了。作为弥补，我们会为被观察的对象增加 `$add` 和 `$delete` 方法。
+值得提醒的是，一旦数据被观察，Vue.js 就不会再侦测到新加入或删除的属性了。作为弥补，我们会为被观察的对象增加 `$add` , `$set`和 `$delete` 方法。
 
 ### 指令 (Directives)
 
@@ -72,7 +72,7 @@ Directives 可以封装任何 DOM 操作。比如 `v-attr` 会操作一个元素
 你也可以使用 mustache 风格的绑定，不管在文本中还是在特性中。它们在底层会被转换成 `v-text` 和 `v-attr` 的指令。比如：
 
 ```html
-<div id="person-&#123;&#123;id&#125;&#125;">Hello &#123;&#123;name&#125;&#125;!</div>
+<div id="person-{{id}}">Hello {{name}}!</div>
 ```
 
 这很方便，不过有一些注意事项：
@@ -85,7 +85,7 @@ Directives 可以封装任何 DOM 操作。比如 `v-attr` 会操作一个元素
 你可以使用三对花括号来回避 HTML 代码，而这种写法会在底层转换为 `v-html`：
 
 ``` html
-{&#123;&#123; safeHTMLString &#125;&#125;}
+{{{ safeHTMLString }}}
 ```
 
 不过这种用法会留下 XSS 攻击的隐患，所以建议只对绝对信任的数据来源使用三对花括号的写法，或者先通过自定义的过滤器 (filter) 对不可信任的 HTML 进行过滤。
@@ -93,7 +93,7 @@ Directives 可以封装任何 DOM 操作。比如 `v-attr` 会操作一个元素
 最后，你可以在你的 mustache 绑定里加入 `*` 来注明这是一个一次性撰写的数据，这样的话它就不会反应后续的数据变化：
 
 ``` html
-{&#123;* onlyOnce &#125;}
+{{* onlyOnce }}
 ```
 
 ### 过滤器 (Filters)
@@ -101,19 +101,19 @@ Directives 可以封装任何 DOM 操作。比如 `v-attr` 会操作一个元素
 过滤器是用于在更新视图之前处理原始值的函数。它们通过一个“管道”在指令或绑定中进行处理：
 
 ```html
-<div>&#123;&#123;message | capitalize&#125;&#125;</div>
+<div>{{message | capitalize}}</div>
 ```
 
 这样在 div 的文本内容被更新之前，`message` 的值会先传给 `capitalizie` 函数处理。更多内容可移步至[深入了解过滤器 (Filters)](../guide/filters.html)。
 
 ### 组件 (Components)
 
-在 Vue.js，每个组件都是一个简单的 Vue 实例。一个树形嵌套的各种组件就代表了你的应用程序的各种接口。通过 `Vue.extend` 返回的自定义构造函数可以把这些组件实例化，不过更声明式的建议是通过 `Vue.component(id, constructor)` 注册这些组件。一旦组件被注册，它们就可以在 Vue 实例的模板中以声明的形式嵌套使用了。
+在 Vue.js，每个组件都是一个简单的 Vue 实例。一个树形嵌套的各种组件就代表了你的应用程序的各种接口。通过 `Vue.extend` 返回的自定义构造函数可以把这些组件实例化，不过更声明式的建议是通过 `Vue.component(id, constructor)` 注册这些组件。一旦组件被注册，它们就可以在 Vue 实例的模板中以自定义组件形式使用了。
 
 ``` html
-<div v-component="my-component">
+<my-component>
   <!-- internals handled by my-component -->
-</div>
+</my-component>
 ```
 
 这个简单的机制使得我们可以以类似 [Web Components](http://www.w3.org/TR/components-intro/) 的声明形式对 Vue 实例进行复用和组合，无需最新版的浏览器或笨重的 polyfills。通过将一个应用程序拆分成简单的组件，代码库可以被尽可能的解耦，同时更易于维护。更多内容可移步至[组件系统](../guide/components.html)。
@@ -122,13 +122,13 @@ Directives 可以封装任何 DOM 操作。比如 `v-attr` 会操作一个元素
 
 ``` html
 <div id="demo">
-  <h1>&#123;&#123;title | uppercase&#125;&#125;</h1>
+  <h1>{{title | uppercase}}</h1>
   <ul>
     <li
       v-repeat="todos"
       v-on="click: done = !done"
-      class="&#123;&#123;done ? 'done' : ''&#125;&#125;">
-      &#123;&#123;content&#125;&#125;
+      class="{{done ? 'done' : ''}}">
+      {{content}}
     </li>
   </ul>
 </div>
@@ -179,7 +179,9 @@ var demo = new Vue({
 
 你可以点击一个 todo 来开关它，也可以打开你的浏览器命令行直接操作 `demo` 对象：比如改变 `demo.title`、向 `demo.todos` 里放入一个新的对象、或开关某个 todo 的 `done` 状态值。
 
-也许你脑海中还有一些问题，别担心，我们稍后都会提到的。接下来可移步至：[深入了解指令 (Directives)](../guide/directives.html)。
+也许你脑海中还有一些问题，别担心，我们稍后都会提到的。
+
+接下来可移步至：[深入了解指令 (Directives)](/guide/directives.html)。
 
 [AngularJS]: http://angularjs.org
 [KnockoutJS]: http://knockoutjs.com

@@ -7,34 +7,38 @@ Vue.js 会设计得尽量灵活——它只是一个接口库，不迁就于任�
 
 ## 模块化
 
-虽然独立构建的 Vue.js 可以被用作一个全局变量，但是它通常更适合应用在一个模块化系统中，以便更好的组织你的代码。我们建议你在 CommonJS 的模块下撰写源代码 (这是 Node.js 使用的格式，也是 Vue.js 源代码使用的格式)，并通过 [Browserify](http://browserify.org/) 或 [Webpack](http://webpack.github.io/) 把它们捆绑起来。
+虽然独立构建的 Vue.js 可以被用作一个全局变量，但是它通常更适合应用在一个模块化系统中，以便更好的组织你的代码。我们建议你在 CommonJS 的模块下撰写源代码 (这是 Node.js 使用的格式，也是 Vue.js 源代码使用的格式)，并通过 [Webpack](http://webpack.github.io/) 或 [Browserify](http://browserify.org/) 把它们捆绑起来。
 
-Github上有一些构建的示例：
-
-- [Vue + Browserify](https://github.com/vuejs/vue-browserify-example)
-- [Vue + Webpack](https://github.com/vuejs/vue-webpack-example)
+但是，Webpack和Browserify不仅仅是模块管理器。他们均提供源码转换API，允许你将你的源码用其他的预处理程序进行转换。例如，你可以用[babel-loader](https://github.com/babel/babel-loader) 或[babelify](https://github.com/babel/babelify)来编写新的ES6/7语法的代码。
 
 ## 一个文件对应一个组件
 
-在一个典型的 Vue.js 项目里，我们将会打散我们的代码，变成若干小的组件，如果能够根据组件划分把 CSS 样式也独立封装起来就更好了。刚才提过的2个构建工具都有一个额外的机制，那就是在把源代码捆绑在一起之前可以对其进行转换。再结合一些预处理，我们就可以这样撰写组件了：
+在一个典型的 Vue.js 项目里，我们将会打散我们的代码，变成若干小的组件，并且在各个组件里把它的 CSS 样式、template模板、JavaScript声明也封装在一起就更好了。如上所述，当使用webpack或Browserify时，结合相应的源码转换，我们就可以这样撰写组件了：
 
 ![](../images/vueify.png)
 
-如果你有预处理程序，你甚至可以这样写：
+如果你用了预处理程序，你甚至可以这样写：
 
 ![](../images/vueify_with_pre.png)
 
-它已经通过 [Vueify](https://github.com/vuejs/vueify) 为 Browserify 进行转换，或通过 [Vue-loader](https://github.com/vuejs/vue-loader) 为 Webpack 进行转换。
+你可以用Webpack + [vue-loader](https://github.com/vuejs/vue-loader) 或 Browserify + [vueify](https://github.com/vuejs/vueify)来编译这些单文件的Vue组件。如果你用预处理程序，推荐用webpack来构建，因为webpack的加载API提供了更好的文件依赖追踪和缓存。
+
+你可以在github找到编译构建的例子：
+
+[Webpack + vue-loader](https://github.com/vuejs/vue-loader-example)
+[Browserify + vueify](https://github.com/vuejs/vueify-example)
 
 ## 路由
 
+<p class="tip">官方 `vue-router` 模块在活跃开发中，即将发布</p>
+
 你可以手动监听 hashchange 并利用一个动态的 `v-component` 实现一些基本的路由逻辑。
 
-**Example:**
+**示例：**
 
 ``` html
 <div id="app">
-  <div v-component="{&#123;currentView&#125;}"></div>
+  <component is="{{currentView}}"></component>
 </div>
 ```
 
@@ -55,7 +59,7 @@ app.currentView = 'page1'
 
 ## 服务器通信
 
-所有的 Vue 实例都可以通过 `JSON.stringify()` 得到它们原始的 `$data`，没有任何副作用。你可以使用任何你喜欢的 Ajax 组件，比如 [SuperAgent](https://github.com/visionmedia/superagent)。也可以和诸如 Firebase 这样的 no-backend 服务完美配合。
+所有的 Vue 实例都可以直接通过 `JSON.stringify()` 序列化得到它们原始的 `$data`，没有任何副作用。社区已经贡献了[vue-resource](https://github.com/vuejs/vue-resource)插件，以RESTful APIs的形式，提供了一个易用的运行方法。你也可以使用任何你喜欢的 Ajax 组件，比如`$.ajax`或[SuperAgent](https://github.com/visionmedia/superagent)。Vue.js也可以和诸如 Firebase和Parse 这样的 无后端服务完美配合。
 
 ## 单元测试
 
@@ -110,7 +114,7 @@ describe('my-component', function () {
 })
 ```
 
-<p class="tip">因为 Vue.js 指令异步反映数据的更新，当你需要在改变数据之后断言 DOM 的状态时，你需要在一个 `Vue.nextTick` 回调里完成断言。另外你可以在测试中设置 `Vue.config.async = false`，这样你就可以在数据改变之后同步断言 DOM 的状态了。</p>
+<p class="tip">因为 Vue.js 的指令异步反映数据的更新，当你需要在改变数据之后断言 DOM 的状态时，你需要在一个 `Vue.nextTick` 回调里完成断言。</p>
 
 ## 一个示例
 

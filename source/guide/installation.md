@@ -1,10 +1,10 @@
 title: 安装
 type: guide
 order: 1
-vue_version: 0.11.5
-dev_size: 181.31
-min_size: 56.08
-gz_size: 18.39
+vue_version: 0.12.1
+dev_size: 214.12
+min_size: 65.67
+gz_size: 21.43
 ---
 
 > **兼容性提示：**Vue.js 不支持 IE8 及其以下版本。
@@ -42,14 +42,6 @@ $ bower install vue
 var Vue = require('yyx990803/vue')
 // 获得尖端版本：
 var Vue = require('yyx990803/vue@dev')
-```
-
-## Component
-
-``` bash
-$ component install yyx990803/vue
-# 获得尖端版本：
-$ component install yyx990803/vue@dev
 ```
 
 ## AMD 模块加载器

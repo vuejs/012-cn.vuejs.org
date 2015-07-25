@@ -14,18 +14,18 @@ order: 7
   <!-- text -->
   <p>
     <input type="text" v-model="msg">
-    {&#123;msg&#125;}
+    {{msg}}
   </p>
   <!-- checkbox -->
   <p>
     <input type="checkbox" v-model="checked">
-    {&#123;checked ? &quot;yes&quot; : &quot;no&quot;&#125;}
+    {{checked ? "yes" : "no"}}
   </p>
   <!-- radio buttons -->
   <p>
     <input type="radio" name="picked" value="one" v-model="picked">
     <input type="radio" name="picked" value="two" v-model="picked">
-    {&#123;picked&#125;}
+    {{picked}}
   </p>
   <!-- select -->
   <p>
@@ -33,7 +33,7 @@ order: 7
       <option>one</option>
       <option>two</option>
     </select>
-    {&#123;selected&#125;}
+    {{selected}}
   </p>
   <!-- multiple select -->
   <p>
@@ -42,9 +42,9 @@ order: 7
       <option>two</option>
       <option>three</option>
     </select>
-    {&#123;multiSelect&#125;}
+    {{multiSelect}}
   </p>
-  <p><pre>data: {&#123;$data | json 2&#125;}</pre></p>
+  <p><pre>data: {{$data | json 2}}</pre></p>
 </form>
 ```
 
@@ -146,5 +146,23 @@ new Vue({
   </optgroup>
 </select>
 ```
+
+## 输入去抖动
+
+在一次更新被执行前，`去抖动`参数允许你设置一个每次按键后的最低延迟。它可以用于，当你在每次更新前执行繁重作业时，例如一个ajax请求来进行提前键入的自动完成。
+
+``` html
+<input v-model="msg" debounce="500">
+```
+
+**结果**
+
+<div id="debounce-demo" class="demo">{&#123;msg&#125;}<br><input v-model="msg" debounce="500"></div>
+<script>
+new Vue({
+  el:'#debounce-demo',
+  data: { msg: 'edit me' }
+})
+</script>
 
 接下来：[可推导的属性](../guide/computed.html).

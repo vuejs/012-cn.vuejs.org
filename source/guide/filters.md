@@ -22,26 +22,28 @@ order: 4
 你也可以用在 mustache 风格的绑定的内部：
 
 ``` html
-<span>&#123;&#123;message | uppercase&#125;&#125;</span>
+<span>{{message | uppercase}}</span>
 ```
 
 可以把多个过滤器链在一起：
 
 ``` html
-<span>&#123;&#123;message | lowercase | reverse&#125;&#125;</span>
+<span>{{message | lowercase | reverse}}</span>
 ```
 
 ## 参数
 
-一些过滤器是可以附带参数的。只需用空格分隔开：
+一些过滤器是可以附带参数的。参数用空格分隔开：
 
 ``` html
-<span>&#123;&#123;order | pluralize st nd rd th&#125;&#125;</span>
+<span>{{order | pluralize 'st' 'nd' 'rd' 'th'}}</span>
 ```
 
 ``` html
-<input v-on="keyup: submitForm | key enter">
+<input v-on="keyup: submitForm | key 'enter'">
 ```
+
+原始的字符串参数需要用单引号围住。无引号的参数在当前数据范围内，会被认定是动态的。以后在说到自定义过滤器时，我们会仔细讨论这个问题的细节。
 
 上述示例的具体用法参见[完整的内建过滤器列表](../api/filters.html)。
 
