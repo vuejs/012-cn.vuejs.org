@@ -13,7 +13,7 @@ Vue.js 会设计得尽量灵活——它只是一个接口库，不迁就于任�
 
 ## 一个文件对应一个组件
 
-在一个典型的 Vue.js 项目里，我们将会打散我们的代码，变成若干小的组件，并且在各个组件里把它的 CSS 样式、template模板、JavaScript声明也封装在一起就更好了。如上所述，当使用webpack或Browserify时，结合相应的源码转换，我们就可以这样撰写组件了：
+在一个典型的 Vue.js 项目里，我们将会打散我们的代码，变成若干小的组件，并且在各个组件里很好地把它的 CSS 样式、template模板、JavaScript声明也封装在一起。如上所述，当使用webpack或Browserify时，结合相应的源码转换，我们就可以这样撰写组件了：
 
 ![](../images/vueify.png)
 
@@ -32,7 +32,7 @@ Vue.js 会设计得尽量灵活——它只是一个接口库，不迁就于任�
 
 <p class="tip">官方 `vue-router` 模块在活跃开发中，即将发布</p>
 
-你可以手动监听 hashchange 并利用一个动态的 `v-component` 实现一些基本的路由逻辑。
+你可以手动监听 hashchange 并利用一个动态的component实现一些基本的路由逻辑。
 
 **示例：**
 
@@ -59,11 +59,11 @@ app.currentView = 'page1'
 
 ## 服务器通信
 
-所有的 Vue 实例都可以直接通过 `JSON.stringify()` 序列化得到它们原始的 `$data`，没有任何副作用。社区已经贡献了[vue-resource](https://github.com/vuejs/vue-resource)插件，以RESTful APIs的形式，提供了一个易用的运行方法。你也可以使用任何你喜欢的 Ajax 组件，比如`$.ajax`或[SuperAgent](https://github.com/visionmedia/superagent)。Vue.js也可以和诸如 Firebase和Parse 这样的 无后端服务完美配合。
+所有的 Vue 实例都可以直接通过 `JSON.stringify()` 序列化得到它们原始的 `$data`，没有任何副作用。社区已经贡献了[vue-resource](https://github.com/vuejs/vue-resource)插件，提供了一个易用方式，以RESTful APIs的形式进行工作。你也可以使用任何你喜欢的 Ajax 组件，比如`$.ajax`或[SuperAgent](https://github.com/visionmedia/superagent)。Vue.js也可以和诸如 Firebase和Parse 这样的 无后端服务完美配合。
 
 ## 单元测试
 
-任何兼容 Common-JS 的构建系统都可以。建议使用 [Karma](http://karma-runner.github.io/0.12/index.html) test runner 结合 [CommonJS pre-processor](https://github.com/karma-runner/karma-commonjs) 对你的代码进行模块化测试。
+任何兼容 Common-JS 的构建系统都可以。建议使用 [Karma](http://karma-runner.github.io/0.12/index.html)测试器结合 [CommonJS预处理器](https://github.com/karma-runner/karma-commonjs) 对你的代码进行模块化测试。
 
 最佳实践是暴露出模块内的原始选项/函数。考虑一下这个示例：
 
@@ -114,8 +114,48 @@ describe('my-component', function () {
 })
 ```
 
-<p class="tip">因为 Vue.js 的指令异步反映数据的更新，当你需要在改变数据之后断言 DOM 的状态时，你需要在一个 `Vue.nextTick` 回调里完成断言。</p>
+<p class="tip">因为 Vue.js 的指令异步响应数据的更新，当你需要在数据更新后断言DOM的状态时，你需要在一个`Vue.nextTick` 回调里做这件事。</p>
+
+## 部署产品
+为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，它是不那么明示如何处理的。
+
+从0.12.8开始，有一个相当简单的配置工具来去除警告信息：
+
+## Webpack
+
+使用Webpack的 [定义插件](http://webpack.github.io/docs/list-of-plugins.html#defineplugin) 以指定产品环境，因此在缩减过程中，警告部分可以被UglifyJs自动删除。 配置示例：
+
+var webpack = require('webpack')
+
+``` js
+module.exports = {
+  // ...
+  plugins: [
+    // ...
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ]
+}
+```
+
+## Browserify
+
+只要以NODE_ENV设置为"production"参数，运行你的bundling命令，Vue就自动对自身应用envify转换器，设置警告部分不可用。示例：
+
+``` js
+NODE_ENV=production browserify -e main.js | uglifyjs -c -m > build.js
+```
 
 ## 一个示例
 
-[Vue.js Hackernews Clone](https://github.com/yyx990803/vue-hackernews) 是一个应用的例子，它把 Webpack + vue-loader 用来代码组织、Director.js 用来做路由、HackerNews 官方的 Firebase API 为后端。这不算什么特别大的应用，但它结合并展示了本页面讨论到的各方面概念。
+[Vue.js Hackernews Clone](https://github.com/yyx990803/vue-hackernews) 是一个应用的例子，它用Webpack + vue-loader 代码组织、Director.js做路由、HackerNews官方的Firebase API 为后端。这不算什么特别大的应用，但它结合并展示了本页面讨论到的各方面概念。
+
+继续：[拓展Vue](https://github.com/vuejs/vuejs.org/blob/master/guide/extending.html)
