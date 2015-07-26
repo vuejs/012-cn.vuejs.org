@@ -1,12 +1,13 @@
-title: Tips & Best Practices
+title: 提示和最佳实践
 type: guide
 order: 15
 is_new: true
 ---
 
-## Data Initialization
+## 数据初始化
 
-Vue's data observation model favors deterministic data models. It is recommended to initialize all the data properties that needs to be reactive upfront in the `data` option. For example, given the following template:
+定义确切的数据更加适合Vue的数据观察模式。建议，定义的时候，在`data`选项中初始化所有需要流动的属性。例如，给定下面的模版：
+
 
 ``` html
 <div id="demo">
@@ -15,7 +16,7 @@ Vue's data observation model favors deterministic data models. It is recommended
 </div>
 ```
 
-It's recommended to initialize your data like this instead of an empty object:
+建议像这样初始化你的属性，而不是为空对象：
 
 ``` js
 new Vue({
@@ -29,41 +30,43 @@ new Vue({
 })
 ```
 
-The reason for this is that Vue observes data changes by recursively walking the data object and convert existing properties into reactive getters and setters using `Object.defineProperty`. If a property is not present when the instance is created, Vue will not be able to track it.
+这样做的理由是，Vue会不断地观察属性值的变化，使用`Object.defineProperty`转化当前存在的属性值到各个流动的getters和setters中。当Vue对象创建时，这个属性不存在，这个属性就不会被追踪观察。
 
-You don't have to set every single nested property in your data though. It is ok to initialize a field as an empty object, and set it to a new object with nested structures later, because Vue will be able to walk the nested properties of this new object and observe them.
+但是你不需要在数据项中设置每一个嵌套属性。可以在初始化的时候将一个属性置为空对象，然后在后面的操作中设置为一个新的拥有嵌套的对象，这么做的理由是Vue依然会对这个属性进行追踪观察。
 
-## Adding and Deleting Properties
+## 添加和删除属性
 
-As mentioned above, Vue observes data by converting properties with `Object.defineProperty`. However, in ECMAScript 5 there is no way to detect when a new property is added to an Object, or when a property is deleted from an Object. To deal with this constraint, observed Objects are augmented with three methods:
+正如前面所说的，Vue会使用`Object.defineProperty`通过转化属性值来观察数据。不过，在 ECMAScript 5 中，当一个新的属性被添加到对象或者从对象中删除的时候，不存在一种方法对属性进行检查。为了解决这个约束，观察的对象新添加了这三种方法：
 
 - `obj.$add(key, value)`
 - `obj.$set(key, value)`
 - `obj.$delete(key)`
 
-These methods can be used to add / delete properties from observed objects while triggering the desired DOM updates. The difference between `$add` and `$set` is that `$add` will return early if the key already exists on the object, so just calling `obj.$add(key)` won’t overwrite the existing value with `undefined`.
+这些方法的用途是，从观察对象中去添加或者删除属性，然后触发所期待的DOM更新。`$add`和`set`的区别是假如这个key在对象里面，`$add`会返回值，所以当使用`$obj.$add(key)`的时候不会覆盖存在的值变为`undefined`。
 
-A related note is that when you change a data-bound Array directly by setting indices (e.g. `arr[1] = value`), Vue will not be able to pick up the change. Again, you can use augmented methods to notify Vue.js about those changes. Observerd Arrays are augmented with two methods:
+一个需要注意的一点是，当你通过索引来设置改变一个数据绑定的数组(e.g. `arr[1] = value`)，Vue不会检查到改变。需要再次声明的是，你可以使用扩展的方法去通知 Vue.js 响应这些改变。被观察的数组有两个扩展的方法：
 
 - `arr.$set(index, value)`
 - `arr.$remove(index | value)`
 
-Vue component instances also have corresponding instance methods:
+
+Vue组件实例也有相应的实例方法：
 
 - `vm.$get(path)`
 - `vm.$set(path, value)`
 - `vm.$add(key, value)`
 - `vm.$delete(key, value)`
 
-Note that `vm.$get` and `vm.$set` both accept paths.
+注意`vm.$get`和`vm.set`都接受路径。
 
-<p class="tip">Despite the existence of these methods, make sure to only add observed fields when necessary. It's helpful to think of the `data` option as the schema for your component state. Explicitly listing possiblely-present properties in the component definition makes it easy to understand what a component may contain when you look at it later.</p>
+<p class="tip">
+尽管存在这些方法，必要的时候最好去添加需要观察的属性。为了理解你的组件状态，想象`data`选项为一个 schema 很有帮助。清晰地列出一个组建中所有可能存在的属性，当你后来去看这个组建的时候，可以更容易去理解这一个组建里面包含什么。</p>
 
-## Understanding Async Updates
+## 理解异步更新
 
-It is important to know that by default Vue performs view updates **asynchronously**. Whenever a data change is observed, Vue will open a queue and buffer all the data changes that happens in the same event loop. If the same watcher is triggered multiple times, it will be pushed into the queue only once. Then, in the next event loop "tick", Vue flushes the queue and performs only the necessary DOM updates. Internally Vue uses `MutationObserver` if available for the asynchronous queueing and falls back to `setTimeout(fn, 0)`.
+需要知道，默认情况下，Vue表现的页面数据更新是异步的。无论数据在什么时候改变，Vue都会打开一个队列，然后把所有变化的数据缓存在一个相同的事件循环当中。假如一个观察事件在一个事件循环中被触发了多次，只会push到队列中一次。然后，在下一次的事件循环发生之时，Vue会清除队列然后表现出需要的DOM更新。假如可以用于异步队列，在内部，Vue会使用`MutationObserver`，然后触发`setTimeout(fn, 0)`。
 
-For example, when you set `vm.someData = 'new value'`, the DOM will not update immediately. It will update in the next "tick", when the queue is flushed. This behavior can be tricky when you want to do something that depends on the updated DOM state. Although Vue.js generally encourages developers to think in a "data-driven" way and avoid touching the DOM directly, sometimes you might just want to use that handy jQuery plugin you've always been using. In order to wait until Vue.js has finished updating the DOM after a data change, you can use `Vue.nextTick(callback)` immediately after the data is changed - when the callback is called, the DOM would have been updated. For example:
+例如，当你设置`vm.someData = 'new value'`，DOM不会马上更新，当队列被清除，它将会在下一个事件循环的触发时更新。当你想要根据更新的DOM状态去做某些事情，这个细节需要被注意到。尽管Vue.js鼓励开发者用数据驱动的方式想问题，避免直接操作DOM，有时候你仅仅想要去使用简单的经常使用的jQuery插件。在数据改变后，直到Vue.js完成更新DOM，在这个等待过程中，你可以马上使用`Vue.nextTick(callback)`，当回调函数执行时，DOM会被更新。例如：
 
 ``` html
 <div id="example">{{msg}}</div>
@@ -82,8 +85,7 @@ Vue.nextTick(function () {
   vm.$el.textContent === 'new message' // true
 })
 ```
-
-There is also the `vm.$nextTick()` instance method, which is especially handy inside components, because it doesn't need global `Vue` and its callback's `this` context will be automatically bound to the current Vue instance:
+这与`vm.$nextTick()`实例方法相同，很方便内部的组建使用，因为这不需要全局的`Vue`，回调函数的`this`上下文会自动绑定到当前的Vue实例：
 
 ``` js
 Vue.component('example', {
@@ -105,13 +107,14 @@ Vue.component('example', {
 })
 ```
 
-## Component Scope
+## 组件作用域
 
-Every Vue.js component is a separate Vue instance with its own scope. It's important to understand how scopes work when using components. The rule of thumb is:
+每一个Vue.js组件是一个分开的拥有自己作用域Vue实例对象。当用到组建的时候，很重要去认识到作用域怎么工作。经验法则是：
 
-> If something appears in the parent template, it will be compiled in parent scope; if it appears in child template, it will be compiled in child scope.
+> 假如有东西在父模版中，它会编译在父模版中；假如它出现在子模版中，它会编译在子模版中。
 
-A common mistake is trying to bind a directive to a child property/method in the parent template:
+一个常见的错误是，在父模版中，尝试去绑定一个指令到一个子模版的属性或者方法：
+
 
 ``` html
 <div id="demo">
@@ -120,7 +123,7 @@ A common mistake is trying to bind a directive to a child property/method in the
 </div>
 ```
 
-If you need to bind child-scope directives on a component root node, you should use the `replace: true` option, and include the root node in the child's template:
+假如你想要去绑定子模版的指令到模版根节点，你应该使用`replace: true`，然后在子模版中包含根节点：
 
 ``` js
 Vue.component('child-component', {
@@ -135,10 +138,9 @@ Vue.component('child-component', {
   }
 })
 ```
+注意，当在组件中使用`v-repeat`时，这个行为也可应用到`$index`。
 
-Note this pattern also applies to `$index` when using a component with `v-repeat`.
-
-Similarly, HTML content inside a component container are considered "transclusion content". They will not be inserted anywhere unless the child template contains at least one `<content></content>` outlet. The inserted contents are also compiled in parent scope:
+类似地，组件内部的HTML内容被认为是"嵌入内容"。他们不会插入在任何地方，除非子模版包含至少一个'<content></content>'出口。这个被插入的内容也是被编译到父作用域中：
 
 ``` html
 <div>
@@ -148,8 +150,7 @@ Similarly, HTML content inside a component container are considered "transclusio
   </child-component>
 </div>
 ```
-
-You can use the `inline-template` attribute to indicate you want the content to be compiled in the child scope as the child's template:
+你可以使用`inline-template`属性去明确内容在子模版的作用域中被编译：
 
 ``` html
 <div>
@@ -159,12 +160,11 @@ You can use the `inline-template` attribute to indicate you want the content to 
   </child-component>
 </div>
 ```
+更多的细节，请看 [Content Insertion](/guide/components.html#Content_Insertion)。
 
-For more details, see [Content Insertion](/guide/components.html#Content_Insertion).
+## 在多个实例之间通讯
 
-## Communication Between Instances
-
-A common pattern for parent-child communication in Vue is passing down a parent method as a callback to the child using `props`. This allows the communication to be defined inside the template (where composition happens) while keeping the JavaScript implementation details decoupled:
+在Vue中进行父子模版通讯，常见的一种做法是，通过`props`传递一个父方法作为一个回调方法到子模版。这样允许通讯的内容可以被定义在模版中（父模版定义子模版的地方），这保持了Javascript细节之间的解耦：
 
 ``` html
 <div id="demo">
@@ -253,12 +253,15 @@ new Vue({
 })
 </script>
 
-When you need to communicate across multiple nested components, you can use the [Event System](/api/instance-methods.html#Events). In addition, it is also quite feasible to implement a [Flux](https://facebook.github.io/flux/docs/overview.html)-like architecture with Vue, which you may want to consider for larger-scale applications.
+当你需要跨越几个嵌套的组建中通讯时，你可以使用[Event System](/api/instance-methods.html#Events)。另外，在构建大型应用的情况下，在Vue中使用[Flux](https://facebook.github.io/flux/docs/overview.html)-like 架构也是可行的。
 
-## Props Availability
 
-If you've ever tried to access a component's props in the `created` hook, you'd find them as `undefined`. This is because the `created` hook is called before any DOM compilation happens for the instance, thus props are not processed yet. Props are initialized with the parent values *after* template compilation. Similarly, two-way-bound props can only trigger parent changes after compilation.
+## 另外一种Prop的使用方法
 
-## Changing Default Options
+假如你曾经尝试去在`created`hook方法中使用一个组件的属性或方法，你会发现会出现`undefined`的情况。这是因为`created`hook的触发，是实例在任何DOM编译发生之前，所以属性还不会被处理和定义。在模版编译之后，属性和方法会使用父模版的属性和方法初始化。相似地，在编译之后，双向绑定属性和方法只能触发父模版的变化。
 
-It is possible to change the default value of an option by setting it on the global `Vue.options` object. For example, you can set `Vue.options.replace = true` to give all Vue instances the behavior of `replace: true`. Use this feature carefully, and use it only when you are starting a new project, because it affects the behavior of every instance.
+
+## 改变默认选项
+
+可以通过设置`Vue.options`，去改变选项的默认值。例如，你可以设置`Vue.options.replace = true`，使所有Vue实例变量都表现出`replace: true`。小心使用这个特性，最好当你开始一个新项目的时候使用它，因为它会影响所有Vue实例变量的行为。
+
