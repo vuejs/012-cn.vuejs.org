@@ -5,37 +5,50 @@ order: 4
 
 ## Data
 
-> 你可以在Vue运行实例中监视数据的变化。你会注意到所有的watch回调都是异步发生的。而且，结果是在事件循环中被分批处理的。这就意味着一个结果假设在一次事件循环中改变多次，回调只会发生一次并直接变到最后的结果。
+> 你可以在 Vue 运行实例中监视数据的变化。你会注意到所有的 watch 回调都是异步发生的。而且，结果是在事件循环中被分批处理的。这就意味着一个结果假设在一次事件循环中改变多次，回调只会发生一次并直接变到最后的结果。
 
-### vm.$watch( expression, callback, [deep, immediate] )
+### vm.$watch( expOrFn, callback, [options] )
 
-- **expression** `String`
+- **expOrFn** `String|Function`
 - **callback( newValue, oldValue )** `Function`
-- **deep** `Boolean` *optional*
-- **immdediate** `Boolean` *optional*
+- **options** `Object` *optional*
+  - **deep** `Boolean`
+  - **immediate** `Boolean`
+  - **sync** `Boolean`
 
-监听在Vue实例中改变的一个表达式。表达式可以是一个单独的路径或者是一个实际的表达式：
+监听在 Vue 实例中改变的一个表达式或一个可推导的函数。表达式可以是一个单独的路径或者是一个实际的表达式：
 
 ``` js
 vm.$watch('a + b', function (newVal, oldVal) {
   // do something
 })
+// or
+vm.$watch(
+  function () {
+    return this.a + this.b
+  },
+  function (newVal, oldVal) {
+    // do something
+  }
+)
 ```
 
-也可以监视在对象中的属性，你需要为 `deep` 传递一个 `true` 来使用此功能 。
-
-请注意你不可以这么监视用来数组中元素的变化。
+也可以监视在对象中的属性，你需要在 `options` 参数里传递 `deep: true` 来使用此功能。值得注意的是你不需要这样监听数组的突变变化 (mutations)。
 
 ``` js
-vm.$watch('someObject', callback, true)
+vm.$watch('someObject', callback, {
+  deep: true
+})
 vm.someObject.nestedValue = 123
 // 回调被触发
 ```
 
-如果传递一个 `true` 到第四个变量 `immediate` , 那么回调会带着现在表达式的结果被立即触发。
+如果在 `options` 参数里传递一个 `immediate: true`，那么回调会带着现在表达式的结果被立即触发。
 
 ``` js
-vm.$watch('a', callback, false, true)
+vm.$watch('a', callback, {
+  immediate: true
+})
 // 回调使用现在表达式的结果 `a` 被立刻触发
 ```
 
@@ -93,7 +106,7 @@ vm.$eval('msg | uppercase') // -> 'HELLO'
 
 ``` js
 // assuming vm.msg = 'hello'
-vm.$interpolate('{&#123;msg&#125;} world!') // -> 'hello world!'
+vm.$interpolate('{{msg}} world!') // -> 'hello world!'
 ```
 
 ### vm.$log( [keypath] )
@@ -183,6 +196,12 @@ vm.$log('item') // logs vm.item
 - **callback** `Function` *optional*
 
 从 DOM 中移除 vm 的 `$el` 。
+
+### vm.$nextTick( callback )
+
+- **callback** `Function`
+
+延迟回调的执行至下一次 DOM 更新循环到来。当你改变一些数据之后立刻使用它来等待 DOM 更新。这和全局的 `Vue.nextTick` 是相同的，只是回调的 `this` 上下文自动绑定到了调用这个回调的实例上。
 
 ## Lifecycle
 
