@@ -1,4 +1,4 @@
-title: 选项
+title: 组件选项
 type: api
 order: 2
 ---
@@ -103,17 +103,17 @@ vm.a       // -> 2
 vm.aDouble // -> 4
 ```
 
-### paramAttributes
+### props
 
 - **类型：** `Array`
 
-paramAttributes是一个数组。每个成员会被创建在Vue实例作为初始数据. 一般用来传递数据到一个组件.
+一个数组。每个成员会被创建在Vue实例作为初始数据. 一般用来传递数据到一个组件.
 
 **例子：**
 
 ``` js
 Vue.component('param-demo', {
-  paramAttributes: ['size', 'message'],
+  props: ['size', 'message'],
   compiled: function () {
     console.log(this.size)    // -> 100
     console.log(this.message) // -> 'hello!'
@@ -124,15 +124,35 @@ Vue.component('param-demo', {
 ``` html
 <param-demo size="100" message="hello!"></param-demo>
 ```
-参数属性也可以包含interpolation标签。Interpolation标签将以父组件为实例来解析，这实际是由[`v-with`](../api/directives.html#v-with)完成的，也就是意味着如果interpolation表达式的值改变了，组件相关联的属性也会被更新：
 
-``` html
-<param-demo message="{&#123;parentMessage&#125;}"></param-demo>
+传递数据的更多细节如下：
+
+- [属性绑定类型](../guide/components.html#Prop_Binding_Types)
+- [传递回调给属性](../guide/components.html#Passing_Callbacks_as_Props)
+
+除了通过字符串的方式定义属性，你也可以使用对象来包含验证方面的需求：
+
+``` js
+Vue.component('prop-validation-demo', {
+  props: [
+    {
+      name: 'size',
+      type: Number
+    },
+    {
+      name: 'message',
+      type: String,
+      required: true
+    }
+  ]
+})
 ```
+
+有关属性验证的更多细节请移步至[属性验证](/guide/components.html#Prop_Validation)。
 
 #### `-` 属性注意事项
 
-HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。使用带`-`的`paramAttributes`，这里有一些特殊情况：
+HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。使用带`-`的`props`，这里有一些特殊情况：
 
 1. 如果属性是一个数据属性，`data-`前缀会自动去掉；
 
@@ -235,6 +255,12 @@ HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。
 
 一个指令的哈希表。参看[Writing Custom Directives](../guide/custom-directive.html).
 
+### elementDirectives
+
+- **类型：** `Object`
+
+一个元素级指令的哈希表。参看[Element Directives](/guide/custom-directive.html#Element_Directives)。
+
 ### filters
 
 - **类型：** `Object`
@@ -246,12 +272,6 @@ HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。
 - **类型：** `Object`
 
 一个组件的哈希表。参看[Component System](../guide/components.html).
-
-### partials
-
-- **类型：** `Object`
-
-一个partial的哈希表。参看[v-partial](../api/directives.html#v-partial)。
 
 ### transitions
 
