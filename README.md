@@ -9,7 +9,7 @@
 访问方式：`http://localhost:4000/vuejs.org/`:
 
 ```
-$ [sudo] npm install -g hexo@2.5.7
+$ [sudo] npm install -g hexo
 $ npm install
 $ hexo server
 ```
