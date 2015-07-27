@@ -164,7 +164,7 @@ Vue.filter('extract', function (value, keyToExtract) {
 
 ## 输入去抖动
 
-在一次输入被同步到模型model之前，`debounce`参数允许你设置一个每次按键后的最低延迟。当每次更新前你要执行繁重作业时会很有用，例如一个ajax请求来进行提前键入的自动完成。
+在一次输入被同步到模式model之前，`debounce`参数允许你设置一个每次按键后的最低延迟。当每次更新前你要执行繁重作业时会很有用，例如一个ajax请求来进行提前键入的自动完成。
 
 ``` html
 <input v-model="msg" debounce="500">
