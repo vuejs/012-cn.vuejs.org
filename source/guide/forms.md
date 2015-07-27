@@ -79,16 +79,16 @@ new Vue({
 
 ## 懒更新
 
-默认情况下，`v-model` 会在每个 `input` 事件之后同步输入的数据。你可以添加一个 `lazy` 特性，将其改变为在每个 `change` 事件之后才完成同步。
+默认情况下，`v-model` 会在每个 `input` 事件之后同步输入的数据。你可以添加一个 `lazy` 特性，将其改变为在 `change` 事件之后才进行同步。
 
 ``` html
 <!-- synced after "change" instead of "input" -->
 <input v-model="msg" lazy>
 ```
 
-## 当做数来处理
+## 转换为数字
 
-如果你希望用户的输入自动处理为一个数，你可以在 `v-model` 所在的 input 上添加一个 `number` 特性。
+如果你希望用户的输入自动处理为一个数字，你可以在 `v-model` 所在的 input 上添加一个 `number` 特性。
 
 ``` html
 <input v-model="age" number>
@@ -96,15 +96,15 @@ new Vue({
 
 ## 动态 select 选项
 
-当你需要为一个 `<select>` 元素动态渲染列表选项时，我们推荐 `options` 和 `v-model` 特性配合使用：
+当你需要为一个 `<select>` 元素动态渲染列表选项时，我们推荐 `options` 和 `v-model` 特性配合使用，这样当选项动态改变时，`v-model`会正确地同步：
 
 ``` html
 <select v-model="selected" options="myOptions"></select>
 ```
 
-在你的数据里，`myOptions` 应该是一个代表选项数组的路径/表达式。该数组可以包含普通字符串或对象。
+在你的数据里，`myOptions` 应该是一个指向选项数组的路径/表达式。
 
-该数组里对象的格式可以是 `{text:'', value:''}`。这允许你把展示的文字和其背后对应的值区分开来。
+该数组可以包含普通字符串或对象。对象的格式应为 `{text:'', value:''}`。这允许你把展示的文字和其背后对应的值区分开来。
 
 ``` js
 [
@@ -122,8 +122,7 @@ new Vue({
 </select>
 ```
 
-<!-- Alternatively, the object can be in the format of `{ label:'', options:[...] }`. In this case it will be rendered as an `<optgroup>`:
--->另外，该数组里对象的格式也可以是 `{label:'', options:[...]}`。这样的数据会被渲染成为一个 `<optgroup>`：
+另外，数组里对象的格式也可以是 `{label:'', options:[...]}`。这样的数据会被渲染成为一个 `<optgroup>`：
 
 ``` js
 [
@@ -147,9 +146,25 @@ new Vue({
 </select>
 ```
 
+有很大可能，你接入的源数据并非期望的格式，你必须转换数据来生成动态选项列。为了尽量消除这种转换，`options` 参数支持过滤器，对将你的转换逻辑做成一个可复用的[定制过滤器](/guide/custom-filter.html)很有帮助：
+
+``` js
+Vue.filter('extract', function (value, keyToExtract) {
+  return value.map(function (item) {
+    return item[keyToExtract]
+  })
+})
+```
+
+``` html
+<select options="users | extract 'name'"></select>
+```
+
+上述过滤器将像`[{ name: 'Bruce' }, { name: 'Chuck' }]`这样的数据转化为`['Bruce', 'Chuck']`，它变成了正确的格式。
+
 ## 输入去抖动
 
-在一次更新被执行前，`去抖动`参数允许你设置一个每次按键后的最低延迟。它可以用于，当你在每次更新前执行繁重作业时，例如一个ajax请求来进行提前键入的自动完成。
+在一次输入被同步到模型model之前，`debounce`参数允许你设置一个每次按键后的最低延迟。当每次更新前你要执行繁重作业时会很有用，例如一个ajax请求来进行提前键入的自动完成。
 
 ``` html
 <input v-model="msg" debounce="500">
@@ -164,5 +179,7 @@ new Vue({
   data: { msg: 'edit me' }
 })
 </script>
+
+注意 `debounce` 参数不能对用户的输入事件去抖动：它对底层数据的“写入“操作进行去抖动。因此当使用`debounce`时，你应该用`vm.$watch()`来响应数据变化。
 
 接下来：[可推导的属性](../guide/computed.html).
