@@ -33,7 +33,7 @@ Vue.filter('wrap', function (value, begin, end) {
 
 ## 双向过滤器
 
-现在我们已经在展示到视图之前用过滤器把模型里的值进行了转换。其实我们也可以定义一个过滤器在值从视图 (input 元素) 写回模型之前进行转换：
+现在我们已经在展示到视图之前用过滤器把模式model里的值进行了转换。其实我们也可以定义一个过滤器在值从视图view (input 元素) 写回模式model之前进行转换：
 
 ``` js
 Vue.filter('check-email', {
