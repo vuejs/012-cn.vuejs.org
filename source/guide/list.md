@@ -5,7 +5,7 @@ order: 5
 
 你可以使用 `v-repeat` 指令基于ViewModel上的对象数组来重复显示模板元素。对于数组中的每个对象，该指令将创建一个以该对象作为其 `$data` 对象的子Vue实例。这些子实例继承父实例的所有数据，因此在重复的模板元素中你既可以访问子实例的属性，也可以访问父实例的属性。此外,你还可以访问 `$index` 属性，其表示所呈现的实例在对象数组中对应的索引。.
 
-**示例:**
+**示例：**
 
 ``` html
 <ul id="demo">
@@ -28,7 +28,7 @@ var demo = new Vue({
 })
 ```
 
-**结果:**
+**结果：**
 
 <ul id="demo"><li v-repeat="items" class="item-{&#123;$index&#125;}">{&#123;$index&#125;} - {&#123;parentMsg&#125;} {&#123;childMsg&#125;}</li></ul>
 <script>
@@ -65,7 +65,7 @@ new Vue({
 })
 ```
 
-**结果:**
+**结果：**
 <ul id="tags" class="demo"><li v-repeat="tags">{&#123;$value&#125;}</li></ul>
 <script>
 new Vue({
@@ -76,15 +76,9 @@ new Vue({
 })
 </script>
 
-<<<<<<< HEAD
-## 使用标识符
+## 使用别名
 
-有时我们可能想要更明确地访问变量而不是隐式地回退到父作用域。你可以通过提供一个参数给 `v-repeat` 指令并用它作为将被迭代项的标识符:
-=======
-## Using an alias
-
-Sometimes we might want to have more explicit variable access instead of implicitly falling back to parent scope. You can do that by providing an alias to the `v-repeat` directive and use it as the alias for the item being iterated:
->>>>>>> 0.12.8
+有时我们可能想要更明确地访问变量而不是隐式地回退到父作用域。你可以通过提供一个参数给 `v-repeat` 指令并用它作为将被迭代项的别名:
 
 ``` html
 <ul id="users">
@@ -106,8 +100,8 @@ new Vue({
 })
 ```
 
-**结果:**
-<ul id="users" class="demo"><li v-repeat="user: users">{&#123;user.name&#125;} - {&#123;user.email&#125;}</li></ul>
+**结果：**
+<ul id="users" class="demo"><li v-repeat="user in users">{&#123;user.name&#125;} - {&#123;user.email&#125;}</li></ul>
 <script>
 new Vue({
   el: '#users',
@@ -120,15 +114,11 @@ new Vue({
 })
 </script>
 
-<<<<<<< HEAD
+<p class="tip">这里的 `user in users` 语法只在 Vue 0.12.8 及其以上版本中可用。老版本需要使用 `user : users` 语法。</p>
+
+<p class="tip">在 `v-repeat` 中使用别名会让模板可读性更强，同时性能更好。</p>
+
 ## 修改方法
-=======
-<p class="tip">The `user in users` syntax is only available in Vue 0.12.8 and above. For older versions, you must use the `user : users` syntax.</p>
-
-<p class="tip">Using an alias with `v-repeat` in general results in more readable templates and slightly better performance.</p>
-
-## Mutation Methods
->>>>>>> 0.12.8
 
 在内部，Vue.js截获一个观察数组的修改方法（`unshift()`, `splice()`, `sort()` 和`reverse()`），因此它们也将触发视图更新。
 
