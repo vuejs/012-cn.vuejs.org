@@ -1,10 +1,10 @@
 title: 安装
 type: guide
 order: 1
-vue_version: 0.12.1
-dev_size: 214.12
-min_size: 65.67
-gz_size: 21.43
+vue_version: 0.12.8
+dev_size: "226.38"
+min_size: "68.32"
+gz_size: "22.36"
 ---
 
 > **兼容性提示：**Vue.js 不支持 IE8 及其以下版本。
@@ -19,7 +19,11 @@ gz_size: 21.43
 <a class="button" href="https://raw.github.com/yyx990803/vue/{{vue_version}}/dist/vue.min.js" download>生产版本</a><span class="light info">{{min_size}}kb minified / {{gz_size}}kb gzipped</span>
 </div>
 
+<<<<<<< HEAD
 也可以在 [cdnjs](http://cdnjs.cloudflare.com/ajax/libs/vue/{{vue_version}}/vue.min.js) 使用 (版本更新会略滞后)。
+=======
+Also available on [jsdelivr](//cdn.jsdelivr.net/vue/{{vue_version}}/vue.min.js) or [cdnjs](//cdnjs.cloudflare.com/ajax/libs/vue/{{vue_version}}/vue.min.js) (takes some time to sync so the latest version might not be available yet).
+>>>>>>> 0.12.8
 
 ## NPM
 

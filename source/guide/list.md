@@ -76,14 +76,19 @@ new Vue({
 })
 </script>
 
+<<<<<<< HEAD
 ## 使用标识符
 
 有时我们可能想要更明确地访问变量而不是隐式地回退到父作用域。你可以通过提供一个参数给 `v-repeat` 指令并用它作为将被迭代项的标识符:
+=======
+## Using an alias
+
+Sometimes we might want to have more explicit variable access instead of implicitly falling back to parent scope. You can do that by providing an alias to the `v-repeat` directive and use it as the alias for the item being iterated:
+>>>>>>> 0.12.8
 
 ``` html
 <ul id="users">
-  <!-- think of this as "for each user in users" -->
-  <li v-repeat="user: users">
+  <li v-repeat="user in users">
     {{user.name}} - {{user.email}}
   </li>
 </ul>
@@ -115,7 +120,15 @@ new Vue({
 })
 </script>
 
+<<<<<<< HEAD
 ## 修改方法
+=======
+<p class="tip">The `user in users` syntax is only available in Vue 0.12.8 and above. For older versions, you must use the `user : users` syntax.</p>
+
+<p class="tip">Using an alias with `v-repeat` in general results in more readable templates and slightly better performance.</p>
+
+## Mutation Methods
+>>>>>>> 0.12.8
 
 在内部，Vue.js截获一个观察数组的修改方法（`unshift()`, `splice()`, `sort()` 和`reverse()`），因此它们也将触发视图更新。
 

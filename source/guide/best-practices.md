@@ -89,7 +89,7 @@ Vue.nextTick(function () {
 
 ``` js
 Vue.component('example', {
-  template: '{{msg}}',
+  template: '<span>{{msg}}</span>',
   data: function () {
     return {
       msg: 'not updated'
@@ -123,12 +123,14 @@ Vue.component('example', {
 </div>
 ```
 
+<<<<<<< HEAD
 假如你想要去绑定子模版的指令到模版根节点，你应该使用 `replace: true` ，然后在子模版中包含根节点：
+=======
+If you need to bind child-scope directives on a component root node, you should do so in the child component's own template:
+>>>>>>> 0.12.8
 
 ``` js
 Vue.component('child-component', {
-  // make the component template replace its container node
-  replace: true,
   // this does work, because we are in the right scope
   template: '<div v-on="click: childMethod">Child</div>',
   methods: {
@@ -260,8 +262,50 @@ new Vue({
 
 假如你曾经尝试去在 `created` hook 方法中使用一个组件的属性或方法，你会发现会出现 `undefined` 的情况。这是因为 `created` hook 的触发，是实例在任何 DOM 编译发生之前，所以属性还不会被处理和定义。在模版编译之后，属性和方法会使用父模版的属性和方法初始化。相似地，在编译之后，双向绑定属性和方法只能触发父模版的变化。
 
+<<<<<<< HEAD
 
 ## 改变默认选项
+=======
+## Fragment Instance
+
+Starting in 0.12.2, the `replace` option now defaults to `true`. This basically means:
+
+> Whatever you put in the template will be what ends up rendered in the DOM.
+
+So, if your template contains more than one top-level elements:
+
+``` js
+Vue.component('example', {
+  template:
+    '<div>A</div>' +
+    '<div>B</div>'
+})
+```
+
+Or, if the template contains only text:
+
+``` js
+Vue.component('example', {
+  template: 'Hello world'
+})
+```
+
+In both cases, the instance will become a **fragment instance** which doesn't have a root element. A fragment instance's `$el` will point to an "anchor node", which is an empty Text node (or a Comment node in debug mode). What's probably more important though, is that directives, transitions and attributes (except for props) on the component element will not take any effect - because there is no root element to bind them to:
+
+``` html
+<!-- doesn't work due to no root element -->
+<example v-show="ok" v-transition="fade"></example>
+
+<!-- props work as intended -->
+<example prop="{{someData}}"></example>
+```
+
+There are, of course, valid use cases for fragment instances, but it is in general a good idea to give your component template a single root element. It ensures directives and attributes on the component element to be properly transferred, and also results in slightly better performance.
+>>>>>>> 0.12.8
 
 可以通过设置 `Vue.options` ，去改变选项的默认值。例如，你可以设置 `Vue.options.replace = true` ，使所有 Vue 实例变量都表现出 `replace: true` 。小心使用这个特性，最好当你开始一个新项目的时候使用它，因为它会影响所有 Vue 实例变量的行为。
 
+<<<<<<< HEAD
+=======
+It is possible to change the default value of an option by setting it on the global `Vue.options` object. For example, you can set `Vue.options.replace = false` to give all Vue instances the behavior of `replace: false`. Use this feature carefully, and use it only when you are starting a new project, because it affects the behavior of every instance.
+>>>>>>> 0.12.8

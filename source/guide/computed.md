@@ -46,6 +46,14 @@ computed: {
 
 一个可推导的属性本质上是一个被 getter/setter 函数定义了的属性。可推导的属性使用起来和一般属性一样，只是在访问它的时候，你会得到 getter 函数返回的值，改变它的时候，你会触发 setter 函数并接收新赋的值。
 
+<<<<<<< HEAD
 <p class="tip">在 Vue.js 0.11 之前的版本中，曾经有依赖收集机制，需要用户在条件语句中显性列出依赖关系。而在 0.11 之后你已经无需这样做了。</p>
 
 接下来，我们学一学如何[撰写一个自定义的指令](../guide/custom-directive.html).
+=======
+Before 0.12.8, computed properties behave just like getters - every time you access it, the getter function is re-evaluated. In 0.12.8 this has been improved - computed properties are cached and lazily re-evaluated only when necessary.
+
+<p class="tip">Before Vue.js 0.11 there used to be a dependency collection gotcha which requires users to explicitly list dependencies when conditional statements are involved. Starting with 0.11 it is no longer necessary to do so.</p>
+
+Next, let's learn about how to [write a custom directive](/guide/custom-directive.html).
+>>>>>>> 0.12.8

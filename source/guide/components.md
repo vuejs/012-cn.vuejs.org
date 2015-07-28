@@ -10,7 +10,7 @@ Vue.js 支持把扩展而来的 Vue 的子类用作概念上与 [Web Components]
 ``` js
 // 扩展 Vue 得到一个可复用的构造函数
 var MyComponent = Vue.extend({
-  template: 'A custom component!'
+  template: '<p>A custom component!</p>'
 })
 ```
 
@@ -39,7 +39,7 @@ Vue.component('my-component', MyComponent)
 // 注意：该方法返回全局 Vue 对象，
 // 而非注册的构造函数
 Vue.component('my-component', {
-  template: 'A custom component!'
+  template: '<p>A custom component!</p>'
 })
 ```
 
@@ -50,7 +50,17 @@ Vue.component('my-component', {
 <my-component></my-component>
 ```
 
+<<<<<<< HEAD
 你无需在全局注册所有组件。你可以限制一个组件仅对另一个组件及其后代可用，只要在 `components` 选项中传入这个组件即可（这种封装形式同样适用于其他资源，例如指令和过滤器）：
+=======
+Which will render:
+
+``` html
+<p>A custom component!</p>
+```
+
+You don't have to register every component globally. You can limit a component's availability to another component and its descendents by passing it in with the `components` option (this encapsulation also applies to other assets such as directives and filters):
+>>>>>>> 0.12.8
 
 ``` js
 var Parent = Vue.extend({
@@ -67,7 +77,11 @@ var Parent = Vue.extend({
 
 Vue.js 支持两种不同风格的调用组件的 API：命令式的基于构造函数的 API，以及基于模板的声明式的 Web Components 风格 API。如果你感到困惑，想一下通过 `new Image()` 和通过 `<img>` 标签这两种创建图片元素的方式。它们都在各自的适用场景下发挥着作用，为了尽可能灵活，Vue.js 同时提供这两种方式。
 
+<<<<<<< HEAD
 <p class="tip">`table` 元素对能出现在其内部的元素类型有限制，因此自定义元素会被提到外部而且无法正常渲染。在那种情况下你可以使用组件命令式语法： `<tr v-component="my-component"></tr>`。注意这种语法只在 table 元素上有效。</p>
+=======
+<p class="tip">The `table` element has restrictions on what elements can appear inside it, so custom elements will be hoisted out and not render properly. In those cases you can use the component directive syntax: `<tr v-component="my-component"></tr>`.</p>
+>>>>>>> 0.12.8
 
 ## 数据流
 
@@ -108,7 +122,27 @@ new Vue({
 })
 </script>
 
+<<<<<<< HEAD
 #### 动态 prop
+=======
+### camelCase vs. Hyphenated
+
+HTML attributes are case-insensitive. When using camelCased prop names as attributes, you need to use their hyphenated equivalents:
+
+``` js
+Vue.component('child', {
+  props: ['myMessage'],
+  template: '<span>{{myMessage}}</span>'
+})
+```
+
+``` html
+<!-- important: use hyphenated names! -->
+<child my-message="hello!"></child>
+```
+
+### Dynamic Props
+>>>>>>> 0.12.8
 
 我们同样能够从父级向下传递动态数据。例如：
 
@@ -156,9 +190,12 @@ Vue.component('parent', {
 
 Vue.component('child', {
   // ...
-  props: ['on-load'],
+  props: ['onLoad'],
   ready: function () {
+<<<<<<< HEAD
     // 带有连字符的 prop 会被转换成驼峰式
+=======
+>>>>>>> 0.12.8
     this.onLoad('message from child!')
   }
 })
@@ -188,6 +225,7 @@ Vue.component('child', {
 
 <p class="tip">注意如果传递的 prop 值是对象或数组，将会是引用传递。在子级改动对象或数组将会影响到父级的状态，这种情况会无视你使用的绑定的类型。</p>
 
+<<<<<<< HEAD
 ### 检验 prop
 
 组件可以检验获得的 prop。在开发给他人使用的组件时这会很有用，由于对 prop 的有效性检验是组件 API 的重要组成部分，并且能保证用户正确地使用了组件。与直接把 prop 定义成字符串不同，你可以使用包含有效性要求的对象：
@@ -209,11 +247,47 @@ Vue.component('example', {
     // 自定义检验函数
     {
       name: 'greater-than-ten',
+=======
+### Prop Specification
+
+It is possible for a component to specify the requirements for the props it is receiving. This is useful when you are authoring a component that is intended to be used by others, as these prop validation requirements essentially constitute your component's API, and ensure your users are using your component correctly. Instead of defining the props as strings, you can use Objects that contain validation requirements:
+
+``` js
+Vue.component('example', {
+  props: {
+    // basic type check (`null` means accept any type)
+    onSomeEvent: Function,
+    // check presence
+    requiredProp: {
+      type: String,
+      required: true
+    },
+    // with default value
+    propWithDefault: {
+      type: Number,
+      default: 100
+    },
+    // object/array defaults should be returned from a
+    // factory function
+    propWithObjectDefault: {
+      type: Object,
+      default: function () {
+        return { msg: 'hello' }
+      }
+    },
+    // a two-way prop. will throw warning if binding type
+    // does not match.
+    twoWayProp: {
+      twoWay: true
+    },
+    // custom validator function
+    greaterThanTen: {
+>>>>>>> 0.12.8
       validator: function (value) {
         return value > 10
       }
     }
-  ]
+  }
 })
 ```
 
@@ -230,9 +304,13 @@ Vue.component('example', {
 
 如果 prop 检验不通过，Vue 会拒绝这次针对子组件的赋值，并且在使用开发版本时会抛出一个警告。
 
+<<<<<<< HEAD
 如果 prop 无需任何验证，依然可以使用字符串，并且可以在 option 数组中混用字符串和对象类型的 prop。
 
 ### 继承父级作用域
+=======
+### Inheriting Parent Scope
+>>>>>>> 0.12.8
 
 如果有需要，你也可以使用 `inherit: true` 选项来让子组件通过原型链继承父级的全部属性：
 
@@ -275,7 +353,11 @@ console.log(child.hasOwnProperty('a')) // -> false
 
 这里的命令（ `v-show` 和 `v-on` ）会在父作用域编译，所以 `active` 和 `onClick` 的取值取决于父级。任何子模版中的命令和插值都会在子作用域中编译。这样使得上下级组件间更好地分离。
 
+<<<<<<< HEAD
 这条规则同样适用于 [内容插入](#内容插入)，这一点会在下文中详述。
+=======
+Read more details on [Component Scope](/guide/best-practices.html#Component_Scope).
+>>>>>>> 0.12.8
 
 ## 组件生命周期
 
@@ -323,6 +405,7 @@ new Vue({
 </component>
 ```
 
+<<<<<<< HEAD
 ### 过渡控制
 
 有两个额外的属性能够支持对动态组件间的切换方式进行高级控制。
@@ -330,12 +413,28 @@ new Vue({
 #### `wait-for` 等待事件
 
 等待即将进入的组件触发该事件后再用新组件替换当前组件。这就允许你等待数据异步加载完成后再触发过渡，避免切换过程中出现空白闪烁。
+=======
+## Transition Control
+
+There are two additional param attributes that allows advanced control of how components should be rendered / transitioned.
+
+### `wait-for`
+
+An event name to wait for on the incoming child component before inserting it into the DOM. This allows you to wait for asynchronous data to be loaded before triggering the transition and avoid displaying empty content.
+
+This attribute can be used both on static and dynamic components. Note: for dynamic components, all components that will potentially get rendered must `$emit` the awaited event, otherwise they will never get inserted.
+>>>>>>> 0.12.8
 
 **示例：**
 
 ``` html
+<!-- static -->
+<my-component wait-for="data-loaded"></my-component>
+
+<!-- dynamic -->
 <component is="{{view}}" wait-for="data-loaded"></component>
 ```
+
 ``` js
 // 组件定义
 {
@@ -354,9 +453,17 @@ new Vue({
 }
 ```
 
+<<<<<<< HEAD
 #### `transition-mode` 过渡模式
 
 默认情况下，进入组件和退出组件的过渡是同时进行的。这个参数允许设置成另外两种模式：
+=======
+### `transition-mode`
+
+The `transition-mode` param attribute allows you to specify how the transition between two dynamic components should be executed.
+
+By default, the transitions for incoming and outgoing components happen simultaneously. This attribute allows you to configure two other modes:
+>>>>>>> 0.12.8
 
 - `in-out`：先进后出；先执行新组件过渡，当前组件在新组件过渡结束后执行过渡并退出。
 - `out-in`：先出后进；当前组件首先执行过渡并退出，新组件在当前组件过渡结束后执行过渡并进入。
@@ -399,8 +506,7 @@ new Vue({
   },
   components: {
     'user-profile': {
-      template: '<li>{{name}} {{email}}</li>',
-      replace: true
+      template: '<li>{{name}} {{email}}</li>'
     }
   }
 })
@@ -426,8 +532,7 @@ var parent2 = new Vue({
   },
   components: {
     'user-profile': {
-      template: '<li>{&#123;name&#125;} - {&#123;email&#125;}</li>',
-      replace: true
+      template: '<li>{&#123;name&#125;} - {&#123;email&#125;}</li>'
     }
   }
 })
@@ -470,7 +575,7 @@ var child = parent.$.profile
 
 ``` js
 var parent = new Vue({
-  template: '<child></child>',
+  template: '<div><child></child></div>',
   created: function () {
     this.$on('child-created', function (child) {
       console.log('new child created: ')
@@ -484,12 +589,12 @@ var parent = new Vue({
       }
     }
   }
-})
+}).$mount()
 ```
 
 <script>
 var parent = new Vue({
-  template: '<child></child>',
+  template: '<div><child></child></div>',
   created: function () {
     this.$on('child-created', function (child) {
       console.log('new child created: ')
@@ -503,7 +608,7 @@ var parent = new Vue({
       }
     }
   }
-})
+}).$mount()
 </script>
 
 ## 私有资源

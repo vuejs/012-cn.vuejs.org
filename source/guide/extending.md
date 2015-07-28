@@ -63,11 +63,12 @@ Vue.use(vueTouch)
 你也可以向插件里传递额外的选项：
 
 ```js
-Vue.use('my-plugin', {
+Vue.use(require('my-plugin'), {
   /* pass in additional options */
 })
 ```
 
+<<<<<<< HEAD
 ## 现有的工具
 
 - [vue-resource](https://github.com/vuejs/vue-resource): 一个插件，为用XMLHttpRequest或JSONP生成网络请求、响应提供服务。
@@ -75,5 +76,15 @@ Vue.use('my-plugin', {
 - [vue-touch](https://github.com/vuejs/vue-touch)：添加基于 Hammer.js 的触摸手势的指令。
 - [vue-element](https://github.com/vuejs/vue-element): 用 Vue.js 注册 Custom Elements。
 - [用户贡献的工具列表](https://github.com/yyx990803/vue/wiki/User-Contributed-Components-&-Tools)
+=======
+## Existing Plugins & Tools
+
+- [vue-resource](https://github.com/vuejs/vue-resource): A plugin that provides services for making web requests and handle responses using a XMLHttpRequest or JSONP.
+- [vue-validator](https://github.com/vuejs/vue-validator): A plugin for form validations.
+- [vue-devtools](https://github.com/vuejs/vue-devtools): A Chrome devtools extension for debugging Vue.js applications.
+- [vue-touch](https://github.com/vuejs/vue-touch): Add touch-gesture directives using Hammer.js.
+- [vue-element](https://github.com/vuejs/vue-element): Register Custom Elements with Vue.js.
+- [List of User Contributed Tools](https://github.com/yyx990803/vue/wiki/User-Contributed-Components-&-Tools)
+>>>>>>> 0.12.8
 
 下一页: [常用FAQs](/guide/faq.html).
