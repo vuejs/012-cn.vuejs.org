@@ -11,6 +11,8 @@ order: 5
 {
   // 打印 warnings 的堆栈跟踪？
   debug: true,
+  // 启用strict模式，详情见下文
+  strict: false,
   // 指令的属性前缀
   prefix: 'v-',
   // 插入分隔符
@@ -38,6 +40,10 @@ Vue.config.debug = true // 开启调试模式
 当 `Vue.config.debug` 设置为 true 时，Vue 会自动启动同步模式，并在有警告时抛出一个 `debugger ` 语句。这使得用户能够在浏览器开发工具中检查完整的堆栈跟踪(full stack trace)
 
 <p class="tip">调试模式在压缩的生产环境(minified production builds)下是不可用的</p>
+
+**Strict模式**
+<p class="tip">0.12.8新增</p>
+默认情况下，Vue组件继承了整个类继承链的所有资源（通过`Vue.extend`）和父视图。在严格模式下，组件只能继承从类继承的资源，不能从父视图层次继承。当启用了严格的模式时，资源应该是全局性的，或者是依赖于需要它们的组件。使用严格模式，能更好的封装组件和增加大型的项目的可重用性。
 
 **改变分隔符(Delimiters)**
 
@@ -89,6 +95,13 @@ profile.$appendTo('body')
 - **definition** `Function` or `Object` *可选的*
 
 注册或取得一个全局自定义的指令。详情见[编写自定义指令](../guide/custom-directive.html)。
+
+### Vue.elementDirective( id, [definition] )
+
+- **id** `String`
+- **definition** `Function` or `Object` *可选的*
+
+注册或取得一个全局自定义的元素指令。详情见[元素指令](../guide/custom-directive.html)。
 
 ### Vue.filter( id, [definition] )
 
