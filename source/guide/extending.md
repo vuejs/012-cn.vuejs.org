@@ -68,7 +68,7 @@ Vue.use(require('my-plugin'), {
 })
 ```
 
-## 现有的工具
+## 现有的插件 & 工具
 
 - [vue-resource](https://github.com/vuejs/vue-resource): 一个插件，为用XMLHttpRequest或JSONP生成网络请求、响应提供服务。
 - [vue-validator](https://github.com/vuejs/vue-validator): 一个表单验证的插件。
