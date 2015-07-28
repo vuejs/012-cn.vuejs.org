@@ -39,7 +39,7 @@ var component = new Component() // -> "hello from mixin!"
 你可以撰写以下几种典型类型的插件：
 
 1. 添加一个或几个全局方法。比如 [vue-element](https://github.com/vuejs/vue-element)
-2. 添加一个或几个全局资源：指令、过滤器、过渡效果等。比如 [vue-touch](https://github.com/vuejs/vue-touch)
+2. 添加一个或几个全局资源：指令、过滤器、动画效果等。比如 [vue-touch](https://github.com/vuejs/vue-touch)
 3. 通过绑定到 `Vue.prototype` 的方式添加一些 Vue 实例方法。这里有个约定，就是 Vue 的实例方法应该带有 `$` 前缀，这样就不会和用户的数据和方法产生冲突了。
 
 ``` js
@@ -71,7 +71,8 @@ Vue.use('my-plugin', {
 ## 现有的工具
 
 - [vue-resource](https://github.com/vuejs/vue-resource): 一个插件，为用XMLHttpRequest或JSONP生成网络请求、响应提供服务。
-- [vue-devtools](https://github.com/vuejs/vue-devtools)：一个用来 debug Vue.js 应用程序的 Chrome 开发者工具扩展。
+- [vue-validator](https://github.com/vuejs/vue-validator): 一个表单验证的插件。
+- [vue-devtools](https://github.com/vuejs/vue-devtools)：一个用来调试Vue.js应用程序的Chrome浏览器开发者工具扩展。
 - [vue-touch](https://github.com/vuejs/vue-touch)：添加基于 Hammer.js 的触摸手势的指令。
 - [vue-element](https://github.com/vuejs/vue-element): 用 Vue.js 注册 Custom Elements。
 - [用户贡献的工具列表](https://github.com/yyx990803/vue/wiki/User-Contributed-Components-&-Tools)
