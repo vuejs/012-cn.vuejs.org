@@ -116,13 +116,10 @@ describe('my-component', function () {
 
 <p class="tip">因为 Vue.js 的指令异步响应数据的更新，当你需要在数据更新后断言DOM的状态时，你需要在一个`Vue.nextTick` 回调里做这件事。</p>
 
-<<<<<<< HEAD
-## 部署产品
-为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，它是不那么明示如何处理的。
-=======
-## Deploying for Production
 
-The minified standalone build of Vue.js has already stripped out all the warnings for you for a smaller file size, but when you are using tools like Browserify for Webpack to build Vue.js applications, it's not so obvious how to do that.
+## 部署产品
+
+为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，它是不那么明示如何处理的。
 
 Starting in 0.12.8, it is quite simple to configure the tools to strip out the warnings:
 
@@ -160,7 +157,8 @@ NODE_ENV=production browserify -e main.js | uglifyjs -c -m > build.js
 ```
 
 ## An Example
->>>>>>> 0.12.8
+
+为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，如何进行这样的处理不是那么显而易见的。
 
 从0.12.8开始，有一个相当简单的配置工具来去除警告信息：
 

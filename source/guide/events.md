@@ -3,7 +3,7 @@ type: guide
 order: 6
 ---
 
-你可以使用 `v-on` 指令来绑定并监听 DOM 事件。绑定的内容可以是一个事件句柄函数 (后面无需跟括号) 或一个内联表达式。如果提供的是一个句柄函数，则原来的 DOM event 对象会被作为第一个参数传入，同时这个 event 对象会附带 `targetVM` 属性，指向触发该事件的相应的 ViewModel：
+你可以使用 `v-on` 指令来绑定并监听 DOM 事件。绑定的内容可以是一个事件句柄函数 (后面无需跟括号) 或一个内联表达式。如果提供的是一个句柄函数，则原来的 DOM event 会被作为（第一个）参数传入，同时这个 event 会附带 `targetVM` 设定，指向触发该事件的相应的 ViewModel：
 
 ``` html
 <div id="demo">
@@ -29,7 +29,7 @@ new Vue({
 
 ## 执行表达式句柄
 
-`targetVM` 在 `v-repeat` 里使用 `v-on` 时显得特别有用，因为 `v-repeat` 会创建大量子 ViewModel。这样的话，通过执行表达式的方式，把代表当前上下文 ViewModel 的 `this` 传进去，就显得非常方便。
+当在 `v-repeat` 里使用 `v-on` 时，`targetVM` 显得很有用，因为 `v-repeat` 会创建大量子 ViewModel。这样的话，通过执行表达式的方式，把代表当前ViewModel上下文的 `this` 传进去，就显得非常方便。
 
 ``` html
 <ul id="list">
@@ -88,7 +88,7 @@ new Vue({
 <input v-on="keyup:submit | key 'enter'">
 ```
 
-API 索引中有 [key 过滤器预置的完整列表](../api/filters.html#key).
+查看API参考：[预置的key过滤器完整列表](../api/filters.html#key).
 
 ## 为什么要在 HTML 中写监听器？
 

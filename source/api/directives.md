@@ -41,17 +41,13 @@ order: 6
 "></span>
 ```
 
-<<<<<<< HEAD
 或者，你可以直接将该指令绑定到一个对象。对象关键词keys将使类列根据对应值予以切换。 
-=======
-Alternatively, you can bind the directive directly to an Object. The keys of the object will be the list of classes to toggle based on corresponding values.
->>>>>>> 0.12.8
 
 ### v-attr
 
 - 本指令需要一个参数
 
-更新元素的指定属性（由参数指定）
+更新元素的指定特性（由参数指定）
 
 **例子:**
 
@@ -59,35 +55,25 @@ Alternatively, you can bind the directive directly to an Object. The keys of the
 <canvas v-attr="width:w, height:h"></canvas>
 ```
 
-除0外的其他伪值将移除该属性.
+除0外的其他伪值将移除该特性.
 
-<<<<<<< HEAD
-或者，你可以直接将该指令绑定到一个对象。对象关键词keys将使属性列根据对应值予以设定。
-=======
-Alternatively, you can bind the directive directly to an Object. The keys of the object will be the list of attributes to set based on corresponding values.
->>>>>>> 0.12.8
+或者，你可以直接将该指令绑定到一个对象。对象关键词keys将使特性列根据对应值予以设定。
 
 本质上，普通特性中的 {{ Mustache }} 插值会被编译到计算后的`v-attr`指令当中。
 
-<<<<<<< HEAD
-从0.12.8开始，若设定（property）存在，`v-attr` 也设置（set）相应设定。例如，<input value="{% raw %}{{val}}{% endraw %}"> 将不仅更新属性，也设置设定值。如果元素绑定的属性没有相应的设定，则不会去设置。
+从0.12.8开始，若属性（property）存在，`v-attr` 也设置相应属性。例如，<input value="{% raw %}{{val}}{% endraw %}"> 将不仅更新特性，也设置属性值。如果元素绑定的特性没有相应的属性，则不会去设置。
  
-<p class="tip">在为`<img>`元素设置`src`属性时，应该使用`v-attr`绑定而不是 mustache 模板绑定。浏览器会先于 Vue.js 对你的模板进行解析。所以当浏览器试图获取图片 URL 时，使用 mustache 模板绑定的数据会导致404错误。</p>
-=======
-Starting in 0.12.8, `v-attr` also sets the corresponding property on the element if the property exists. For example, `<input value="{% raw %}{{val}}{% endraw %}">` will not only update the attribute, but also set the value property. If the element doesn't have a corresponding property for the bound attribute, it will not be set.
-
-<p class="tip">You should use `v-attr` instead of mustache binding when setting the `src` attribute on `<img>` elements. Your templates are parsed by the browser before being compiled by Vue.js, so the mustache binding will cause a 404 when the browser tries to fetch it as the image's URL.</p>
->>>>>>> 0.12.8
+<p class="tip">在为`<img>`元素设置`src`特性时，应该使用`v-attr`绑定而不是 mustache 模板绑定。浏览器会先于 Vue.js 对你的模板进行解析。所以当浏览器试图获取图片 URL 时，使用 mustache 模板绑定的数据会导致404错误。</p>
 
 ### v-style
 
 - 本指令接受一个配置参数
 
-将CSS属性以内联的形式应用到元素上。
+将CSS特性以内联的形式应用到元素上。
 
 如果没有参数名，绑定值也可以是一个字符串或者一个对象。
 
-- 如果参数值为字符串，则会将该元素的`style.cssText`属性设置为参数的值。
+- 如果参数值为字符串，则会将该元素的`style.cssText`特性设置为参数的值。
 - 如果参数值为对象，则每一对 key/value 都会被设置到元素的`style`对象上。
 
 **例子:**
@@ -199,11 +185,7 @@ Starting in 0.12.8, `v-attr` also sets the corresponding property on the element
 </ul>
 ```
 
-<<<<<<< HEAD
 从0.12.8起，有了一个特别的选择能让语法更自然。
-=======
-Starting in 0.12.8, a special alternative is available to make the syntax more natural:
->>>>>>> 0.12.8
 
 ``` html
 <ul>
@@ -213,11 +195,7 @@ Starting in 0.12.8, a special alternative is available to make the syntax more n
 </ul>
 ```
 
-<<<<<<< HEAD
 查看详细的例子，请看[展示一个列表](../guide/list.html).
-=======
-For detailed examples, see [Displaying a List](/guide/list.html).
->>>>>>> 0.12.8
 
 ## 字面指令
 
