@@ -119,7 +119,7 @@ describe('my-component', function () {
 
 ## 部署产品
 
-为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，它是不那么明示如何处理的。
+为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，如何进行这样的处理不是那么显而易见的。
 
 Starting in 0.12.8, it is quite simple to configure the tools to strip out the warnings:
 
