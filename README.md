@@ -6,7 +6,7 @@
 
 ## 如何开始
 
-访问方式：`http://localhost:4000/vuejs.org/`:
+访问方式：`http://localhost:4000/`:
 
 ```
 $ [sudo] npm install -g hexo
