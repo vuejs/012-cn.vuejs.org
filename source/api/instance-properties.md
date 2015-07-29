@@ -48,9 +48,9 @@ new Vue({
 ### vm.$children
 
 - **Type:** `Array<Vue>`
-- **Read only**
+- **只读**
 
-The direct child components of the current instance.
+返回当前实例直系的子组件数组。
 
 ### vm.$
 
@@ -68,8 +68,4 @@ The direct child components of the current instance.
 
 ### Meta Properties
 
-<<<<<<< HEAD
 被 `v-repeat` 创建出来的实例也会拥有一些元属性(Meta properties)。例如 `vm.$index`, `vm.$key` 和 `vm.$value` 等。更多细节请查看 [the guide on using `v-repeat`](../guide/list.html).
-=======
-Instances created by `v-repeat` will also have some meta properties, e.g. `vm.$index`, `vm.$key` and `vm.$value`. For more details, see [the guide on using `v-repeat`](/guide/list.html).
->>>>>>> 0.12.8

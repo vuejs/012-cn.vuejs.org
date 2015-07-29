@@ -209,13 +209,9 @@ vm.$log('item') // logs vm.item
 
 - **element** `HTMLElement` | **selector** `String` *optional*
 
-<<<<<<< HEAD
-如果 Vue 实例在实例化的时候没有被传递一个 `el` 的选项,你可以自己调用 `$mount()` 赋一个元素给它并且开始编译。如果没有变量提供，就会自动生成一个空的 `<div>` 。在已经被挂在的实例上调用 `$mount()` 上是没有作用的。这个方法会返回实例本身所以如果你可以在它后面连锁一些其他的实例方法。
-=======
-If the Vue instance didn't get an `el` option at instantiation, you can manually call `$mount(el)` to start the compilation phase. By default, the mounted element will be replaced by the instance's template. When the `replace` option is set to `false`, the template will be inserted into the mounted element and overwrite any existing inner content, unless the template contains `<content>` outlets.
+如果 Vue 实例在实例化的时候没有被传递一个 `el` 的选项,你可以自己调用 `$mount()` 开始编译阶段。默认情况下，被挂载的元素将被实例的模板替代。当 `replace`选项被设置成 `false`，该模板将会被插入到挂载的元素中并且覆盖其内部任何存在的内容，除非模板包含 `<content>` 标签。   
 
-If no argument is provided, the template will be created as an out-of-document element, and you will have to use other DOM instance methods to insert it into the document yourself. If `replace` option is set to `false`, then an empty `<div>` will be automatically created as the wrapper element. Calling `$mount()` on an already mounted instance will have no effect. The method returns the instance itself so you can chain other instance methods after it.
->>>>>>> 0.12.8
+如果没有变量提供，模板将会被生成为一个文档之外的元素，并且你将不得不亲自使用其他 DOM 实例方法把它插入到文档里。如果 `replace`选项被设置成 `false` ，那么就会自动生成一个空的 `<div>` 作为封装元素。在已经被挂在的实例上调用 `$mount()` 上是没有作用的。这个方法会返回实例本身所以如果你可以在它后面连锁一些其他的实例方法。
 
 ### vm.$destroy( [remove] )
 
