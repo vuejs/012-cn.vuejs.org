@@ -53,7 +53,7 @@ var MyComponent = Vue.extend({
 
 - **Type:** `Array | Object`
 
-A list/hash of attributes that are exposed to accept data from the parent component. It has a simple Array-based syntax and an alternative Object-based syntax that allows advanced configurations such as type checking, custom validation and default values.
+一个从父组件暴露出来的特性的列表/哈希。它有一个简单的基于数组的语法。还有一个可选的基于对象的语法，允许进行高级配置，比如类型检查、自定义验证和默认值。
 
 **Example:**
 
@@ -67,18 +67,18 @@ Vue.component('param-demo', {
 })
 ```
 
-Note that because HTML attributes are case-insensitive, you need to use a prop's hyphenated form when it appears as an attribute in templates:
+注意到因为 HTML 特性是区分大小的，所以当 props 作为一个特性出现在模板里的时候，你需要使用 props 带有连字符的形式：
 
 ``` html
 <param-demo size="100" my-message="hello!"></param-demo>
 ```
 
-For more details on data passing, make sure to read the following sections in guide:
+更多关于数据传递的细节，请确保阅读指南中的以下章节：
 
-- [Prop Binding Types](/guide/components.html#Prop_Binding_Types)
-- [Passing Callbacks as Props](/guide/components.html#Passing_Callbacks_as_Props)
+- [属性绑定类型](/guide/components.html#Prop_Binding_Types)
+- [传递回调作为属性](/guide/components.html#Passing_Callbacks_as_Props)
 
-The alternative Object-based syntax looks like this:
+可选的基于对象的语法如下所示：
 
 ``` js
 Vue.component('prop-validation-demo', {
@@ -92,24 +92,24 @@ Vue.component('prop-validation-demo', {
 })
 ```
 
-The following component usage will result in two warnings: type mismatch for "size", and missing required prop "name".
+下面的组件用法会导致两个警告： size 的类型不匹配，和缺失要求的属性 "name" 。
 
 ``` html
 <prop-validation-demoo size="hello">
 </prop-validation-demo>
 ```
 
-For more details on the Object-based syntax and prop validation, see [Prop Validation](/guide/components.html#Prop_Validation).
+更多关于基于对象的语法和属性验证的内容，请看[属性验证](/guide/components.html#Prop_Validation)。
 
-#### Notes on hyphened attributes
+#### 连字符特性的注解
 
-HTML attribute names ignore upper and lower case differences, so we usually use hyphened attributes instead of camel case. There are some special cases when using `props` with attributes that contains hyphens:
+HTML 特性名忽略大小写的区别，所以我们通常使用连字符属性代替驼峰形式。使用包含连字符特性的 `props` 的时候，有一些使用特殊情况：
 
-1. If the attribute is a data attribute, the `data-` prefix will be auto stripped;
+1. 如果该特性是一个数据特性， `data-` 前缀会自动去掉；
 
-2. If the attribute still contains dashes, it will be camelized. This is because it's inconvenient to access top level properties containing dashes in templates: the expression `my-param` will be parsed as a minus expression unless you use the awkward `this['my-param']` syntax.
+2. 如果该属性仍然包含 - ，它会被驼峰化。这是因为在模板里访问包含 - 的最高层级属性不太方便：表达式 `my-param` 将会被解析为一个减法表达式，除非你使用不优雅的 `this['my-param']` 语法。
 
-This means a param attribute `data-hello` will be set on the vm as `vm.hello`; And `my-param` will be set as `vm.myParam`.
+这意味着一个参数特性 `data-hello` 将会被重新设置在vm的 `vm.hello` 上；并且 `my-param` 会被设置为 `vm.myParam` 。
 
 ### methods
 
@@ -165,66 +165,6 @@ vm.a       // -> 2
 vm.aDouble // -> 4
 ```
 
-<<<<<<< HEAD
-### props
-
-- **类型：** `Array`
-
-一个数组。每个成员会被创建在Vue实例作为初始数据. 一般用来传递数据到一个组件.
-
-**例子：**
-
-``` js
-Vue.component('param-demo', {
-  props: ['size', 'message'],
-  compiled: function () {
-    console.log(this.size)    // -> 100
-    console.log(this.message) // -> 'hello!'
-  }
-})
-```
-
-``` html
-<param-demo size="100" message="hello!"></param-demo>
-```
-
-传递数据的更多细节如下：
-
-- [属性绑定类型](../guide/components.html#Prop_Binding_Types)
-- [传递回调给属性](../guide/components.html#Passing_Callbacks_as_Props)
-
-除了通过字符串的方式定义属性，你也可以使用对象来包含验证方面的需求：
-
-``` js
-Vue.component('prop-validation-demo', {
-  props: [
-    {
-      name: 'size',
-      type: Number
-    },
-    {
-      name: 'message',
-      type: String,
-      required: true
-    }
-  ]
-})
-```
-
-有关属性验证的更多细节请移步至[属性验证](/guide/components.html#Prop_Validation)。
-
-#### `-` 属性注意事项
-
-HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。使用带`-`的`props`，这里有一些特殊情况：
-
-1. 如果属性是一个数据属性，`data-`前缀会自动去掉；
-
-2. 如果属性还包含`-`，它将会被camelized，这是因为在模板中访问带`-`的顶级属性是不方便的：表达式`my-param`将会解析成一个减法操作的表达式，除非你使用这种语法`this['my-param']`。
-
-这意味着参数属性`data-hello`将会被设置在vm的`vm.hello`对象上；然后`my-param`将会变成`vm.myParam`。
-
-=======
->>>>>>> 0.12.8
 ## DOM
 
 ### el
@@ -232,11 +172,7 @@ HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。
 - **类型：** `String | HTMLElement | Function`
 - **限制：** 使用`Vue.extend()`时只接受`Function`类型。
 
-<<<<<<< HEAD
-给Vue实例提供一个DOM元素。它可以是一个CSS选择器，一个HTMLElement，或一个返回HTMLElement的函数。处理过的元素可以通过`vm.$el`访问.
-=======
-Provide the Vue instance with an existing DOM element. It can be a CSS selector string, an actual HTMLElement, or a function that returns an HTMLElement. Note that the provided element merely serves as a mounting point; it will be replaced if a template is also provided, unless `replace` is set to false. The resolved element will be accessible as `vm.$el`.
->>>>>>> 0.12.8
+提供一个包含存在的 DOM 元素的 Vue 实例。它可以是一个 CSS 选择器字符串，一个实际的 HTML 元素，或者是一个返回 HTML 元素的函数。注意到这个提供的元素仅仅充当一个挂载点；如果一个模板也被提供了，那么实例将会被替代，除非 `replace` 被设置为false。处理过的元素可以通过 `vm.$el` 访问。
 
 当用`Vue.extend`，必须使用函数返回一个有效值，来保证每个实例得到一个独立的元素。
 
@@ -246,34 +182,21 @@ Provide the Vue instance with an existing DOM element. It can be a CSS selector 
 
 - **类型：** `String`
 
-<<<<<<< HEAD
-一个被插入到`vm.$el`的字符串模板。任何`vm.$el`的内容都会被覆盖，除非模板里有[内容插入点](../guide/components.html#Content_Insertion)。如果**replace**选项是`true`，模板会完全替换`vm.$el`。
+一个字符串模板会被用作 Vue 实例的标记。默认情况下，该模板会 **替代** 挂载的元素。当 `replace` 选项被设置为 `false` ，这个模板将会被插入到挂载的元素内部。在两种情况下，挂载元素内部任何存在的标记都会被忽略，除非 [内容插入点](/guide/components.html#Content_Insertion) 存在模板里面。
 
-如果它以`#`开头将会被当做(DOM)选择器处理，使用被选取元素的`innerHTML`和模板字符串。这样允许使用公共的`<script type="x-template">`方式包含模板。
-=======
-A string template to be used as the markup for the Vue instance. By default, the template will **replace** the mounted element. When the `replace` option is set to `false`, the template will be inserted into the mounted element instead. In both cases, any existing markup inside the mounted element will be ignored, unless [content insertion points](/guide/components.html#Content_Insertion) are present in the template.
+如果它以`#`开头将会被当做(DOM)选择器处理，使用被选取元素的`innerHTML`和字符串模板。这样允许使用公共的`<script type="x-template">`方式包含模板。
 
-If the string starts with `#` it will be used as a querySelector and use the selected element's innerHTML and the template string. This allows the use of the common `<script type="x-template">` trick to include templates.
-
-Note that if the template contains more than one top-level node, the instance will become a [fragment instance](/guide/best-practices.html#Fragment_Instance) - i.e. one that manages a list of nodes rather than a single node.
->>>>>>> 0.12.8
+注意到如果一个模板包含多余一个顶层节点，那么实例将会成为一个[碎片实例](/guide/best-practices.html#Fragment_Instance) - 也就是 一个管理节点列表而不是一个单独的节点。
 
 <p class="tip">Vue.js使用基于DOM的模板体系。编译器走遍所有DOM元素去找指令描述来绑定数据。这就意味着所有的Vue.js模板都是可以转成浏览器可以识别的DOM元素。Vue.js转化字符串模板到DOM fragments，所以他们可以被复制在创建更多Vue实例的时候。如果你想你的模板是有效的HTML，你可以设置指令表达式的前缀是`data-`。</p>
 
 ### replace
 
-<<<<<<< HEAD
 - **类型：** `Boolean`  
 - **缺省值：** `false`
 - **限制：** 只有提供**template**选项的时候
 
-是否用模板内容替换原始的`vm.$el`而不是附加上。
-=======
-- **Type:** `Boolean`  
-- **Default:** `true`
-- **Restriction:** only respected if the **template** option is also present.
-
-Whether to replace the element being mounted on with the template. If set to `false`, the template will overwrite the element's inner content without replacing the element itself.
+是否用模板替换正在被挂载的元素。如果设置为 `false` ，该模板将会覆盖元素内部的内容，而不是替代元素本身。
 
 **Example**:
 
@@ -288,13 +211,13 @@ new Vue({
 })
 ```
 
-Will result in:
+编译结果是：
 
 ``` html
 <p>replaced</p>
 ```
 
-In comparison, when `replace` is set to `false`:
+相比之下, 当 `replace` 被设置成 `false`：
 
 ``` html
 <div id="insert"></div>
@@ -308,14 +231,13 @@ new Vue({
 })
 ```
 
-Will result in:
+编译结果是：
 
 ``` html
 <div id="insert">
   <p>inserted</p>
 </div>
 ```
->>>>>>> 0.12.8
 
 ## Lifecycle
 
@@ -343,11 +265,7 @@ Will result in:
 
 - **类型：** `Function`
 
-<<<<<<< HEAD
-当完成编译**而且**`$el`也第一次的插入到DOM中了之后调用。注意这个插入必须要通过Vue完成的(例如`vm.$appendTo()`的方法或者是一个指令更新的结果)来触发的`ready`事件。
-=======
-Called after compilation **and** the `$el` is **inserted into the document for the first time**, i.e. right after the first `attached` hook. Note this insertion must be executed via Vue (with methods like `vm.$appendTo()` or as a result of a directive update) to trigger the `ready` hook.
->>>>>>> 0.12.8
+当完成编译**而且** `$el` 第一次插入到DOM之后调用，也就是刚好在第一次 `attached` hook之后。注意这个插入必须要通过 Vue 完成的(例如 `vm.$appendTo()` 的方法或者是一个指令更新的结果)来触发的 `ready` 事件。
 
 ### attached
 
@@ -383,37 +301,37 @@ Called after compilation **and** the `$el` is **inserted into the document for t
 
 - **类型：** `Object`
 
-一个指令的哈希表。参看[Writing Custom Directives](../guide/custom-directive.html).
+一个指令的哈希表。参看[写自定义指令](../guide/custom-directive.html).
 
 ### elementDirectives
 
 - **类型：** `Object`
 
-一个元素级指令的哈希表。参看[Element Directives](/guide/custom-directive.html#Element_Directives)。
+一个元素级指令的哈希表。参看[元素指令](/guide/custom-directive.html#Element_Directives)。
 
 ### filters
 
 - **类型：** `Object`
 
-一个过滤器的哈希表。参看[Writing Custom Filters](../guide/custom-filter.html).
+一个过滤器的哈希表。参看[写自定义过滤器](../guide/custom-filter.html).
 
 ### components
 
 - **类型：** `Object`
 
-一个组件的哈希表。参看[Component System](../guide/components.html).
+一个组件的哈希表。参看[组件系统](../guide/components.html).
 
 ### transitions
 
 - **类型：** `Object`
 
-一个transition的哈希表。详细查看[Transitions](../guide/transitions.html)。
+一个transition的哈希表。详细查看[过渡效果](../guide/transitions.html)。
 
 ### partials
 
 - **Type:** `Object`
 
-A hash of partial strings to be made available to the Vue instance. For details see [Partial](/api/elements.html#partial).
+一个对实例可行的片段字符串的哈希值。更多细节请看[片段](/api/elements.html#partial)。
 
 ## Others
 
@@ -479,11 +397,7 @@ vm.$emit('bye')             // -> goodbye!
 
 - **类型**: `Object`
 
-<<<<<<< HEAD
-Watch对象的key是表达式，值就是相应的回调函数值。值也可以是个方法名。Vue实例会在初始化的时候对每一个watch对象的属性执行`$watch()`。
-=======
-An object where keys are expressions to watch and values are the corresponding callbacks. The value can also be a string of a method name, or an Object that contains additional options. The Vue instance will call `$watch()` for each entry in the object at instantiation.
->>>>>>> 0.12.8
+一个键是监听的表达式且值是对应的回调的对象。值也可以是一个方法名的字符串，或者是一个包含额外选项的对象。 Vue 实例将会在初始化的时候对该对象的每个条目调用 `$watch()` 。
 
 **例子：**
 
@@ -512,15 +426,11 @@ vm.a = 2 // -> new: 2, old: 1
 
 - **类型**: `Array`
 
-`mixins`接受一个mixin对象数组. 就像正常的实例对象一样，这些mixin对象包含实例选项，而且他们也会被合并到最终的选项。e.g. 如果你加了一个created hook ，那么这个组件就会执行所有的created hook。
+`mixins` 接受一个mixin对象数组. 就像正常的实例对象一样，这些mixin对象包含实例选项，而且他们也会被合并到最终的选项。e.g. 如果你加了一个created hook ，那么这个组件就会执行所有的created hook。
 
-<<<<<<< HEAD
+Mixin hooks 会被按照他们提供的顺序调用，并且在容器本身的 hooks 之前。
+
 **例子：**
-=======
-Mixin hooks are called in the order they are provided, and called before the component's own hooks.
-
-**Example:**
->>>>>>> 0.12.8
 
 ``` js
 var mixin = {
@@ -539,7 +449,7 @@ var vm = new Vue({
 - **类型**: `String`
 - **限制:** 仅限使用 `Vue.extend()`的时候。
 
-当在console里监视一个扩展过的Vue组件的时候，缺省构造函数名是`VueComponent`，但它并不是很有用。但你可以传一个可选项`name`到`Vue.extend()`，这样你就能知道你正在看哪个组件。这个字符串或被camelized并作为组件的构造函数的名字使用。
+当在console里监视一个扩展过的Vue组件的时候，缺省构造函数名是 `VueComponent` ，但它并不是很有用。但你可以传一个可选项`name`到`Vue.extend()`，这样你就能知道你正在看哪个组件。这个字符串或被camelized并作为组件的构造函数的名字使用。
 
 **例子：**
 
