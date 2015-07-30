@@ -44,14 +44,6 @@ $ npm install yyx990803/vue#dev
 $ bower install vue
 ```
 
-## Duo
-
-```js
-var Vue = require('yyx990803/vue')
-// 获得尖端版本：
-var Vue = require('yyx990803/vue@dev')
-```
-
 ## AMD 模块加载器
 
 直接下载或通过 Bower 安装的版本已经用 UMD 接口包装过，可以直接作为 AMD 模块使用。

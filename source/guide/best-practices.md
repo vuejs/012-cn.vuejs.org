@@ -1,4 +1,4 @@
-title: 提示和最佳实践
+title: 最佳实践与技巧
 type: guide
 order: 15
 is_new: true
@@ -293,3 +293,5 @@ Vue.component('example', {
 ## 改变默认选项
 
 可以通过设置 `Vue.options` ，去改变选项的默认值。例如，你可以设置 `Vue.options.replace = false` ，使所有 Vue 实例变量都表现出 `replace: false` 。小心使用这个特性，最好当你开始一个新项目的时候使用它，因为它会影响所有 Vue 实例变量的行为。
+
+接下来：[常见问题](/guide/faq.html).

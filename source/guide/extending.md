@@ -77,4 +77,4 @@ Vue.use(require('my-plugin'), {
 - [vue-element](https://github.com/vuejs/vue-element): 用 Vue.js 注册 Custom Elements。
 - [用户贡献的工具列表](https://github.com/yyx990803/vue/wiki/User-Contributed-Components-&-Tools)
 
-下一页: [常用FAQs](/guide/faq.html).
+下一页: [最佳实践与技巧](/guide/best-practices.html).

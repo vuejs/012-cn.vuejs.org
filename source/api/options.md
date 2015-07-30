@@ -99,7 +99,7 @@ Vue.component('prop-validation-demo', {
 </prop-validation-demo>
 ```
 
-更多关于基于对象的语法和属性验证的内容，请看[属性验证](/guide/components.html#Prop_Validation)。
+更多关于基于对象的语法和属性验证的内容，请看[属性验证](/guide/components.html#Prop_Specification)。
 
 #### 连字符特性的注解
 
