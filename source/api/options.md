@@ -49,6 +49,68 @@ var MyComponent = Vue.extend({
 
 <p class="tip">在内部, Vue.js会创建一个隐藏属性`__ob__`， 然后通过递归循环转换所有可枚举的属性到getters和setters开实现依赖收集. 以`$`和`_`开头的属性会被跳过.</p>
 
+### props
+
+- **Type:** `Array | Object`
+
+一个从父组件暴露出来的特性的列表/哈希。它有一个简单的基于数组的语法。还有一个可选的基于对象的语法，允许进行高级配置，比如类型检查、自定义验证和默认值。
+
+**Example:**
+
+``` js
+Vue.component('param-demo', {
+  props: ['size', 'myMessage'], // simple syntax
+  compiled: function () {
+    console.log(this.size)    // -> 100
+    console.log(this.myMessage) // -> 'hello!'
+  }
+})
+```
+
+注意到因为 HTML 特性是区分大小的，所以当 props 作为一个特性出现在模板里的时候，你需要使用 props 带有连字符的形式：
+
+``` html
+<param-demo size="100" my-message="hello!"></param-demo>
+```
+
+更多关于数据传递的细节，请确保阅读指南中的以下章节：
+
+- [属性绑定类型](/guide/components.html#Prop_Binding_Types)
+- [传递回调作为属性](/guide/components.html#Passing_Callbacks_as_Props)
+
+可选的基于对象的语法如下所示：
+
+``` js
+Vue.component('prop-validation-demo', {
+  props: {
+    size: Number,
+    name: {
+      type: String,
+      required: true
+    }
+  }
+})
+```
+
+下面的组件用法会导致两个警告： size 的类型不匹配，和缺失要求的属性 "name" 。
+
+``` html
+<prop-validation-demoo size="hello">
+</prop-validation-demo>
+```
+
+更多关于基于对象的语法和属性验证的内容，请看[属性验证](/guide/components.html#Prop_Validation)。
+
+#### 连字符特性的注解
+
+HTML 特性名忽略大小写的区别，所以我们通常使用连字符属性代替驼峰形式。使用包含连字符特性的 `props` 的时候，有一些使用特殊情况：
+
+1. 如果该特性是一个数据特性， `data-` 前缀会自动去掉；
+
+2. 如果该属性仍然包含 - ，它会被驼峰化。这是因为在模板里访问包含 - 的最高层级属性不太方便：表达式 `my-param` 将会被解析为一个减法表达式，除非你使用不优雅的 `this['my-param']` 语法。
+
+这意味着一个参数特性 `data-hello` 将会被重新设置在vm的 `vm.hello` 上；并且 `my-param` 会被设置为 `vm.myParam` 。
+
 ### methods
 
 - **类型：** `Object`
@@ -103,63 +165,6 @@ vm.a       // -> 2
 vm.aDouble // -> 4
 ```
 
-### props
-
-- **类型：** `Array`
-
-一个数组。每个成员会被创建在Vue实例作为初始数据. 一般用来传递数据到一个组件.
-
-**例子：**
-
-``` js
-Vue.component('param-demo', {
-  props: ['size', 'message'],
-  compiled: function () {
-    console.log(this.size)    // -> 100
-    console.log(this.message) // -> 'hello!'
-  }
-})
-```
-
-``` html
-<param-demo size="100" message="hello!"></param-demo>
-```
-
-传递数据的更多细节如下：
-
-- [属性绑定类型](../guide/components.html#Prop_Binding_Types)
-- [传递回调给属性](../guide/components.html#Passing_Callbacks_as_Props)
-
-除了通过字符串的方式定义属性，你也可以使用对象来包含验证方面的需求：
-
-``` js
-Vue.component('prop-validation-demo', {
-  props: [
-    {
-      name: 'size',
-      type: Number
-    },
-    {
-      name: 'message',
-      type: String,
-      required: true
-    }
-  ]
-})
-```
-
-有关属性验证的更多细节请移步至[属性验证](/guide/components.html#Prop_Validation)。
-
-#### `-` 属性注意事项
-
-HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。使用带`-`的`props`，这里有一些特殊情况：
-
-1. 如果属性是一个数据属性，`data-`前缀会自动去掉；
-
-2. 如果属性还包含`-`，它将会被camelized，这是因为在模板中访问带`-`的顶级属性是不方便的：表达式`my-param`将会解析成一个减法操作的表达式，除非你使用这种语法`this['my-param']`。
-
-这意味着参数属性`data-hello`将会被设置在vm的`vm.hello`对象上；然后`my-param`将会变成`vm.myParam`。
-
 ## DOM
 
 ### el
@@ -167,7 +172,7 @@ HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。
 - **类型：** `String | HTMLElement | Function`
 - **限制：** 使用`Vue.extend()`时只接受`Function`类型。
 
-给Vue实例提供一个DOM元素。它可以是一个CSS选择器，一个HTMLElement，或一个返回HTMLElement的函数。处理过的元素可以通过`vm.$el`访问.
+提供一个包含存在的 DOM 元素的 Vue 实例。它可以是一个 CSS 选择器字符串，一个实际的 HTML 元素，或者是一个返回 HTML 元素的函数。注意到这个提供的元素仅仅充当一个挂载点；如果一个模板也被提供了，那么实例将会被替代，除非 `replace` 被设置为false。处理过的元素可以通过 `vm.$el` 访问。
 
 当用`Vue.extend`，必须使用函数返回一个有效值，来保证每个实例得到一个独立的元素。
 
@@ -177,9 +182,11 @@ HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。
 
 - **类型：** `String`
 
-一个被插入到`vm.$el`的字符串模板。任何`vm.$el`的内容都会被覆盖，除非模板里有[内容插入点](../guide/components.html#Content_Insertion)。如果**replace**选项是`true`，模板会完全替换`vm.$el`。
+一个字符串模板会被用作 Vue 实例的标记。默认情况下，该模板会 **替代** 挂载的元素。当 `replace` 选项被设置为 `false` ，这个模板将会被插入到挂载的元素内部。在两种情况下，挂载元素内部任何存在的标记都会被忽略，除非 [内容插入点](/guide/components.html#Content_Insertion) 存在模板里面。
 
-如果它以`#`开头将会被当做(DOM)选择器处理，使用被选取元素的`innerHTML`和模板字符串。这样允许使用公共的`<script type="x-template">`方式包含模板。
+如果它以`#`开头将会被当做(DOM)选择器处理，使用被选取元素的`innerHTML`和字符串模板。这样允许使用公共的`<script type="x-template">`方式包含模板。
+
+注意到如果一个模板包含多余一个顶层节点，那么实例将会成为一个[碎片实例](/guide/best-practices.html#Fragment_Instance) - 也就是 一个管理节点列表而不是一个单独的节点。
 
 <p class="tip">Vue.js使用基于DOM的模板体系。编译器走遍所有DOM元素去找指令描述来绑定数据。这就意味着所有的Vue.js模板都是可以转成浏览器可以识别的DOM元素。Vue.js转化字符串模板到DOM fragments，所以他们可以被复制在创建更多Vue实例的时候。如果你想你的模板是有效的HTML，你可以设置指令表达式的前缀是`data-`。</p>
 
@@ -189,7 +196,48 @@ HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。
 - **缺省值：** `false`
 - **限制：** 只有提供**template**选项的时候
 
-是否用模板内容替换原始的`vm.$el`而不是附加上。
+是否用模板替换正在被挂载的元素。如果设置为 `false` ，该模板将会覆盖元素内部的内容，而不是替代元素本身。
+
+**Example**:
+
+``` html
+<div id="replace"></div>
+```
+
+``` js
+new Vue({
+  el: '#replace',
+  template: '<p>replaced</p>'
+})
+```
+
+编译结果是：
+
+``` html
+<p>replaced</p>
+```
+
+相比之下, 当 `replace` 被设置成 `false`：
+
+``` html
+<div id="insert"></div>
+```
+
+``` js
+new Vue({
+  el: '#insert',
+  replace: false,
+  template: '<p>inserted</p>'
+})
+```
+
+编译结果是：
+
+``` html
+<div id="insert">
+  <p>inserted</p>
+</div>
+```
 
 ## Lifecycle
 
@@ -217,7 +265,7 @@ HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。
 
 - **类型：** `Function`
 
-当完成编译**而且**`$el`也第一次的插入到DOM中了之后调用。注意这个插入必须要通过Vue完成的(例如`vm.$appendTo()`的方法或者是一个指令更新的结果)来触发的`ready`事件。
+当完成编译**而且** `$el` 第一次插入到DOM之后调用，也就是刚好在第一次 `attached` hook之后。注意这个插入必须要通过 Vue 完成的(例如 `vm.$appendTo()` 的方法或者是一个指令更新的结果)来触发的 `ready` 事件。
 
 ### attached
 
@@ -253,31 +301,37 @@ HTML属性名是不区分大小写的，所以我们用`-`而不是camel case。
 
 - **类型：** `Object`
 
-一个指令的哈希表。参看[Writing Custom Directives](../guide/custom-directive.html).
+一个指令的哈希表。参看[写自定义指令](../guide/custom-directive.html).
 
 ### elementDirectives
 
 - **类型：** `Object`
 
-一个元素级指令的哈希表。参看[Element Directives](/guide/custom-directive.html#Element_Directives)。
+一个元素级指令的哈希表。参看[元素指令](/guide/custom-directive.html#Element_Directives)。
 
 ### filters
 
 - **类型：** `Object`
 
-一个过滤器的哈希表。参看[Writing Custom Filters](../guide/custom-filter.html).
+一个过滤器的哈希表。参看[写自定义过滤器](../guide/custom-filter.html).
 
 ### components
 
 - **类型：** `Object`
 
-一个组件的哈希表。参看[Component System](../guide/components.html).
+一个组件的哈希表。参看[组件系统](../guide/components.html).
 
 ### transitions
 
 - **类型：** `Object`
 
-一个transition的哈希表。详细查看[Transitions](../guide/transitions.html)。
+一个transition的哈希表。详细查看[过渡效果](../guide/transitions.html)。
+
+### partials
+
+- **Type:** `Object`
+
+一个对实例可行的片段字符串的哈希值。更多细节请看[片段](/api/elements.html#partial)。
 
 ## Others
 
@@ -343,7 +397,7 @@ vm.$emit('bye')             // -> goodbye!
 
 - **类型**: `Object`
 
-Watch对象的key是表达式，值就是相应的回调函数值。值也可以是个方法名。Vue实例会在初始化的时候对每一个watch对象的属性执行`$watch()`。
+一个键是监听的表达式且值是对应的回调的对象。值也可以是一个方法名的字符串，或者是一个包含额外选项的对象。 Vue 实例将会在初始化的时候对该对象的每个条目调用 `$watch()` 。
 
 **例子：**
 
@@ -355,6 +409,13 @@ var vm = new Vue({
   watch: {
     'a': function (val, oldVal) {
       console.log('new: %s, old: %s', val, oldVal)
+    },
+    // string method name
+    'b': 'someMethod',
+    // deep watcher
+    'c': {
+      handler: function (val, oldVal) { /* ... */ },
+      deep: true
     }
   }
 })
@@ -365,16 +426,18 @@ vm.a = 2 // -> new: 2, old: 1
 
 - **类型**: `Array`
 
-`mixins`接受一个mixin对象数组. 就像正常的实例对象一样，这些mixin对象包含实例选项，而且他们也会被合并到最终的选项。e.g. 如果你加了一个created hook ，那么这个组件就会执行所有的created hook。
+`mixins` 接受一个mixin对象数组. 就像正常的实例对象一样，这些mixin对象包含实例选项，而且他们也会被合并到最终的选项。e.g. 如果你加了一个created hook ，那么这个组件就会执行所有的created hook。
+
+Mixin hooks 会被按照他们提供的顺序调用，并且在容器本身的 hooks 之前。
 
 **例子：**
 
 ``` js
 var mixin = {
-  created: function () { console.log(2) }
+  created: function () { console.log(1) }
 }
 var vm = new Vue({
-  created: function () { console.log(1) },
+  created: function () { console.log(2) },
   mixins: [mixin]
 })
 // -> 1
@@ -386,7 +449,7 @@ var vm = new Vue({
 - **类型**: `String`
 - **限制:** 仅限使用 `Vue.extend()`的时候。
 
-当在console里监视一个扩展过的Vue组件的时候，缺省构造函数名是`VueComponent`，但它并不是很有用。但你可以传一个可选项`name`到`Vue.extend()`，这样你就能知道你正在看哪个组件。这个字符串或被camelized并作为组件的构造函数的名字使用。
+当在console里监视一个扩展过的Vue组件的时候，缺省构造函数名是 `VueComponent` ，但它并不是很有用。但你可以传一个可选项`name`到`Vue.extend()`，这样你就能知道你正在看哪个组件。这个字符串或被camelized并作为组件的构造函数的名字使用。
 
 **例子：**
 

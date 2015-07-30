@@ -9,11 +9,11 @@ order: 5
 
 ``` js
 {
-  // 打印 warnings 的堆栈跟踪？
+  // 启动调试模式。详见下文
   debug: true,
-  // 启用strict模式，详情见下文
+  // 启用严格模式，详见下文
   strict: false,
-  // 指令的属性前缀
+  // 指令的特性前缀
   prefix: 'v-',
   // 插入分隔符
   // 对于插入HTML，添加一个额外的最外层字符
@@ -37,17 +37,20 @@ Vue.config.debug = true // 开启调试模式
 
 **调试模式**
 
-当 `Vue.config.debug` 设置为 true 时，Vue 会自动启动同步模式，并在有警告时抛出一个 `debugger ` 语句。这使得用户能够在浏览器开发工具中检查完整的堆栈跟踪(full stack trace)
+当 `Vue.config.debug` 设置为 true 时，Vue 会
+
+1. 打印所有警告的栈的追踪记录
+2. 让所有 DOM 里的锚结点都采用注释结点。这会让审查元素结构变得更容易。
 
 <p class="tip">调试模式在压缩的生产环境(minified production builds)下是不可用的</p>
 
-**Strict模式**
-<p class="tip">0.12.8新增</p>
-默认情况下，Vue组件继承了整个类继承链的所有资源（通过`Vue.extend`）和父视图。在严格模式下，组件只能继承从类继承的资源，不能从父视图层次继承。当启用了严格的模式时，资源应该是全局性的，或者是依赖于需要它们的组件。使用严格模式，能更好的封装组件和增加大型的项目的可重用性。
+**严格模式**
 
-**改变分隔符(Delimiters)**
+默认情况下，Vue 组件继承了整个类继承链的所有资源 (通过 `Vue.extend`) 和父视图。在严格模式下，组件只能继承从类继承的资源，不能从父视图层次继承。当启用了严格的模式时，资源应该是全局性的，或者是依赖于需要它们的组件。使用严格模式，能更好的封装组件和增加大型的项目的可重用性。
 
-当分隔符(delimiters)是设置为插入文本时，那么设置为插入HTML的分隔符可以通过在两边的最外层加上符号来生成。
+**改变分隔符 (Delimiters)**
+
+当分隔符 (delimiters) 是设置为插入文本时，那么设置为插入HTML的分隔符可以通过在两边的最外层加上符号来生成。
 
 ``` js
 Vue.config.delimiters = ['(%', '%)']
@@ -65,13 +68,16 @@ Vue.config.delimiters = ['(%', '%)']
 
 **例子**
 
+``` html
+<div id="mount-point"></div>
+```
+
 ``` js
+// create reusable constructor
 var Profile = Vue.extend({
-  el: function () {
-    return document.createElement('p')
-  },
-  template: '&#123;&#123;firstName&#125;&#125; &#123;&#123;lastName&#125;&#125; aka &#123;&#123;alias&#125;&#125;'
+  template: '<p>{{firstName}} {{lastName}} aka {{alias}}</p>'
 })
+// create an instance of Profile
 var profile = new Profile({
   data: {
     firstName : 'Walter',
@@ -79,8 +85,8 @@ var profile = new Profile({
     alias     : 'Heisenberg'
   }  
 })
-profile.$appendTo('body')
-
+// mount it on an element
+profile.$mount('#mount-point')
 ```
 
 将输出：
@@ -166,6 +172,13 @@ new Vue({
 - **callback** `Function`
 
 Vue.js 批量处理视图更新并对其异步执行。如果可用的话它会使用 `requestAnimationFrame` 并返回到 `setTimeout(fn, 0)`。这个方法在下一个视图更新后调用回调，当你想一直等待到该视图被更新了，用这个方法会很好。
+
+### Vue.partial( id, [partial] )
+
+- **id** `String`
+- **partial** `String` *optional*
+
+Register or retrieve a global template partial string. For more details see [Partial](/api/elements.html#partial).
 
 ### Vue.use( plugin, [args...] )
 

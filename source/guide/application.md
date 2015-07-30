@@ -116,8 +116,49 @@ describe('my-component', function () {
 
 <p class="tip">因为 Vue.js 的指令异步响应数据的更新，当你需要在数据更新后断言DOM的状态时，你需要在一个`Vue.nextTick` 回调里做这件事。</p>
 
+
 ## 部署产品
-为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，它是不那么明示如何处理的。
+
+为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，如何进行这样的处理不是那么显而易见的。
+
+Starting in 0.12.8, it is quite simple to configure the tools to strip out the warnings:
+
+### Webpack
+
+Use Webpack's [DefinePlugin](http://webpack.github.io/docs/list-of-plugins.html#defineplugin) to indicate a production environment, so that warning blocks can be automatically dropped by UglifyJS during minification. Example config:
+
+``` js
+var webpack = require('webpack')
+
+module.exports = {
+  // ...
+  plugins: [
+    // ...
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"production"'
+      }
+    }),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false
+      }
+    })
+  ]
+}
+```
+
+### Browserify
+
+Just run your bundling command with `NODE_ENV` set to `"production"`. Vue automatically applies [envify](https://github.com/hughsk/envify) transform to itself and makes warning blocks unreachable. For example:
+
+``` bash
+NODE_ENV=production browserify -e main.js | uglifyjs -c -m > build.js
+```
+
+## An Example
+
+为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，如何进行这样的处理不是那么显而易见的。
 
 从0.12.8开始，有一个相当简单的配置工具来去除警告信息：
 

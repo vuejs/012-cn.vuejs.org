@@ -45,6 +45,13 @@ new Vue({
 
 返回当前Vue结构树(component tree)的根Vue实例。如果当前的 `vm` 已经没有父实例的话将会返回它自己。
 
+### vm.$children
+
+- **Type:** `Array<Vue>`
+- **只读**
+
+返回当前实例直系的子组件数组。
+
 ### vm.$
 
 - **Type:** `Object`
