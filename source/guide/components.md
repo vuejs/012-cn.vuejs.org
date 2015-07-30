@@ -43,24 +43,20 @@ Vue.component('my-component', {
 })
 ```
 
-之后就能在父级实例的模板中使用注册过的组件了（确保在初始化根实例**之前**已经注册了组件）：
+之后就能在父级实例的模板中使用注册过的组件了 (确保在初始化根实例**之前**已经注册了组件) ：
 
 ``` html
 <!-- 父级模板 -->
 <my-component></my-component>
 ```
 
-<<<<<<< HEAD
-你无需在全局注册所有组件。你可以限制一个组件仅对另一个组件及其后代可用，只要在 `components` 选项中传入这个组件即可（这种封装形式同样适用于其他资源，例如指令和过滤器）：
-=======
-Which will render:
+会渲染成：
 
 ``` html
 <p>A custom component!</p>
 ```
 
-You don't have to register every component globally. You can limit a component's availability to another component and its descendents by passing it in with the `components` option (this encapsulation also applies to other assets such as directives and filters):
->>>>>>> 0.12.8
+你无需在全局注册所有组件。你可以限制一个组件仅对另一个组件及其后代可用，只要在 `components` 选项中传入这个组件即可 (这种封装形式同样适用于其他资源，例如指令和过滤器) ：
 
 ``` js
 var Parent = Vue.extend({
@@ -77,11 +73,7 @@ var Parent = Vue.extend({
 
 Vue.js 支持两种不同风格的调用组件的 API：命令式的基于构造函数的 API，以及基于模板的声明式的 Web Components 风格 API。如果你感到困惑，想一下通过 `new Image()` 和通过 `<img>` 标签这两种创建图片元素的方式。它们都在各自的适用场景下发挥着作用，为了尽可能灵活，Vue.js 同时提供这两种方式。
 
-<<<<<<< HEAD
-<p class="tip">`table` 元素对能出现在其内部的元素类型有限制，因此自定义元素会被提到外部而且无法正常渲染。在那种情况下你可以使用组件命令式语法： `<tr v-component="my-component"></tr>`。注意这种语法只在 table 元素上有效。</p>
-=======
-<p class="tip">The `table` element has restrictions on what elements can appear inside it, so custom elements will be hoisted out and not render properly. In those cases you can use the component directive syntax: `<tr v-component="my-component"></tr>`.</p>
->>>>>>> 0.12.8
+<p class="tip">`table` 元素对能出现在其内部的元素类型有限制，因此自定义元素会被提到外部而且无法正常渲染。在那种情况下你可以使用组件命令式语法： `<tr v-component="my-component"></tr>`。</p>
 
 ## 数据流
 
@@ -122,12 +114,9 @@ new Vue({
 })
 </script>
 
-<<<<<<< HEAD
-#### 动态 prop
-=======
-### camelCase vs. Hyphenated
+### 驼峰 vs. 连字符
 
-HTML attributes are case-insensitive. When using camelCased prop names as attributes, you need to use their hyphenated equivalents:
+HTML 特性是大小写不敏感的。当驼峰式的 prop 名用于特性时，你需要用下划线形式代替：
 
 ``` js
 Vue.component('child', {
@@ -137,12 +126,11 @@ Vue.component('child', {
 ```
 
 ``` html
-<!-- important: use hyphenated names! -->
+<!-- 重要：使用横线分隔的名称！ -->
 <child my-message="hello!"></child>
 ```
 
-### Dynamic Props
->>>>>>> 0.12.8
+### 动态 prop
 
 我们同样能够从父级向下传递动态数据。例如：
 
@@ -192,10 +180,6 @@ Vue.component('child', {
   // ...
   props: ['onLoad'],
   ready: function () {
-<<<<<<< HEAD
-    // 带有连字符的 prop 会被转换成驼峰式
-=======
->>>>>>> 0.12.8
     this.onLoad('message from child!')
   }
 })
@@ -225,64 +209,40 @@ Vue.component('child', {
 
 <p class="tip">注意如果传递的 prop 值是对象或数组，将会是引用传递。在子级改动对象或数组将会影响到父级的状态，这种情况会无视你使用的绑定的类型。</p>
 
-<<<<<<< HEAD
-### 检验 prop
+### prop 规则
 
-组件可以检验获得的 prop。在开发给他人使用的组件时这会很有用，由于对 prop 的有效性检验是组件 API 的重要组成部分，并且能保证用户正确地使用了组件。与直接把 prop 定义成字符串不同，你可以使用包含有效性要求的对象：
-
-``` js
-Vue.component('example', {
-  props: [
-    // 类型检查
-    {
-      name: 'on-something',
-      type: Function
-    },
-    // 存在检查
-    {
-      name: 'required-prop',
-      type: String,
-      required: true
-    },
-    // 自定义检验函数
-    {
-      name: 'greater-than-ten',
-=======
-### Prop Specification
-
-It is possible for a component to specify the requirements for the props it is receiving. This is useful when you are authoring a component that is intended to be used by others, as these prop validation requirements essentially constitute your component's API, and ensure your users are using your component correctly. Instead of defining the props as strings, you can use Objects that contain validation requirements:
+组件可以对接收的 prop 限定规则。在开发给他人使用的组件时这会很有用，由于对 prop 的有效性检验是组件 API 的重要组成部分，并且能保证用户正确地使用了组件。与直接把 prop 定义成字符串不同，你可以使用包含有效性要求的对象：
 
 ``` js
 Vue.component('example', {
   props: {
-    // basic type check (`null` means accept any type)
+    // 基本检查 (`null` 表示接受所有类型)
     onSomeEvent: Function,
-    // check presence
+    // 存在性检查
     requiredProp: {
       type: String,
       required: true
     },
-    // with default value
+    // 指定默认值
     propWithDefault: {
       type: Number,
       default: 100
     },
-    // object/array defaults should be returned from a
-    // factory function
+    // 对象或数组类型的默认值
+    // 应该由工厂函数返回
     propWithObjectDefault: {
       type: Object,
       default: function () {
         return { msg: 'hello' }
       }
     },
-    // a two-way prop. will throw warning if binding type
-    // does not match.
+    // 双向 prop。
+    // 如果绑定类型不匹配将抛出警告.
     twoWayProp: {
       twoWay: true
     },
-    // custom validator function
+    // 自定义验证函数
     greaterThanTen: {
->>>>>>> 0.12.8
       validator: function (value) {
         return value > 10
       }
@@ -304,13 +264,7 @@ Vue.component('example', {
 
 如果 prop 检验不通过，Vue 会拒绝这次针对子组件的赋值，并且在使用开发版本时会抛出一个警告。
 
-<<<<<<< HEAD
-如果 prop 无需任何验证，依然可以使用字符串，并且可以在 option 数组中混用字符串和对象类型的 prop。
-
 ### 继承父级作用域
-=======
-### Inheriting Parent Scope
->>>>>>> 0.12.8
 
 如果有需要，你也可以使用 `inherit: true` 选项来让子组件通过原型链继承父级的全部属性：
 
@@ -351,13 +305,9 @@ console.log(child.hasOwnProperty('a')) // -> false
 <my-component v-show="active" v-on="click:onClick"></my-component>
 ```
 
-这里的命令（ `v-show` 和 `v-on` ）会在父作用域编译，所以 `active` 和 `onClick` 的取值取决于父级。任何子模版中的命令和插值都会在子作用域中编译。这样使得上下级组件间更好地分离。
+这里的命令 (`v-show` 和 `v-on`) 会在父作用域编译，所以 `active` 和 `onClick` 的取值取决于父级。任何子模版中的命令和插值都会在子作用域中编译。这样使得上下级组件间更好地分离。
 
-<<<<<<< HEAD
-这条规则同样适用于 [内容插入](#内容插入)，这一点会在下文中详述。
-=======
-Read more details on [Component Scope](/guide/best-practices.html#Component_Scope).
->>>>>>> 0.12.8
+阅读 [组件作用域](/guide/best-practices.html#Component_Scope) 了解更多细节。
 
 ## 组件生命周期
 
@@ -405,33 +355,23 @@ new Vue({
 </component>
 ```
 
-<<<<<<< HEAD
-### 过渡控制
+## 过渡控制
 
-有两个额外的属性能够支持对动态组件间的切换方式进行高级控制。
+有两个额外的特性参数能够支持对需要渲染或过渡的组件进行高级控制。
 
-#### `wait-for` 等待事件
+### `wait-for` 等待事件
 
-等待即将进入的组件触发该事件后再用新组件替换当前组件。这就允许你等待数据异步加载完成后再触发过渡，避免切换过程中出现空白闪烁。
-=======
-## Transition Control
+等待即将进入的组件触发该事件后再插入 DOM。这就允许你等待数据异步加载完成后再触发过渡，避免显示空白内容。
 
-There are two additional param attributes that allows advanced control of how components should be rendered / transitioned.
-
-### `wait-for`
-
-An event name to wait for on the incoming child component before inserting it into the DOM. This allows you to wait for asynchronous data to be loaded before triggering the transition and avoid displaying empty content.
-
-This attribute can be used both on static and dynamic components. Note: for dynamic components, all components that will potentially get rendered must `$emit` the awaited event, otherwise they will never get inserted.
->>>>>>> 0.12.8
+这一特性可以用于静态和动态组件。注意：对于动态组件，所有有待渲染的组件都必须通过 `$emit` 触发指定事件，否则他们永远不会被插入。
 
 **示例：**
 
 ``` html
-<!-- static -->
+<!-- 静态组件 -->
 <my-component wait-for="data-loaded"></my-component>
 
-<!-- dynamic -->
+<!-- 动态组件 -->
 <component is="{{view}}" wait-for="data-loaded"></component>
 ```
 
@@ -453,17 +393,11 @@ This attribute can be used both on static and dynamic components. Note: for dyna
 }
 ```
 
-<<<<<<< HEAD
-#### `transition-mode` 过渡模式
+### `transition-mode` 过渡模式
 
-默认情况下，进入组件和退出组件的过渡是同时进行的。这个参数允许设置成另外两种模式：
-=======
-### `transition-mode`
+`transition-mode` 特性参数允许指定两个动态组件之间的过渡如何进行。
 
-The `transition-mode` param attribute allows you to specify how the transition between two dynamic components should be executed.
-
-By default, the transitions for incoming and outgoing components happen simultaneously. This attribute allows you to configure two other modes:
->>>>>>> 0.12.8
+默认情况下，进入组件和退出组件的过渡是同时进行的。这个特性参数允许设置成另外两种模式：
 
 - `in-out`：先进后出；先执行新组件过渡，当前组件在新组件过渡结束后执行过渡并退出。
 - `out-in`：先出后进；当前组件首先执行过渡并退出，新组件在当前组件过渡结束后执行过渡并进入。
@@ -651,13 +585,13 @@ MyComponent
 
 ## 内容插入
 
-在创建可复用组件时，我们通常需要在宿主元素中访问和重用原始数据，而它们并非组件的一部分（类似 Angular 的“transclusion”概念）。 Vue.js 实现了一套内容插入机制，它和目前的 Web Components 规范草案兼容，使用特殊的 `<content>` 元素作为原始内容的插入点。
+在创建可复用组件时，我们通常需要在宿主元素中访问和重用原始数据，而它们并非组件的一部分 (类似 Angular 的“transclusion”概念) 。 Vue.js 实现了一套内容插入机制，它和目前的 Web Components 规范草案兼容，使用特殊的 `<content>` 元素作为原始内容的插入点。
 
 <p class="tip">**关键提示**：transclude 的内容会在父级作用域中编译，而非子级作用域。</p>
 
 ### 单插入点
 
-只有一个不带属性的 `<content>` 标签时，整个原始内容都会被插入到它在 DOM 中的位置并把它替换掉。原来在 `<content>` 标签内部的所有内容会被视为 **后备内容**。后备内容只有在宿主元素为空且没有要插入的内容时才会被显示。例如：
+只有一个不带特性的 `<content>` 标签时，整个原始内容都会被插入到它在 DOM 中的位置并把它替换掉。原来在 `<content>` 标签内部的所有内容会被视为 **后备内容**。后备内容只有在宿主元素为空且没有要插入的内容时才会被显示。例如：
 
 `my-component` 的模板：
 
@@ -687,7 +621,7 @@ MyComponent
 
 ### 多插入点
 
-`<content>` 元素有一个特殊属性 `select`，需要赋值为一个 CSS 选择器。可以使用多个包含不同 `select` 属性的 `<content>` 插入点，它们会被原始内容中与选择器匹配的部分所替代。
+`<content>` 元素有一个特殊特性 `select`，需要赋值为一个 CSS 选择器。可以使用多个包含不同 `select` 特性的 `<content>` 插入点，它们会被原始内容中与选择器匹配的部分所替代。
 
 <p class="tip">从 0.11.6 起，`<content>` 选择器只能匹配宿主节点的顶级子节点。从而表现与 Shaddow DOM 规范一致，并且可以避免意外地选中嵌套的 transclude 内容中不需要的节点。</p>
 
@@ -723,7 +657,7 @@ MyComponent
 
 ## 行内模板
 
-在 0.11.6 中，为组件引入了一个特殊的参数属性： `inline-template`。当传递了这个参数时，组件会使用自己内部的内容作为模板而非 transclude 的内容。这会使模板编写更灵活。
+在 0.11.6 中，为组件引入了一个特殊的特性参数： `inline-template`。当传递了这个参数时，组件会使用自己内部的内容作为模板而非 transclude 的内容。这会使模板编写更灵活。
 
 ``` html
 <my-component inline-template>
