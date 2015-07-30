@@ -15,11 +15,11 @@ Vue.js 会设计得尽量灵活——它只是一个接口库，不迁就于任�
 
 在一个典型的 Vue.js 项目里，我们将会打散我们的代码，变成若干小的组件，并且在各个组件里很好地把它的 CSS 样式、template模板、JavaScript声明也封装在一起。如上所述，当使用webpack或Browserify时，结合相应的源码转换，我们就可以这样撰写组件了：
 
-![](../images/vueify.png)
+![](../images/vue-component.png)
 
 如果你用了预处理程序，你甚至可以这样写：
 
-![](../images/vueify_with_pre.png)
+![](../images/vue-component-with-pre-processors.png)
 
 你可以用Webpack + [vue-loader](https://github.com/vuejs/vue-loader) 或 Browserify + [vueify](https://github.com/vuejs/vueify)来编译这些单文件的Vue组件。如果你用预处理程序，推荐用webpack来构建，因为webpack的加载API提供了更好的文件依赖追踪和缓存。
 
@@ -114,18 +114,18 @@ describe('my-component', function () {
 })
 ```
 
-<p class="tip">因为 Vue.js 的指令异步响应数据的更新，当你需要在数据更新后断言DOM的状态时，你需要在一个`Vue.nextTick` 回调里做这件事。</p>
+<p class="tip">因为 Vue.js 的指令异步响应数据的更新，当你需要在数据更新后断言 DOM 的状态时，你需要在一个 `Vue.nextTick` 回调里做这件事。</p>
 
 
 ## 部署产品
 
-为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，如何进行这样的处理不是那么显而易见的。
+为了缩小体积，最小化的独立版本 Vue.js 已去除所有的警告信息，但当你用像 Browserify、Webpack 这样的工具构建 Vue.js 产品时，如何进行这样的处理不是那么显而易见的。
 
-Starting in 0.12.8, it is quite simple to configure the tools to strip out the warnings:
+从 0.12.8 开始，屏蔽警告的配置工具非常易用。
 
 ### Webpack
 
-Use Webpack's [DefinePlugin](http://webpack.github.io/docs/list-of-plugins.html#defineplugin) to indicate a production environment, so that warning blocks can be automatically dropped by UglifyJS during minification. Example config:
+使用 Webpack 的 [defineplugin](http://webpack.github.io/docs/list-of-plugins.html#defineplugin) 可以表明生产环境，所以警告片段在 UglifyJS 压缩的时候会被自动丢掉。比如：
 
 ``` js
 var webpack = require('webpack')
@@ -150,53 +150,14 @@ module.exports = {
 
 ### Browserify
 
-Just run your bundling command with `NODE_ENV` set to `"production"`. Vue automatically applies [envify](https://github.com/hughsk/envify) transform to itself and makes warning blocks unreachable. For example:
+只需要在打包命令中把 `NODE_ENV` 设置成 `"production"` 即可。Vue 会自动应用 [envify](https://github.com/hughsk/envify) 转换并跳过警告处理。比如：
 
 ``` bash
 NODE_ENV=production browserify -e main.js | uglifyjs -c -m > build.js
 ```
 
-## An Example
-
-为了缩小体积，最小化的独立版本Vue.js已去除所有的警告信息，但当你用像Browserify、Webpack这样的工具构建Vue.js产品时，如何进行这样的处理不是那么显而易见的。
-
-从0.12.8开始，有一个相当简单的配置工具来去除警告信息：
-
-## Webpack
-
-使用Webpack的 [定义插件](http://webpack.github.io/docs/list-of-plugins.html#defineplugin) 以指定产品环境，因此在缩减过程中，警告部分可以被UglifyJs自动删除。 配置示例：
-
-var webpack = require('webpack')
-
-``` js
-module.exports = {
-  // ...
-  plugins: [
-    // ...
-    new webpack.DefinePlugin({
-      'process.env': {
-        NODE_ENV: '"production"'
-      }
-    }),
-    new webpack.optimize.UglifyJsPlugin({
-      compress: {
-        warnings: false
-      }
-    })
-  ]
-}
-```
-
-## Browserify
-
-只要以NODE_ENV设置为"production"参数，运行你的bundling命令，Vue就自动对自身应用envify转换器，设置警告部分不可用。示例：
-
-``` js
-NODE_ENV=production browserify -e main.js | uglifyjs -c -m > build.js
-```
-
 ## 一个示例
 
-[Vue.js Hackernews Clone](https://github.com/yyx990803/vue-hackernews) 是一个应用的例子，它用Webpack + vue-loader 代码组织、Director.js做路由、HackerNews官方的Firebase API 为后端。这不算什么特别大的应用，但它结合并展示了本页面讨论到的各方面概念。
+[Vue.js Hackernews Clone](https://github.com/yyx990803/vue-hackernews) 是一个应用的例子，它用 Webpack + vue-loader 代码组织、Director.js做路由、HackerNews 官方的 Firebase API 为后端。这不算什么特别大的应用，但它结合并展示了本页面讨论到的各方面概念。
 
 继续：[拓展Vue](https://github.com/vuejs/vuejs.org/blob/master/guide/extending.html)

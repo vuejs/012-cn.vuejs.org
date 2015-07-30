@@ -17,7 +17,7 @@ Vue.js 的 API 设计深受 [AngularJS]、[KnockoutJS]、[Ractive.js] 和 [Rivet
 
 ## 概览
 
-<!-- ![MVVM](/images/mvvm.png) -->
+![MVVM](/images/mvvm.png)
 
 ### ViewModel
 
@@ -112,6 +112,8 @@ Directives 可以封装任何 DOM 操作。比如 `v-attr` 会操作一个元素
 这样在 div 的文本内容被更新之前，`message` 的值会先传给 `capitalizie` 函数处理。更多内容可移步至[深入了解过滤器 (Filters)](../guide/filters.html)。
 
 ### 组件 (Components)
+
+![Component Tree](/images/components.png)
 
 在 Vue.js，每个组件都是一个简单的 Vue 实例。一个树形嵌套的各种组件就代表了你的应用程序的各种接口。通过 `Vue.extend` 返回的自定义构造函数可以把这些组件实例化，不过更声明式的建议是通过 `Vue.component(id, constructor)` 注册这些组件。一旦组件被注册，它们就可以在 Vue 实例的模板中以自定义组件形式使用了。
 

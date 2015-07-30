@@ -479,7 +479,7 @@ var parent2 = new Vue({
 ``` html
 <ul id="list-example">
   <!-- 在组件内部可以通过 `this.user` 访问数据 -->
-  <user-profile v-repeat="user:users"></user-profile>
+  <user-profile v-repeat="user in users"></user-profile>
 </ul>
 ```
 
