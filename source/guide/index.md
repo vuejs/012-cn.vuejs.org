@@ -17,7 +17,7 @@ Vue.js 的 API 设计深受 [AngularJS]、[KnockoutJS]、[Ractive.js] 和 [Rivet
 
 ## 概览
 
-![MVVM](/images/mvvm.png)
+<!-- ![MVVM](/images/mvvm.png) -->
 
 ### ViewModel
 
