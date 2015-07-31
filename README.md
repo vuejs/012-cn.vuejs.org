@@ -21,6 +21,7 @@ $ hexo server
 * [@chaoren1641](https://github.com/chaoren1641)
 * [@etanxing](https://github.com/etanxing)
 * [@fengliu222](https://github.com/fengliu222)
+* [@fkysly](https://github.com/@fkysly)
 * [@FTAndy](https://github.com/FTAndy)
 * [@Garfielt](https://github.com/Garfielt)
 * [@getive](https://github.com/getive)
