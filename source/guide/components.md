@@ -606,7 +606,7 @@ components: {
 <my-component></my-component>
 ```
 
-这和 [ES6 对象直接量短命名](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_6) 完美搭配：
+这和 [ES6 对象直接量简写](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_6) 完美搭配：
 
 ``` js
 import compA from './components/a';
