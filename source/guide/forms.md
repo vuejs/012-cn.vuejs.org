@@ -157,7 +157,10 @@ Vue.filter('extract', function (value, keyToExtract) {
 ```
 
 ``` html
-<select options="users | extract 'name'"></select>
+<select
+  v-model="selectedUser"
+  options="users | extract 'name'">
+</select>
 ```
 
 上述过滤器将像`[{ name: 'Bruce' }, { name: 'Chuck' }]`这样的数据转化为`['Bruce', 'Chuck']`，它变成了正确的格式。

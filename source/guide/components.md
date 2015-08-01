@@ -547,7 +547,7 @@ var parent = new Vue({
 
 ## 私有资源
 
-有时一个组件需要使用类似命令、过滤器和子组件这样的资源，但是又希望把这些资源封装起来以便自己在别处复用。这一点可以用私有资源实例化选项来实现。私有资源只能被拥有该资源的组件的实例及其子组件访问。
+有时一个组件需要使用类似命令、过滤器和子组件这样的资源，但是又希望把这些资源封装起来以便自己在别处复用。这一点可以用私有资源实例化选项来实现。私有资源只能被拥有该资源的组件及其继承组件和子组件的实例访问。
 
 ``` js
 // 全部5种类型的资源
@@ -573,6 +573,8 @@ var MyComponent = Vue.extend({
 })
 ```
 
+<p class="tip">你可以通过设置 `Vue.config.strict = true` 阻止子组件访问父组件的私有资源。</p>
+
 又或者，可以用与全局资源注册方法类似的链式 API 为现有组件构造方法添加私有资源：
 
 ``` js
@@ -581,6 +583,40 @@ MyComponent
   .filter('...', function () {})
   .component('...', {})
   // ...
+```
+
+### Asset Naming Convention
+
+Some assets, such as components and directives, appear in templates in the form of HTML attributes or HTML custom tags. Since HTML attribute names and tag names are **case-insensitive**, we often need to name our assets using dash-case instead of camelCase. **Starting in 0.12.9**, it is now supported to name your assets using camelCase, and use them in templates with dash-case.
+
+**Example**
+
+``` js
+// in a component definition
+components: {
+  // register using camelCase
+  myComponent: { /*... */ }
+}
+```
+
+``` html
+<!-- use dash case in templates -->
+<my-component></my-component>
+```
+
+This works nicely with [ES6 object literal shorthand](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_6):
+
+``` js
+import compA from './components/a';
+import compB from './components/b';
+
+export default {
+  components: {
+    // use in templates as <comp-a> and <comp-b>
+    compA,
+    compB
+  }
+}
 ```
 
 ## 内容插入
