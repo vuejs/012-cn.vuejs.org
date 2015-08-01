@@ -585,11 +585,13 @@ MyComponent
   // ...
 ```
 
-### Asset Naming Convention
+### 资源命名约定
 
 Some assets, such as components and directives, appear in templates in the form of HTML attributes or HTML custom tags. Since HTML attribute names and tag names are **case-insensitive**, we often need to name our assets using dash-case instead of camelCase. **Starting in 0.12.9**, it is now supported to name your assets using camelCase, and use them in templates with dash-case.
 
-**Example**
+有些资源，诸如组件和指令，会以 HTML 特性或自定义 HTML 标签的方式出现在模板中。因为 HTML 特性名和标签名都是**大小写不敏感**的，我们经常需要用横线连接命名取代驼峰命名。**从 0.12.9 开始**，我们支持将资源进行驼峰命名，同时在模板里用横线连接命名法使用它们。
+
+**示例**
 
 ``` js
 // in a component definition
@@ -604,7 +606,7 @@ components: {
 <my-component></my-component>
 ```
 
-This works nicely with [ES6 object literal shorthand](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_6):
+这和 [ES6 对象直接量短命名](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_6) 完美搭配：
 
 ``` js
 import compA from './components/a';
