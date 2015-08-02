@@ -1,4 +1,4 @@
-title: 树状饰图
+title: 树状视图
 type: 示例
 order: 4
 ---
