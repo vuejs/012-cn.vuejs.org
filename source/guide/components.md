@@ -5,7 +5,7 @@ order: 11
 
 ## 使用组件
 
-Vue.js 支持把扩展而来的 Vue 的子类用作概念上与 [Web Components](http://www.w3.org/TR/components-intro/) 类似的可复用组件，无需任何 polyfill。要创建组件，只需借助 `Vue.extend()` 创建一个 Vue 的子类构造函数：
+在 Vue.js 中，我们可以用 Vue 扩展出来的 ViewModel 子类当做可复用的组件。这在概念上与 [Web Components](http://www.w3.org/TR/components-intro/) 非常相似，不同之处在于 Vue 的组件无需任何 polyfill。要创建一个组件，只需调用 `Vue.extend()` 来生成一个 Vue 的子类构造函数：
 
 ``` js
 // 扩展 Vue 得到一个可复用的构造函数
@@ -43,20 +43,20 @@ Vue.component('my-component', {
 })
 ```
 
-之后就能在父级实例的模板中使用注册过的组件了 (确保在初始化根实例**之前**已经注册了组件) ：
+之后就能在父级实例的模板中使用注册过的组件了 (务必在初始化根实例**之前**注册组件) ：
 
 ``` html
 <!-- 父级模板 -->
 <my-component></my-component>
 ```
 
-会渲染成：
+渲染结果：
 
 ``` html
 <p>A custom component!</p>
 ```
 
-你无需在全局注册所有组件。你可以限制一个组件仅对另一个组件及其后代可用，只要在 `components` 选项中传入这个组件即可 (这种封装形式同样适用于其他资源，例如指令和过滤器) ：
+你没有必要，也不应该全局注册所有组件。你可以限制一个组件仅对另一个组件及其后代可用，只要在另一个组件的 `components` 选项中传入这个组件即可 (这种封装形式同样适用于其他资源，例如指令和过滤器) ：
 
 ``` js
 var Parent = Vue.extend({
@@ -69,11 +69,11 @@ var Parent = Vue.extend({
 })
 ```
 
-理解 `Vue.extend()` 和 `Vue.component()` 的区别至关重要。由于 `Vue` 本身是一个构造函数， `Vue.extend()` 是一个**类继承方法**。它用来创建一个 `Vue` 的子类并返回其构造函数。而另一方面，`Vue.component()` 是一个类似 `Vue.directive()` 和 `Vue.filter()` 的**资源注册方法**。它作用是建立指定的构造函数与 ID 字符串间的关系，从而让 Vue.js 能在模板中使用它。直接向 `Vue.component()` 传递 options 时，它会在内部调用 `Vue.extend()`。
+理解 `Vue.extend()` 和 `Vue.component()` 的区别非常重要。由于 `Vue` 本身是一个构造函数， `Vue.extend()` 是一个**类继承方法**。它用来创建一个 `Vue` 的子类并返回其构造函数。而另一方面，`Vue.component()` 是一个类似 `Vue.directive()` 和 `Vue.filter()` 的**资源注册方法**。它作用是建立指定的构造函数与 ID 字符串间的关系，从而让 Vue.js 能在模板中使用它。直接向 `Vue.component()` 传递 options 时，它会在内部调用 `Vue.extend()`。
 
 Vue.js 支持两种不同风格的调用组件的 API：命令式的基于构造函数的 API，以及基于模板的声明式的 Web Components 风格 API。如果你感到困惑，想一下通过 `new Image()` 和通过 `<img>` 标签这两种创建图片元素的方式。它们都在各自的适用场景下发挥着作用，为了尽可能灵活，Vue.js 同时提供这两种方式。
 
-<p class="tip">`table` 元素对能出现在其内部的元素类型有限制，因此自定义元素会被提到外部而且无法正常渲染。在那种情况下你可以使用组件命令式语法： `<tr v-component="my-component"></tr>`。</p>
+<p class="tip">`table` 元素对能出现在其内部的元素类型有限制，因此自定义元素会被提到外部而且无法正常渲染。在那种情况下你可以使用指令式组件语法： `<tr v-component="my-component"></tr>`。</p>
 
 ## 数据流
 
@@ -81,7 +81,7 @@ Vue.js 支持两种不同风格的调用组件的 API：命令式的基于构造
 
 默认情况下，组件有**独立作用域**。这意味着你无法在子组件的模板中引用父级的数据。为了传递数据到拥有独立作用域的子组件中，我们需要用到 `prop`。
 
-一个“prop”是指组件的数据对象上的一个预期会从父级组件取得的字段。一个子组件需要通过 [`prop` 选项](/api/options.html#props)显式声明它希望获得的 prop：
+一个 “prop” 是指组件的数据对象上的一个预期会从父级组件取得的字段。一个子组件需要通过 [`prop` 选项](/api/options.html#props)显式声明它希望获得的 prop：
 
 ``` js
 Vue.component('child', {
@@ -114,9 +114,9 @@ new Vue({
 })
 </script>
 
-### 驼峰 vs. 连字符
+### 驼峰命名 vs. 连字符命名
 
-HTML 特性是大小写不敏感的。当驼峰式的 prop 名用于特性时，你需要用下划线形式代替：
+HTML 特性是大小写不敏感的。当驼峰式的 prop 名在 HTML 中作为特性名出现时，你需要用对应的连字符（短横）分隔形式代替：
 
 ``` js
 Vue.component('child', {
@@ -126,7 +126,7 @@ Vue.component('child', {
 ```
 
 ``` html
-<!-- 重要：使用横线分隔的名称！ -->
+<!-- 重要：使用连字符分隔的名称！ -->
 <child my-message="hello!"></child>
 ```
 
@@ -164,7 +164,7 @@ new Vue({
 
 ### 传递回调作为 prop
 
-同样可以向下传递一个方法或语句作为子组件的一个回调方法。从而可以进行命令式的、解耦的父级—子级通信：
+同样可以向下传递一个方法或语句作为子组件的一个回调方法。借此可以进行声明式的、解耦的父子通信：
 
 ``` js
 Vue.component('parent', {
@@ -192,7 +192,7 @@ Vue.component('child', {
 
 ### prop 绑定类型
 
-默认情况下，所有 prop 都会在子级和父级的属性之间建立一个**单向向下传递**的绑定关系：当父级的属性更新时，它将向下同步至子级，反之则不会。这种默认设定是为了防止子级组件意外篡改父级的状态，那将很难推导应用的数据流。不过也可以显式指定一个双向或者一次性的绑定：
+默认情况下，所有 prop 都会在子级和父级的属性之间建立一个**单向向下传递**的绑定关系：当父级的属性更新时，它将向下同步至子级，反之则不会。这种默认设定是为了防止子级组件意外篡改父级的状态，那将导致难以推导应用的数据流。不过也可以显式指定一个双向或者一次性的绑定：
 
 对比这些语法：
 
@@ -211,14 +211,14 @@ Vue.component('child', {
 
 ### prop 规则
 
-组件可以对接收的 prop 限定规则。在开发给他人使用的组件时这会很有用，由于对 prop 的有效性检验是组件 API 的重要组成部分，并且能保证用户正确地使用了组件。与直接把 prop 定义成字符串不同，你可以使用包含有效性要求的对象：
+组件可以对接收的 prop 声明一定的规则限制。在开发给他人使用的组件时这会很有用，因为对 prop 的有效性检验可以看做是组件 API 的一部分，并且能保证用户正确地使用了组件。与直接把 prop 定义成字符串不同，你需要使用包含验证规则的对象：
 
 ``` js
 Vue.component('example', {
   props: {
-    // 基本检查 (`null` 表示接受所有类型)
+    // 基本类型检查 (`null` 表示接受所有类型)
     onSomeEvent: Function,
-    // 存在性检查
+    // 必需性检查
     requiredProp: {
       type: String,
       required: true
@@ -251,7 +251,7 @@ Vue.component('example', {
 })
 ```
 
-其中 `type` 可以是以下任一本地构造函数：
+其中 `type` 可以是以下任一原生构造函数：
 
 - String
 - Number
@@ -311,7 +311,7 @@ console.log(child.hasOwnProperty('a')) // -> false
 
 ## 组件生命周期
 
-每一个组件，或者说 Vue 的实例，都有着自己的生命周期：它会被创建、编译、附加、分离，最终销毁。在这每一个关键点，实例都会触发相应的事件，而在创建实例或者定义组件时，我们可以传入生命周期钩子函数来响应这些事件。例如：
+每一个组件，或者说 Vue 的实例，都有着自己的生命周期：它会被创建、编译、插入、移除，最终销毁。在这每一个时间点，实例都会触发相应的事件，而在创建实例或者定义组件时，我们可以传入生命周期钩子函数来响应这些事件。例如：
 
 ``` js
 var MyComponent = Vue.extend({
@@ -325,7 +325,7 @@ var MyComponent = Vue.extend({
 
 ## 动态组件
 
-你可以使用保留的 `<component>` 元素在组件间动态切换来实现“页面切换”：
+你可以使用内置的 `<component>` 元素在组件间动态切换来实现“页面切换”：
 
 ``` js
 new Vue({
@@ -347,7 +347,7 @@ new Vue({
 </component>
 ```
 
-如果希望被切换出去的组件保持存活，从而保留它的当前状态或者避免反复重新渲染，你可以加上 `keep-alive` 命令参数：
+如果希望被切换出去的组件保持存活，从而保留它的当前状态或者避免反复重新渲染，你可以加上 `keep-alive` 特性参数：
 
 ``` html
 <component is="{{currentView}}" keep-alive>
@@ -395,7 +395,7 @@ new Vue({
 
 ### `transition-mode` 过渡模式
 
-`transition-mode` 特性参数允许指定两个动态组件之间的过渡如何进行。
+`transition-mode` 特性参数允许指定两个动态组件之间的过渡应如何进行。
 
 默认情况下，进入组件和退出组件的过渡是同时进行的。这个特性参数允许设置成另外两种模式：
 
@@ -587,24 +587,24 @@ MyComponent
 
 ### 资源命名约定
 
-有些资源，诸如组件和指令，会以 HTML 特性或自定义 HTML 标签的方式出现在模板中。因为 HTML 特性名和标签名都是**大小写不敏感**的，我们经常需要用横线连接命名取代驼峰命名。**从 0.12.9 开始**，我们支持将资源进行驼峰命名，同时在模板里用横线连接命名法使用它们。
+有些资源，诸如组件和指令，会以 HTML 特性或自定义 HTML 标签的方式出现在模板中。因为 HTML 特性名和标签名都是**大小写不敏感**的，我们经常需要用连字符（短横）连接命名取代驼峰命名。**从 0.12.9 开始**，我们支持将资源进行驼峰命名，同时在模板里用连字符命名法使用它们。
 
 **示例**
 
 ``` js
 // in a component definition
 components: {
-  // register using camelCase
+  // 用驼峰命名注册组件
   myComponent: { /*... */ }
 }
 ```
 
 ``` html
-<!-- use dash case in templates -->
+<!-- 在模板中使用连字符命名来调用 -->
 <my-component></my-component>
 ```
 
-这和 [ES6 对象直接量简写](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_6) 完美搭配：
+这和 [ES6 对象字面量简写](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_6) 完美搭配：
 
 ``` js
 import compA from './components/a';
@@ -612,7 +612,7 @@ import compB from './components/b';
 
 export default {
   components: {
-    // use in templates as <comp-a> and <comp-b>
+    // 在模板中以 <comp-a> 和 <comp-b> 的形式调用
     compA,
     compB
   }
@@ -621,7 +621,7 @@ export default {
 
 ## 内容插入
 
-在创建可复用组件时，我们通常需要在宿主元素中访问和重用原始数据，而它们并非组件的一部分 (类似 Angular 的“transclusion”概念) 。 Vue.js 实现了一套内容插入机制，它和目前的 Web Components 规范草案兼容，使用特殊的 `<content>` 元素作为原始内容的插入点。
+在创建可复用组件时，常常需要访问及复用宿主元素的原始内容，而它们并非组件本身的一部分 (类似 Angular 的 “transclusion” 概念)。 Vue.js 实现了一套内容插入机制，它和目前的 Web Components 规范草案兼容，使用特殊的 `<content>` 元素作为原始内容的插入点。
 
 <p class="tip">**关键提示**：transclude 的内容会在父级作用域中编译，而非子级作用域。</p>
 
@@ -697,8 +697,8 @@ export default {
 
 ``` html
 <my-component inline-template>
-  <p>These are compiled as the component's own template</p>
-  <p>Not parent's transclusion content.</p>
+  <p>这里的内容会作为组件本身的模板进行编译</p>
+  <p>而不是作为父作用域的插入内容</p>
 </my-component>
 ```
 
@@ -706,7 +706,7 @@ export default {
 
 <p class="tip">异步组件只在 Vue ^0.12.0 版本中支持。</p>
 
-在大型项目中，我们可能需要把应用分割成小的组成部分，并且只在实际用到一个组件的时候加载它。为了让这种操作更容易，Vue.js 允许把组件定义成一个异步确定组件定义的工厂方法。Vue.js 只会在需要渲染该组件时才触发相应的工厂方法，并且为了之后能再次渲染会缓存结果。例如：
+在大型项目中，我们可能需要把应用分割成小的组成部分，并且只在实际用到一个组件的时候加载它。为了让这种操作更容易，Vue.js 允许把组件定义成一个异步加载组件定义的工厂方法。Vue.js 只会在需要渲染该组件时才触发相应的工厂方法，并且会对加载结果进行缓存。例如：
 
 ``` js
 Vue.component('async-example', function (resolve, reject) {
@@ -718,7 +718,7 @@ Vue.component('async-example', function (resolve, reject) {
 })
 ```
 
-工厂方法会收到一个 `resolve` 回调方法，应该在从服务器获得组件定义之后调用它。你也可以通过调用 `reject(reason)` 来提示加载失败。这里的 `setTimeout` 只是用作简单的演示；具体如何获取组件完全取决于你。有一种不错的手段是把异步组件和 [Webpack 的分离功能](http://webpack.github.io/docs/code-splitting.html)结合使用：
+工厂方法会收到一个 `resolve` 回调方法，应该在从服务器获得组件定义之后调用它。你也可以通过调用 `reject(reason)` 来提示加载失败。这里的 `setTimeout` 只是用作简单的演示；具体如何获取组件完全取决于你。有一种不错的手段是把异步组件和 [Webpack 的分块打包功能](http://webpack.github.io/docs/code-splitting.html)结合使用：
 
 ``` js
 Vue.component('async-webpack-example', function (resolve) {
