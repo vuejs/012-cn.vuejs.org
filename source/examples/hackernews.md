@@ -1,6 +1,6 @@
 title: HackerNews 的克隆
 type: 示例
-order: 8
+order: 9
 ---
 
 > 这是个 HackerNews 的克隆，它基于 HN 的官方 Firebase API 构建，并且在构建过程中使用了 Webpack + vue-loader。
