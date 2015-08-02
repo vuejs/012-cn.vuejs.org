@@ -11,27 +11,27 @@ gz_size: "22.42"
 
 ## 独立版本
 
-直接下载并写入一个 script 标签中，`Vue` 就会被注册为一个全局变量。
+直接下载并用 `<script>` 标签引入，`Vue` 就会被注册为一个全局变量。
 
 <div id="downloads">
-<a class="button" href="https://raw.github.com/yyx990803/vue/{{vue_version}}/dist/vue.js" download>开发者版本</a><span class="light info">{{dev_size}}kb, plenty of comments and debug/warning messages.</span>
+<a class="button" href="https://raw.github.com/yyx990803/vue/{{vue_version}}/dist/vue.js" download>开发版本</a><span class="light info">{{dev_size}}kb, 包含丰富的注释和警告信息。</span>
 
 <a class="button" href="https://raw.github.com/yyx990803/vue/{{vue_version}}/dist/vue.min.js" download>生产版本</a><span class="light info">{{min_size}}kb minified / {{gz_size}}kb gzipped</span>
 </div>
 
 ### CDN
 
-也可以在[jsdelivr](//cdn.jsdelivr.net/vue/{{vue_version}}/vue.min.js) 或 [cdnjs](//cdnjs.cloudflare.com/ajax/libs/vue/{{vue_version}}/vue.min.js)获取(版本更新可能会略滞后)。
+也可以在 [jsdelivr](//cdn.jsdelivr.net/vue/{{vue_version}}/vue.min.js) 或 [cdnjs](//cdnjs.cloudflare.com/ajax/libs/vue/{{vue_version}}/vue.min.js) 获取 (版本更新可能会略滞后)。
 
-### CSP 一致版本
+### CSP 兼容版本
 
-部分环境，诸如 Google Chrome Apps，强制要求内容加密策略 (CSP) 并且不允许使用`new Function()` 作为计算表达式。在此情况下，你可以用 [CSP一致版本](https://github.com/yyx990803/vue/tree/csp/dist)代替。
+部分环境，诸如 Google Chrome Apps，强制要求内容安全策略 (CSP) 并且不允许使用 `new Function()` 来进行表达式求值。在此情况下，你可以用 [CSP 兼容版本](https://github.com/yyx990803/vue/tree/csp/dist)代替。
 
 ## NPM
 
 ``` bash
 $ npm install vue
-# 获取CSP一致版本：
+# 获取CSP兼容版本：
 $ npm install vue@csp
 # 获取最新开发版本(来自于GitHub):
 $ npm install yyx990803/vue#dev
