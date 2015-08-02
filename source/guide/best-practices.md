@@ -1,5 +1,5 @@
 title: 最佳实践与技巧
-type: guide
+type: 教程
 order: 15
 is_new: true
 ---

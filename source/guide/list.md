@@ -1,5 +1,5 @@
 title: 列表展示
-type: guide
+type: 教程
 order: 5
 ---
 

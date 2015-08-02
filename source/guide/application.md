@@ -1,5 +1,5 @@
 title: 创建大型应用
-type: guide
+type: 教程
 order: 13
 ---
 

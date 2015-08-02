@@ -1,5 +1,5 @@
 title: HackerNews 的克隆
-type: examples
+type: 示例
 order: 8
 ---
 

@@ -1,5 +1,5 @@
 title: 可推导的属性
-type: guide
+type: 教程
 order: 8
 ---
 

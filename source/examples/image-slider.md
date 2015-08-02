@@ -1,5 +1,5 @@
 title: 图片轮播组件
-type: examples
+type: 示例
 order: 6
 ---
 

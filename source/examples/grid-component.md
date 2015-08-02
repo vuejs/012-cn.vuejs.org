@@ -1,5 +1,5 @@
 title: 网格组件
-type: examples
+type: 示例
 order: 3
 ---
 

@@ -1,5 +1,5 @@
 title: TodoMVC
-type: examples
+type: 示例
 order: 7
 ---
 

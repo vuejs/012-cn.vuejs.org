@@ -1,5 +1,5 @@
 title: 处理表单
-type: guide
+type: 教程
 order: 7
 ---
 

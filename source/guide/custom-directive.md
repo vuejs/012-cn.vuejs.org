@@ -1,5 +1,5 @@
 title: 自定义指令
-type: guide
+type: 教程
 order: 9
 ---
 

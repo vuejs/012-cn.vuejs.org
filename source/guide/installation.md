@@ -1,5 +1,5 @@
 title: 安装
-type: guide
+type: 教程
 order: 1
 vue_version: 0.12.9
 dev_size: "227.24"

@@ -1,5 +1,5 @@
 title: Markdown 编辑器
-type: examples
+type: 示例
 order: 0
 ---
 

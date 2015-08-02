@@ -1,5 +1,5 @@
 title: 组件系统
-type: guide
+type: 教程
 order: 11
 ---
 

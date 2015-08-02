@@ -1,5 +1,5 @@
 title: GitHub 提交
-type: examples
+type: 示例
 order: 1
 ---
 

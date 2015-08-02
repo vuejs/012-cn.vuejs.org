@@ -1,5 +1,5 @@
 title: 起步
-type: guide
+type: 教程
 order: 2
 ---
 

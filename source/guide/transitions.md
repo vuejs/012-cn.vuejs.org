@@ -1,5 +1,5 @@
 title: 过渡效果
-type: guide
+type: 教程
 order: 12
 ---
 

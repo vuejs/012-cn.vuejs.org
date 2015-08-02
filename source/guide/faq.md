@@ -1,5 +1,5 @@
 title: 常见问题
-type: guide
+type: 教程
 order: 15
 ---
 

@@ -1,5 +1,5 @@
 title: 过滤器
-type: guide
+type: 教程
 order: 4
 ---
 

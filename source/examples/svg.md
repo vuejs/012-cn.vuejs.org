@@ -1,5 +1,5 @@
 title: SVG 图形
-type: examples
+type: 示例
 order: 5
 ---
 

@@ -1,5 +1,5 @@
 title: 事件监听
-type: guide
+type: 教程
 order: 6
 ---
 

@@ -1,5 +1,5 @@
 title: 树状饰图
-type: examples
+type: 示例
 order: 4
 ---
 

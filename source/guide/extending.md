@@ -1,5 +1,5 @@
 title: 扩展 Vue
-type: guide
+type: 教程
 order: 14
 ---
 

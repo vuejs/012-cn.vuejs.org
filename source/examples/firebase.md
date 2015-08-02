@@ -1,5 +1,5 @@
 title: Firebase + 验证
-type: examples
+type: 示例
 order: 2
 ---
 
