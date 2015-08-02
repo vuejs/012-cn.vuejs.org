@@ -15,7 +15,7 @@ Vue.js 的 API 设计深受 [AngularJS]、[KnockoutJS]、[Ractive.js] 和 [Rivet
 
 即便您已经熟悉了一些这类的库或框架，我们还是推荐您继续阅读接下来的概览，因为您对它们的认识也许和它们在 Vue.js 语境下的定义不尽相同。
 
-## 概览
+## 概念综述
 
 ![MVVM](/images/mvvm.png)
 
@@ -73,7 +73,7 @@ Vue 实例代理了它们观察到的数据对象的所有属性。所以一旦�
 
 Directives 可以封装任何 DOM 操作。比如 `v-attr` 会操作一个元素的特性；`v-repeat` 会基于数组来复制一个元素；`v-on` 会绑定事件等。稍后会有更多的介绍。
 
-### Mustache 风格的绑定
+### Mustache 风格绑定
 
 你也可以使用 mustache 风格的绑定，不管在文本中还是在属性中。它们在底层会被转换成 `v-text` 和 `v-attr` 的指令。比如：
 
@@ -125,7 +125,7 @@ Directives 可以封装任何 DOM 操作。比如 `v-attr` 会操作一个元素
 
 这个简单的机制使得我们可以以类似 [Web Components](http://www.w3.org/TR/components-intro/) 的声明形式对 Vue 组件进行复用和组合，同时无需最新版的浏览器或笨重的 polyfills。通过将一个应用程序拆分成简单的组件，代码库可以被尽可能的解耦，同时更易于维护。更多关于组件的内容，请移步至 [组件系统](../guide/components.html)。
 
-## 一个简单的例子
+## 简单示例
 
 ``` html
 <div id="demo">
@@ -188,7 +188,7 @@ var demo = new Vue({
 
 也许你现在脑子里有很多问题，别担心，我们稍后都会一一提到的。
 
-接下来可移步至：[深入了解指令 (Directives)](/guide/directives.html)。
+下一步：[深入了解指令 (Directives)](/guide/directives.html)。
 
 [AngularJS]: http://angularjs.org
 [KnockoutJS]: http://knockoutjs.com
