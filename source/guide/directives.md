@@ -66,7 +66,7 @@ order: 3
 <my-component v-ref="some-string-id"></my-component>
 ```
 
-这里的 `"some-string-id"` 并不是一个反应式的表达式 — Vue.js不会尝试去观测组件中的对应数据。
+这里的 `"some-string-id"` 并不是一个响应式的表达式 — Vue.js不会尝试去观测组件中的对应数据。
 
 在有些情况下，你也可以使用 Mustache 风格绑定来使得字面量指令 “反应化”：
 
