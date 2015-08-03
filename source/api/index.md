@@ -1,7 +1,9 @@
-title: "Vue 构造函数"
+title: 概述
 type: api
 order: 1
 ---
+
+## Vue 构造函数
 
 `Vue` 的构造函数是 Vue.js 的核心。它允许你创建 Vue 实例。创建一个 Vue 实例非常简单：
 
