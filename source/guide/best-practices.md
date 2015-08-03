@@ -253,7 +253,7 @@ new Vue({
 })
 </script>
 
-当你需要跨越多层嵌套的组件进行通讯时，你可以使用[事件系统](/api/instance-methods.html#Events) 。另外，在构建大型应用时，用 Vue 搭配类似 [Flux](https://facebook.github.io/flux/docs/overview.html) 的架构也是完全可行的。
+当你需要跨越多层嵌套的组件进行通讯时，你可以使用[事件系统](/api/instance-methods.html#事件系统) 。另外，在构建大型应用时，用 Vue 搭配类似 [Flux](https://facebook.github.io/flux/docs/overview.html) 的架构也是完全可行的。
 
 ## 片段实例
 
