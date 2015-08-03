@@ -3,9 +3,9 @@ type: 教程
 order: 14
 ---
 
-## 使用 Mixin 进行扩展
+## Mixins
 
-Mixin 是一种为 Vue 组件分发可复用功能的灵活的方式。你可以像写一个普通 Vue 组件的选项对象一样写出一个 mixin：
+Mixin (混入) 是一种可以在多个 Vue 组件之间灵活复用特性的机制。你可以像写一个普通 Vue 组件的选项对象一样编写一个 mixin：
 
 ``` js
 // mixin.js
@@ -30,6 +30,8 @@ var Component = Vue.extend({
 var component = new Component() // -> "hello from mixin!"
 ```
 
+更多细节请参见 [API](/api/options.html#mixins)。
+
 ## 使用插件进行扩展
 
 通常插件会为 Vue 添加一个全局的功能。
@@ -52,7 +54,7 @@ exports.install = function (Vue, options) {
 
 ### 使用插件
 
-假设我们使用的构建系统是 CommonJS，则：
+假设我们使用的构建系统是 CommonJS，则需要作如下调用：
 
 ``` js
 var vueTouch = require('vue-touch')
@@ -70,11 +72,11 @@ Vue.use(require('my-plugin'), {
 
 ## 现有的插件 & 工具
 
-- [vue-resource](https://github.com/vuejs/vue-resource): 一个插件，为用XMLHttpRequest或JSONP生成网络请求、响应提供服务。
+- [vue-resource](https://github.com/vuejs/vue-resource): 一个插件，为用 XMLHttpRequest 或 JSONP 生成网络请求、响应提供服务。
 - [vue-validator](https://github.com/vuejs/vue-validator): 一个表单验证的插件。
-- [vue-devtools](https://github.com/vuejs/vue-devtools)：一个用来调试Vue.js应用程序的Chrome浏览器开发者工具扩展。
+- [vue-devtools](https://github.com/vuejs/vue-devtools)：一个用来调试 Vue.js 应用程序的 Chrome 浏览器开发者工具扩展。
 - [vue-touch](https://github.com/vuejs/vue-touch)：添加基于 Hammer.js 的触摸手势的指令。
 - [vue-element](https://github.com/vuejs/vue-element): 用 Vue.js 注册 Custom Elements。
 - [用户贡献的工具列表](https://github.com/yyx990803/vue/wiki/User-Contributed-Components-&-Tools)
 
-下一页: [最佳实践与技巧](/guide/best-practices.html).
+下一节: [最佳实践与技巧](/guide/best-practices.html).

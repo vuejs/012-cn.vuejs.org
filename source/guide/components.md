@@ -307,7 +307,7 @@ console.log(child.hasOwnProperty('a')) // -> false
 
 这里的命令 (`v-show` 和 `v-on`) 会在父作用域编译，所以 `active` 和 `onClick` 的取值取决于父级。任何子模版中的命令和插值都会在子作用域中编译。这样使得上下级组件间更好地分离。
 
-阅读 [组件作用域](/guide/best-practices.html#Component_Scope) 了解更多细节。
+阅读 [组件作用域](/guide/best-practices.html#组件作用域) 了解更多细节。
 
 ## 组件生命周期
 

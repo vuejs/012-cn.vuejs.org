@@ -1,6 +1,6 @@
 title: 常见问题
 type: 教程
-order: 15
+order: 16
 ---
 
 - **为什么Vue.js不支持IE8?**
