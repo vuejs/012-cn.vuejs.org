@@ -17,19 +17,19 @@ order: 7
 
 ### currency
 
-- 这个 filter 接受一个可选参数
+- 接受一个可选参数
 
 *12345 => $12,345.00*
 
-你可以传递一个可选参数来表示货币符号
+你可以传递一个可选参数来表示货币符号（默认为 $）。
 
 ### pluralize
 
-- 这个 filter 接受至少一个参数
+- 要求至少一个参数
 
-根据要处理的值来将参数转换为复数。当只有一个参数时，其复数形式就是在参数末尾加上“s”。当参数多于一个时，所有的参数将会以字符串数组的形式对应要被转换为复数的单词的“一倍”、“两倍”、“三倍”......形式。当复数的数量超过参数个数时，会使用最后一个参数。
+将值转为复数。如果只有一个参数，复数形式只是在末尾添加一个 “s”。如果有多个参数，参数列表对应于 1 个，2 个，3 个 … 。如果参数的个数不够，将使用最后一项。
 
-**例子：**
+**示例：**
 
 ``` html
 {{count}} {{count | pluralize 'item'}}
@@ -52,9 +52,9 @@ order: 7
 
 ### json
 
-- 这个 filter 接受一个可选参数
+- 接受一个可选参数
 
-使用 `JSON.stringify()` 来处理值而不是直接将其字符串化（如 `[object Object]`)。这个 filter 接受一个可选参数来指定缩进级别（默认是 2）。
+使用 `JSON.stringify()` 来处理传入的值，而不是直接将其字符串化（如 `[object Object]`)。接受一个可选参数来指定缩进级别（默认是 2）。
 
 ``` html
 <pre>{{$data | json 4}}</pre>
@@ -62,10 +62,10 @@ order: 7
 
 ### key
 
-- 这个 filter 只工作于 `v-on`
-- 这个 filter 接收一个参数
+- 只能和 `v-on` 指令协同使用
+- 要求至少一个参数
 
-包裹 handler 使得其仅在 keyCode 是指定的参数时才被调用。你也可以使用几个常用键值的别名：
+包装事件处理器，只有当 keyCode 等于参数时才调用它。对于一些常用的键也可以用字符串形式的别名：
 
 - enter
 - tab
@@ -76,20 +76,19 @@ order: 7
 - left
 - right
 
-**例子：**
+**示例：**
 
 ``` html
 <input v-on="keyup:doSomething | key 'enter'">
 ```
 
-只有按回车键（enter）时才会调用 `doSomething` 。
+只有按回车键（enter）时才会调用 `doSomething`。
 
 ### filterBy
 
 **语法：** `filterBy searchKey [in dataKey]`.
 
-- 这个 filter 只工作于 `v-repeat`
-- 这是一个 computed filter
+- 只能和 `v-repeat` 指令协同使用
 
 使得 `v-repeat` 只显示数组过滤后的结果。`searchKey` 参数是当前 ViewModel 的一个属性名。这个属性的值会被用作查找的目标：
 
@@ -100,9 +99,9 @@ order: 7
 </ul>
 ```
 
-当使用这个 filter 时，将递归遍历 `users` 数组的每一个元素来寻找 `searchText` 的当前值从而过滤该数组。举例来说，如果一个条目是 `{ name: 'Jack', phone: '555-123-4567' }`，而 `searchText` 的值是 `'555'`，这个条目就被认为是符合条件。
+当使用此过滤器时，将递归遍历 `users` 数组的每一个元素来寻找 `searchText` 的当前值从而过滤该数组。举例来说，如果一个条目是 `{ name: 'Jack', phone: '555-123-4567' }`，而 `searchText` 的值是 `'555'`，这个条目就被认为是符合条件。
 
-可选地，你可以通过 `in dataKey` 参数来指定具体要查找哪个属性：
+你也可以通过可选的 `in dataKey` 参数来指定具体要在哪个属性中进行查找：
 
 ``` html
 <input v-model="searchText">
@@ -111,7 +110,7 @@ order: 7
 </ul>
 ```
 
-现在只有当 `name` 属性包含 `searchText` 时这个条目才符合条件。所以当 `searchText` 的值是 `'555'` 时这个条目将不符合条件，而当值是 `'Jack'` 时即符合。
+现在只有当 `name` 属性包含 `searchText` 时这个条目才符合条件。所以当 `searchText` 的值是 `'555'` 时这个条目将不符合条件，而当值是 `'Jack'` 时则符合。
 
 最后，你可以使用引号来表示字面量参数：
 
@@ -125,8 +124,7 @@ order: 7
 
 **语法：** `orderBy sortKey [reverseKey]`.
 
-- 这个 filter 只工作于 `v-repeat`
-- 这是一个 computed filter
+- 只能和 `v-repeat` 指令协同使用
 
 将 `v-repeat` 的结果排序。`sortKey`参数是当前 ViewModel 的一个属性名。这个属性的值表示用来排序的键名。可选的 `reverseKey` 参数也是当前 ViewModel 的一个属性名，如果这个属性值为真则数组会被倒序排列。
 
