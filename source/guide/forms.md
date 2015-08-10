@@ -146,6 +146,8 @@ new Vue({
 </select>
 ```
 
+### 选项过滤
+
 你的原始数据很有可能不是这里所要求的格式，因此在动态生成选项时必须进行一些数据转换。为了简化这种转换，`options` 特性支持过滤器。将数据的转换逻辑做成一个可复用的 [自定义过滤器](/guide/custom-filter.html) 通常来说是个好主意：
 
 ``` js
@@ -164,6 +166,20 @@ Vue.filter('extract', function (value, keyToExtract) {
 ```
 
 上述过滤器将像 `[{ name: 'Bruce' }, { name: 'Chuck' }]` 这样的原始数据转化为 `['Bruce', 'Chuck']`，从而符合动态选项的格式要求。
+
+### 静态默认选项
+
+> 需要 0.12.10+
+
+除了动态生成的选项之外，你还可以提供一个静态的默认选项：
+
+``` html
+<select v-model="selectedUser" options="users">
+  <option value="">Select a user...</option>
+</select>
+```
+
+基于 `users` 动态生成的选项将会被添加到这个静态选项后面。如果 `v-model` 的绑定值为除 `0` 之外的伪值，则会自动选中该默认选项。
 
 ## 输入 Debounce
 
