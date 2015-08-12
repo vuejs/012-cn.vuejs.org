@@ -160,4 +160,4 @@ NODE_ENV=production browserify -e main.js | uglifyjs -c -m > build.js
 
 [Vue.js Hackernews Clone](https://github.com/yyx990803/vue-hackernews) 是一个应用的例子，它用 Webpack + vue-loader 代码组织、Director.js做路由、HackerNews 官方的 Firebase API 为后端。这不算什么特别大的应用，但它结合并展示了本页面讨论到的各方面概念。
 
-下一节：[扩展 Vue](https://github.com/vuejs/vuejs.org/blob/master/guide/extending.html)
+下一节：[扩展 Vue](../guide/extending.html)
