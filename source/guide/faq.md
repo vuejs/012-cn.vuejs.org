@@ -49,7 +49,7 @@ order: 16
 
   实话实说，我自己对 React 的设计理念也是十分欣赏的。但 React 有一个问题就是组件的逻辑和视图结合得非常紧密。对于部分开发者来说，他们可能觉得这是个优点，但对那些像我一样兼顾设计和开发的人来说，还是更偏好模板，因为模板能让我们更好地在视觉上思考设计和 CSS。JSX 和 JavaScript 逻辑的混合干扰了我将代码映射到设计的思维过程。相反，Vue.js 通过在模板中加入一个轻量级的DSL (指令系统)，换来一个依旧直观的模板，且能够将逻辑封装进指令和过滤器中。
 
-  React的另一个问题是：由于 DOM 更新完全交由 Virtual DOM 管理，当你真的**想要**自己控制 DOM 是就有点棘手了（虽然理论上你可以，但这样做时你本质上在对抗 React 的设计思想）。对于需要复杂时间控制的动画来说这就变成了一项很讨人厌的限制。在这方面，Vue.js 允许更多的灵活性，并且有不少用 Vue.js 构建的富交互实例。参见[一些用 Vue.js 制作的 FWA/Awwwards 获奖站点](https://github.com/yyx990803/vue/wiki/Projects-Using-Vue.js#interactive-experiences)
+  React的另一个问题是：由于 DOM 更新完全交由 Virtual DOM 管理，当你真的**想要**自己控制 DOM 时就有点棘手了（虽然理论上你可以，但这样做时你本质上在对抗 React 的设计思想）。对于需要复杂时间控制的动画来说这就变成了一项很讨人厌的限制。在这方面，Vue.js 允许更多的灵活性，并且有不少用 Vue.js 构建的富交互实例。参见[一些用 Vue.js 制作的 FWA/Awwwards 获奖站点](https://github.com/yyx990803/vue/wiki/Projects-Using-Vue.js#interactive-experiences)
   
 - **Vue.js 和 Polymer 有什么区别?**
 
