@@ -35,7 +35,7 @@ order: 5
 Vue.config.debug = true // 开启调试模式
 ```
 
-**调试模式**
+#### 调试模式
 
 当 `Vue.config.debug` 设置为 true 时，Vue 会
 
@@ -44,11 +44,11 @@ Vue.config.debug = true // 开启调试模式
 
 <p class="tip">调试模式在压缩过的生产版本中是不可用的。</p>
 
-**严格模式**
+#### 严格模式
 
 默认情况下，Vue 组件从继承链（通过 `Vue.extend()` 创建）和它在视图里的父组件那里继承所有的资源。在严格模式下，组件只能继承从类继承的资源，不能从父视图层次继承。当启用了严格的模式时，资源应该是全局性的，或者是依赖于需要它们的组件。使用严格模式，能更好的封装组件和增加大型的项目的可重用性。
 
-**改变分隔符 (Delimiters)**
+#### 改变分隔符 (Delimiters)
 
 如果设置了文本插值的分隔符，HTML 插值的分隔符也将改变。只需要用文本分隔符符最外面的字符再包裹一层：
 
@@ -99,7 +99,7 @@ profile.$mount('#mount-point')
 
 - **callback** `Function`
 
-延迟执行回调到下一次 DOM 更新循环。在修改数据后调用它，等待 DOM 更新。详见 [理解异步更新](/guide/directives.html#理解异步更新)。
+延迟执行回调到下一次 DOM 更新循环。在修改数据后调用它，等待 DOM 更新。详见 [理解异步更新](/guide/best-practices.html#理解异步更新)。
 
 ### Vue.directive( id, [definition] )
 

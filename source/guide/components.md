@@ -587,7 +587,7 @@ MyComponent
 
 ### 资源命名约定
 
-有些资源，诸如组件和指令，会以 HTML 特性或自定义 HTML 标签的方式出现在模板中。因为 HTML 特性名和标签名都是**大小写不敏感**的，我们经常需要用连字符（短横）连接命名取代驼峰命名。**从 0.12.9 开始**，我们支持将资源进行驼峰命名，同时在模板里用连字符命名法使用它们。
+有些资源，诸如组件和指令，会以 HTML 特性或自定义 HTML 标签的方式出现在模板中。因为 HTML 特性名和标签名都是**大小写不敏感**的，我们经常需要用连字符（短横）连接命名取代驼峰命名。**从 0.12.11 开始**，我们支持将资源进行大驼峰和小驼峰命名，同时在模板里用连字符命名法使用它们。
 
 **示例**
 
@@ -607,14 +607,15 @@ components: {
 这和 [ES6 对象字面量简写](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Object_initializer#New_notations_in_ECMAScript_6) 完美搭配：
 
 ``` js
-import compA from './components/a';
-import compB from './components/b';
+// PascalCase
+import TextBox from './components/text-box';
+import DropdownMenu from './components/dropdown-menu';
 
 export default {
   components: {
-    // 在模板中以 <comp-a> 和 <comp-b> 的形式调用
-    compA,
-    compB
+    // 在模板中以 <text-box> 和 <dropdown-menu> 的形式调用
+    TextBox,
+    DropdownMenu
   }
 }
 ```

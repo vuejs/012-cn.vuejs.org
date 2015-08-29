@@ -94,6 +94,46 @@ new Vue({
 <input v-model="age" number>
 ```
 
+## Bind to Expressions
+
+> ^0.12.12 only
+
+When using `v-model` on checkbox and radio inputs, the bound value is either a boolean or a string:
+
+``` html
+<!-- toggle is either true or false -->
+<input type="checkbox" v-model="toggle">
+
+<!-- pick is "red" when this radio box is selected -->
+<input type="radio" v-model="pick" value="red">
+```
+
+This can be a bit limiting - sometimes we may want to bind the underlying value to something else. Here's how you can do that:
+
+**Checkbox**
+
+``` html
+<input type="checkbox" v-model="toggle" true-exp="a" false-exp="b">
+```
+
+``` js
+// when checked:
+vm.toggle === vm.a
+// when unchecked:
+vm.toggle === vm.b
+```
+
+**Radio**
+
+``` html
+<input type="radio" v-model="pick" exp="a">
+```
+
+``` js
+// when checked:
+vm.pick === vm.a
+```
+
 ## 动态 select 选项
 
 当你需要为一个 `<select>` 元素动态渲染列表选项时，推荐将 `options` 特性和 `v-model` 指令配合使用，这样当选项动态改变时，`v-model` 会正确地同步：
@@ -104,10 +144,16 @@ new Vue({
 
 在你的数据里，`myOptions` 应该是一个指向选项数组的路径或是表达式。
 
-该数组可以包含普通字符串或对象。对象的格式应为 `{text:'', value:''}`。这允许你把展示的文字和其背后对应的值区分开来。
+这个可选的数组可以包含单纯的数组：
 
 ``` js
-[
+options = ['a', 'b', 'c']
+```
+
+Or, it can contain objects in the format of `{text:'', value:''}`. This object format allows you to have the option text displayed differently from its underlying value:
+
+``` js
+options = [
   { text: 'A', value: 'a' },
   { text: 'B', value: 'b' }
 ]
@@ -121,6 +167,19 @@ new Vue({
   <option value="b">B</option>
 </select>
 ```
+
+The `value` can also be Objects:
+
+> 0.12.11+ only
+
+``` js
+options = [
+  { text: 'A', value: { msg: 'hello' }},
+  { text: 'B', value: { msg: 'bye' }}
+]
+```
+
+### Option Groups
 
 另外，数组里对象的格式也可以是 `{label:'', options:[...]}`。这样的数据会被渲染成为一个 `<optgroup>`：
 
@@ -199,6 +258,6 @@ new Vue({
 })
 </script>
 
-注意 `debounce` 参数并不对用户的输入事件进行 debounce：它只对底层数据的 “写入” 操作起作用。因此当使用 `debounce` 时，你应该用 `vm.$watch()` 而不是 `v-on` 来响应数据变化。
+注意 `debounce` 参数并不对用户的输入事件进行 debounce：它只对底层数据的 “写入” 操作起作用。因此当使用 `debounce` 时，你应该用 `vm.$watch()` 而不是 `v-on` 来响应数据变化。 关于 debounce 实际 DOM 事件你应该使用 [debounce 过滤器](/api/filters.html#debounce).
 
 下一步：[计算属性](../guide/computed.html).
