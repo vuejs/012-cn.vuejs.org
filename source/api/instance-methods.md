@@ -73,16 +73,16 @@ unwatch()
 
 通过给 Vue 实例传递一个可用的路径来设置结果，如果路径不存在那么会被递归创建。 
 
-### vm.$add( keypath, value )
+### vm.$add( key, value )
 
-- **keypath** `String`
+- **key** `String`
 - **value** `*`
 
 为 Vue 实例及其 `$data` 对象添加一个顶层属性 (root level property)。由于 ES5 的限制，Vue 无法侦测到对象中属性的增加或者删除，所以当你需要动态添加/删除属性的时候请使用此方法和 `vm.$delete`，但请谨慎使用，因为此方法会使得当前 vm 对所有 watcher 进行一次脏检查。
 
-### vm.$delete( keypath )
+### vm.$delete( key )
 
-- **keypath** `String`
+- **key** `String`
 
 在 Vue 实例及其 `$data` 对象中删除一个顶层属性。
 

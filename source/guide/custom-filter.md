@@ -36,17 +36,50 @@ Vue.filter('wrap', function (value, begin, end) {
 到目前为止，我们使用过滤器都是把来自模型的值在显示到视图之前进行转换。其实我们也可以定义一个过滤器，在把来自视图的值（input 元素）在写回模型之前进行转换：
 
 ``` js
-Vue.filter('check-email', {
-  // 这里 read 可选，只是为了演示
-  read: function (val) {
-    return val
+Vue.filter('currencyDisplay', {
+  currencyDisplay: {
+    // model -> view
+    // formats the value when updating the input element.
+    read: function(val) {
+      return '$'+val.toFixed(2)
+    },
+    // view -> model
+    // formats the value when updating the data.
+    write: function(val, oldVal) {
+      var number = +val.replace(/[^\d.]/g, '')
+      return isNaN(number) ? 0 : number
+    }
+  }
+}
+```
+
+Demo:
+
+{% raw %}
+<div id="two-way-filter-demo" class="demo">
+  <input type="text" v-model="money | currencyDisplay">
+  <p>Model value: {{money}}</p>
+</div>
+<script>
+new Vue({
+  el: '#two-way-filter-demo',
+  data: {
+    money: 123.45
   },
-  // write 函数会在数据写入到模型之前被调用
-  write: function (val, oldVal) {
-    return isEmail(val) ? val : oldVal
+  filters: {
+    currencyDisplay: {
+      read: function(val) {
+        return '$'+val.toFixed(2)
+      },
+      write: function(val, oldVal) {
+        var number = +val.replace(/[^\d.]/g, '')
+        return isNaN(number) ? 0 : number
+      }
+    }
   }
 })
-```
+</script>
+{% endraw %}
 
 ## 动态参数
 

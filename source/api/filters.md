@@ -82,15 +82,22 @@ order: 7
 <input v-on="keyup:doSomething | key 'enter'">
 ```
 
-只有按回车键（enter）时才会调用 `doSomething`。
+只有按回车键 (enter) 时才会调用 `doSomething`。
+
+### debounce (防反跳)
+
+- 只能和 `v-on` 指令协同使用
+- 可以附带一个可选参数
+
+将响应函数包装为 X 毫秒之后防反跳，X 就是这个参数，默认值是 300ms。一个防反跳的响应函数会延迟到这个调用之后 X 毫秒执行，如果响应函数在延迟执行之前再次被调用，则延迟时间会被重置为 X 毫秒。
 
 ### filterBy
 
-**语法：** `filterBy searchKey [in dataKey]`.
+**语法：** `filterBy searchKey [in dataKey...]`.
 
-- 只能和 `v-repeat` 指令协同使用
+- 只能和数组协同使用
 
-使得 `v-repeat` 只显示数组过滤后的结果。`searchKey` 参数是当前 ViewModel 的一个属性名。这个属性的值会被用作查找的目标：
+返回原数组过滤后的结果。`searchKey` 参数是当前 ViewModel 的一个属性名。这个属性的值会被用作查找的目标：
 
 ``` html
 <input v-model="searchText">
@@ -106,31 +113,44 @@ order: 7
 ``` html
 <input v-model="searchText">
 <ul>
-  <li v-repeat="users | filterBy searchText in name">{{name}}</li>
+  <li v-repeat="user in users | filterBy searchText in 'name'">{{name}}</li>
 </ul>
 ```
 
 现在只有当 `name` 属性包含 `searchText` 时这个条目才符合条件。所以当 `searchText` 的值是 `'555'` 时这个条目将不符合条件，而当值是 `'Jack'` 时则符合。
 
-最后，你可以使用引号来表示字面量参数：
+> 0.12.11 更新
+
+从 0.12.11 开始你可以传入多个数据的键名：
 
 ``` html
-<ul>
-  <li v-repeat="users | filterBy '555' in 'phone'">{{name}}</li>
-</ul>
+<li v-repeat="user in uers | filterBy searchText in 'name' 'phone'"></li>
+```
+
+或者以数组形式传入一个动态的参数：
+
+``` html
+<!-- fields = ['fieldA', 'fieldB'] -->
+<div v-repeat="user in users | filterBy searchText in fields">
+```
+
+或者直接传入一个自定义过滤函数：
+
+``` html
+<div v-repeat="user in users | filterBy myCustomFilterFunction">
 ```
 
 ### orderBy
 
 **语法：** `orderBy sortKey [reverseKey]`.
 
-- 只能和 `v-repeat` 指令协同使用
+- 只能和数组协同使用
 
-将 `v-repeat` 的结果排序。`sortKey`参数是当前 ViewModel 的一个属性名。这个属性的值表示用来排序的键名。可选的 `reverseKey` 参数也是当前 ViewModel 的一个属性名，如果这个属性值为真则数组会被倒序排列。
+返回原数组排序后的结果。`sortKey` 参数是当前 ViewModel 的一个属性名。这个属性的值表示用来排序的键名。可选的 `reverseKey` 参数也是当前 ViewModel 的一个属性名，如果这个属性值为真则数组会被倒序排列。
 
 ``` html
 <ul>
-  <li v-repeat="users | orderBy field reverse">{{name}}</li>
+  <li v-repeat="user in users | orderBy field reverse">{{name}}</li>
 </ul>
 ```
 
@@ -148,6 +168,6 @@ new Vue({
 
 ``` html
 <ul>
-  <li v-repeat="users | orderBy 'name' -1">{{name}}</li>
+  <li v-repeat="user in users | orderBy 'name' -1">{{name}}</li>
 </ul>
 ```

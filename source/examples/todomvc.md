@@ -1,6 +1,6 @@
 title: TodoMVC
 type: 示例
-order: 8
+order: 9
 ---
 
 > 这是一个完全符合官方标准的 TodoMVC 实现，JavaScript 代码不超过 120 行 (除去注释和空行)。

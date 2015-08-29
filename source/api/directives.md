@@ -61,7 +61,7 @@ order: 6
 
 在内部，普通特性中的 {&#123; Mustache &#125;} 插值会被转换为 `v-attr` 指令进行编译。
 
-从 0.12.9 开始，当 {&#123; Mustache &#125;} 直接用在 `<input>` 元素的 `value` 特性中时，实际设置的会是其 `value` 属性 (property) 而不是特性 (attribute)。例如，`<input value="{% raw %}{{val}}{% endraw %}">` 不会更新其特性值，而是会直接设置其属性值。
+从 0.12.9 开始，当 `v-attr` 直接用在 `<input>` 元素的 `value` 特性中时，实际设置的会是其 `value` 属性 (property) 而不是特性 (attribute)。例如，`<input value="{% raw %}{{val}}{% endraw %}">` 不会更新其特性值，而是会直接设置其属性值。
  
 <p class="tip">在为 `<img>` 元素设置 `src` 特性时，应该使用 `v-attr` 绑定而不是 mustache 模板绑定。浏览器会先于 Vue.js 对你的模板进行解析。所以当浏览器试图获取图片 URL 时，使用 mustache 模板绑定的数据会导致 404 错误。</p>
 
@@ -199,7 +199,7 @@ order: 6
 
 ## 字面指令
 
-> 字面指令将它们的特性值视为纯字符串，不会视图建立数据绑定。它们只负责调用 `bind()`函数一次。字面指令的值也可以包含 &#123;&#123;mustache&#125;&#125; 插值，具体的处理方式请参考[动态字面指令](/guide/custom-directive.html#动态字面指令)。
+> 字面指令将它们的特性值视为纯字符串，不会视图建立数据绑定。它们只负责调用 `bind()`函数一次。字面指令的值也可以包含 mustache 表达式插值，具体的处理方式请参考[动态字面指令](/guide/custom-directive.html#动态字面指令)。
 
 ### v-transition
 
