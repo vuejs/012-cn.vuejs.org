@@ -72,9 +72,10 @@ Vue.use(require('my-plugin'), {
 
 ## 现有的插件 & 工具
 
-- [vue-router](https://github.com/vuejs/vue-router): The official router for Vue.js. Deeply integrated with Vue.js core to make building Single Page Applications a breeze. 
+- [vue-router](https://github.com/vuejs/vue-router): 
+Vue.js 的官方路由程序。和 Vue.js 核心深度整合，分分钟构建单页面应用。
 - [vue-resource](https://github.com/vuejs/vue-resource): 一个插件，为用 XMLHttpRequest 或 JSONP 生成网络请求、响应提供服务。
-- [vue-async-data](https://github.com/vuejs/vue-async-data): Async data loading plugin.
+- [vue-async-data](https://github.com/vuejs/vue-async-data): 一个异步读取数据的插件。
 - [vue-validator](https://github.com/vuejs/vue-validator): 一个表单验证的插件。
 - [vue-devtools](https://github.com/vuejs/vue-devtools)：一个用来调试 Vue.js 应用程序的 Chrome 浏览器开发者工具扩展。
 - [vue-touch](https://github.com/vuejs/vue-touch)：添加基于 Hammer.js 的触摸手势的指令。
