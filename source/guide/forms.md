@@ -94,43 +94,43 @@ new Vue({
 <input v-model="age" number>
 ```
 
-## Bind to Expressions
+## 绑定表达式
 
 > ^0.12.12 only
 
-When using `v-model` on checkbox and radio inputs, the bound value is either a boolean or a string:
+当使用 `v-model` 在单选框和复选框时，被绑定的值可以是布尔值或字符串：
 
 ``` html
-<!-- toggle is either true or false -->
+<!-- toggle 是 true 或 false -->
 <input type="checkbox" v-model="toggle">
 
-<!-- pick is "red" when this radio box is selected -->
+<!-- 当单选框被选中时 pick 是 "red" -->
 <input type="radio" v-model="pick" value="red">
 ```
 
-This can be a bit limiting - sometimes we may want to bind the underlying value to something else. Here's how you can do that:
+这里有一点小的局限性——有的时候我们想把背后的值绑定到一些别的东西上。你可以按下面这个例子实现：
 
-**Checkbox**
+**复选框**
 
 ``` html
 <input type="checkbox" v-model="toggle" true-exp="a" false-exp="b">
 ```
 
 ``` js
-// when checked:
+// 被选中时：
 vm.toggle === vm.a
-// when unchecked:
+// 被取消选中时：
 vm.toggle === vm.b
 ```
 
-**Radio**
+**单选框**
 
 ``` html
 <input type="radio" v-model="pick" exp="a">
 ```
 
 ``` js
-// when checked:
+// 被选中时：
 vm.pick === vm.a
 ```
 
@@ -144,13 +144,13 @@ vm.pick === vm.a
 
 在你的数据里，`myOptions` 应该是一个指向选项数组的路径或是表达式。
 
-这个可选的数组可以包含单纯的数组：
+这个可选的数组可以包含简单的数组：
 
 ``` js
 options = ['a', 'b', 'c']
 ```
 
-Or, it can contain objects in the format of `{text:'', value:''}`. This object format allows you to have the option text displayed differently from its underlying value:
+或者可以包含格式如 `{text:'', value:''}` 的对象。该对象格式允许你设置可选项，让文本展示不同于背后的值：
 
 ``` js
 options = [
@@ -168,7 +168,7 @@ options = [
 </select>
 ```
 
-The `value` can also be Objects:
+`value` 也可以是对象：
 
 > 0.12.11+ only
 
@@ -179,7 +179,7 @@ options = [
 ]
 ```
 
-### Option Groups
+### 选项组
 
 另外，数组里对象的格式也可以是 `{label:'', options:[...]}`。这样的数据会被渲染成为一个 `<optgroup>`：
 
