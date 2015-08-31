@@ -59,7 +59,7 @@ order: 16
 
   首先，Vue 提供了一个更清晰的语法来获取/设置 VM 属性。
 
-  在更高层面上，Vue 与 Knockout 的区别是，Vue 的组件系统鼓励你使用 自上而下、结构优先、声明式的设计策略，而不是从下而上命令式的创建 ViewModel。Vue 的源数据是一个纯对象，不包含逻辑，可以直接 JSON.stringify 并传给 post 请求。ViewModel 代理了数据对象。Vue 实例始终用原生数据绑定相应的 DOM 元素。Knockout 的 ViewModel 本质上是数据，Model 与 ViewModel 的界限非常模糊，很可能导致过于复杂的 ViewModel 逻辑。
+  在更高层面上，Vue 与 Knockout 的区别是，Vue 的组件系统鼓励你使用 自上而下、结构优先、声明式的设计策略，而不是从下而上过程式的创建 ViewModel。Vue 的源数据是一个纯对象，不包含逻辑，可以直接 JSON.stringify 并传给 post 请求。ViewModel 代理了数据对象。Vue 实例始终用原生数据绑定相应的 DOM 元素。Knockout 的 ViewModel 本质上是数据，Model 与 ViewModel 的界限非常模糊，很可能导致过于复杂的 ViewModel 逻辑。
 
 - **我想要参与!**
 
