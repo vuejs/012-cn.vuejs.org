@@ -75,6 +75,7 @@ order: 7
 - down
 - left
 - right
+- space
 
 **示例：**
 
