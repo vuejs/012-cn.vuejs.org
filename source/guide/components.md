@@ -633,8 +633,10 @@ export default {
 `my-component` 的模板：
 
 ``` html
-<h1>This is my component!</h1>
-<content>This will only be displayed if no content is inserted</content>
+<div>
+  <h1>This is my component!</h1>
+  <content>This will only be displayed if no content is inserted</content>
+</div>
 ```
 
 使用该组件的父标签：
@@ -649,11 +651,11 @@ export default {
 渲染结果如下：
 
 ``` html
-<my-component>
+<div>
   <h1>This is my component!</h1>
   <p>This is some original content</p>
   <p>This is some more original content</p>
-</my-component>
+</div>
 ```
 
 ### 多插入点
@@ -665,9 +667,11 @@ export default {
 举例来说，假设有一个带有如下模板的 `multi-insertion` 组件：
 
 ``` html
-<content select="p:nth-child(3)"></content>
-<content select="p:nth-child(2)"></content>
-<content select="p:nth-child(1)"></content>
+<div>
+  <content select="p:nth-child(3)"></content>
+  <content select="p:nth-child(2)"></content>
+  <content select="p:nth-child(1)"></content>
+</div>
 ```
 
 父标签：
@@ -683,11 +687,11 @@ export default {
 渲染结果如下：
 
 ``` html
-<multi-insertion>
+<div>
   <p>Three</p>
   <p>Two</p>
   <p>One</p>
-</multi-insertion>
+</div>
 ```
 
 内容插入机制能很好地控制对原始内容的操作和显示，使组件极为灵活多变易于组合。
