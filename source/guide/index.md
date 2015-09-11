@@ -7,7 +7,7 @@ order: 2
 
 Vue.js 是一个用于创建 web 交互界面的库。
 
-从技术角度讲，Vue.js 专注于 MVVM 模型的 [ViewModel](#ViewModel) 层。它通过双向数据绑定把 [View](#View) 层和 [Model](#Model) 层连接了起来。实际的 DOM 封装和输出格式都被抽象为了 [Directives](#Directives) 和 [Filters](#Filters)。
+从技术角度讲，Vue.js 专注于 MVVM 模型的 [ViewModel](#ViewModel) 层。它通过双向数据绑定把 [View](#视图_\(View\)) 层和 [Model](#模型_\(Model\)) 层连接了起来。实际的 DOM 封装和输出格式都被抽象为了 [Directives](#指令_\(Directives\)) 和 [Filters](#过滤器_\(Filters\))。
 
 从哲学角度讲，Vue 希望通过一个尽量简单的 API 来提供响应式的数据绑定和可组合、复用的视图组件。它不是一个大而全的框架——它只是一个简单灵活的视图层。您可以独立使用它快速开发原型、也可以混合别的库做更多的事情。它同时和诸如 Firebase 这一类的 BaaS 服务有着天然的契合度。
 
