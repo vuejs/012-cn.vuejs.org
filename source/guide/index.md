@@ -7,7 +7,7 @@ order: 2
 
 Vue.js 是一个用于创建 web 交互界面的库。
 
-从技术角度讲，Vue.js 专注于 MVVM 模型的 [ViewModel](#ViewModel) 层。它通过双向数据绑定把 [View](#视图_\(View\)) 层和 [Model](#模型_\(Model\)) 层连接了起来。实际的 DOM 封装和输出格式都被抽象为了 [Directives](#指令_\(Directives\)) 和 [Filters](#过滤器_\(Filters\))。
+从技术角度讲，Vue.js 专注于 MVVM 模型的 [ViewModel](#ViewModel) 层。它通过双向数据绑定把 [View](#视图_View) 层和 [Model](#模型_Model) 层连接了起来。实际的 DOM 封装和输出格式都被抽象为了 [Directives](#指令_Directives) 和 [Filters](#过滤器_Filters)。
 
 从哲学角度讲，Vue 希望通过一个尽量简单的 API 来提供响应式的数据绑定和可组合、复用的视图组件。它不是一个大而全的框架——它只是一个简单灵活的视图层。您可以独立使用它快速开发原型、也可以混合别的库做更多的事情。它同时和诸如 Firebase 这一类的 BaaS 服务有着天然的契合度。
 
@@ -29,7 +29,7 @@ var vm = new Vue({ /* options */ })
 
 这是您作为一个开发者在使用 Vue.js 时主要打交道的对象。更多的细节请移步至 [Vue 构造函数](../api/)。
 
-### 视图 (View)
+### 视图 View
 
 被 Vue 实例管理的 DOM 节点。
 
@@ -41,7 +41,7 @@ Vue.js 使用基于 DOM 的模板。每个 Vue 实例都关联着一个相应的
 
 在使用 Vue.js 时，除了自定义指令 (稍后会有解释)，您几乎不必直接接触 DOM。当数据发生变化时，视图将会自动触发更新。这些更新的粒度精确到一个文字节点。同时为了更好的性能，这些更新是批量异步执行的。
 
-### 模型 (Model)
+### 模型 Model
 
 一个轻微改动过的原生 JavaScript 对象。
 
@@ -61,7 +61,7 @@ Vue 实例代理了它们观察到的数据对象的所有属性。所以一旦�
 
 ![数据观察](/images/data.png)
 
-### 指令 (Directives)
+### 指令 Directives
 
 带特殊前缀的 HTML 特性，可以让 Vue.js 对一个 DOM 元素做各种处理。
 
@@ -101,7 +101,7 @@ Directives 可以封装任何 DOM 操作。比如 `v-attr` 会操作一个元素
 {{* onlyOnce }}
 ```
 
-### 过滤器 (Filters)
+### 过滤器 Filters
 
 过滤器是用于在更新视图之前处理原始值的函数。它们通过一个“管道”在指令或绑定中进行处理：
 
@@ -111,7 +111,7 @@ Directives 可以封装任何 DOM 操作。比如 `v-attr` 会操作一个元素
 
 这样在 div 的文本内容被更新之前，`message` 的值会先传给 `capitalizie` 函数处理。更多内容可移步至 [深入了解过滤器 (Filters)](../guide/filters.html)。
 
-### 组件 (Components)
+### 组件 Components
 
 ![Component Tree](/images/components.png)
 
