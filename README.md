@@ -1,3 +1,5 @@
+**注意：本 repo 即将停止更新，1.0.x 翻译决定重启一个[新项目](https://github.com/vuejs/cn.vuejs.org)。详情：https://github.com/Jinjiang/vuejs.org/issues/97**
+
 # vuejs.org
 
 该站点是通过 [hexo](http://hexo.io/) 搭建起来的。网站内容都是以 Markdown 格式放置在 `source` 目录下的。  
