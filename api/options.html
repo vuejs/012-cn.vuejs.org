@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>组件选项 - vue.js</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Source+Code+Pro|Dosis:300,500' rel='stylesheet' type='text/css'> -->
+        <link rel="icon" href="/images/logo.png" type="image/x-icon">
+        <script>
+            window.PAGE_TYPE = "api"
+        </script>
+        <link rel="stylesheet" href="/css/page.css" type="text/css">
+        <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46852172-1', 'vuejs.org');
+  ga('send', 'pageview');
+</script>
+        <script src="/js/vue.js"></script>
+    </head>
+    <body>
+        <div id="mobile-bar">
+            <a class="menu-button"></a>
+            <a class="logo" href="/"></a>
+        </div>
+        
+            <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Vue.js</span>
+    </a>
+    <ul id="nav">
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query" class="st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link">教程</a></li>
+<li><a href="/api/" class="nav-link current">API</a></li>
+<li><a href="/examples/" class="nav-link">示例</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+<li><a href="https://github.com/yyx990803/vue" target="_blank" class="nav-link">GitHub</a></li>
+
+    </ul>
+</div>
+            <div id="main">
+                
+                    
+    <div class="sidebar">
+    <ul class="main-menu">
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query" class="st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link">教程</a></li>
+<li><a href="/api/" class="nav-link current">API</a></li>
+<li><a href="/examples/" class="nav-link">示例</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+<li><a href="https://github.com/yyx990803/vue" target="_blank" class="nav-link">GitHub</a></li>
+
+    </ul>
+    <div class="list">
+        <h2>Api</h2>
+        <ul class="menu-root">
+            
+                <li>
+                    <a href="/api/index.html" class="sidebar-link">概述</a>
+                </li>
+            
+                <li>
+                    <a href="/api/options.html" class="sidebar-link current">组件选项</a>
+                </li>
+            
+                <li>
+                    <a href="/api/instance-properties.html" class="sidebar-link">实例属性</a>
+                </li>
+            
+                <li>
+                    <a href="/api/instance-methods.html" class="sidebar-link">实例方法</a>
+                </li>
+            
+                <li>
+                    <a href="/api/global-api.html" class="sidebar-link">全局 API</a>
+                </li>
+            
+                <li>
+                    <a href="/api/directives.html" class="sidebar-link">指令</a>
+                </li>
+            
+                <li>
+                    <a href="/api/filters.html" class="sidebar-link">过滤器</a>
+                </li>
+            
+                <li>
+                    <a href="/api/elements.html" class="sidebar-link new">特殊元素</a>
+                </li>
+            
+            <li><a href="http://legacy.vuejs.org">旧版 0.11 文档</a></li>
+            <li style="margin:10px 0 3px">
+              <script data-gittip-username="yyx990803"
+                data-gittip-widget="button"
+                src="//gttp.co/v1.js"></script>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="content api with-sidebar">
+    <h1>组件选项</h1>
+    <div id="ad">
+        <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+    </div>
+    <h2 id="数据">数据</h2><h3 id="data">data</h3><ul>
+<li><strong>类型：</strong> <code>Object | Function</code></li>
+<li><strong>限制：</strong> 在 <code>Vue.extend()</code> 中使用时只接受 <code>Function</code>.</li>
+</ul>
+<p>Vue实例的数据对象. 可以通过 <code>vm.$data</code> 访问:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> data = &#123; a: <span class="number">1</span> &#125;</span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data: data</span><br><span class="line">&#125;)</span><br><span class="line">vm.$data === data <span class="comment">// -&gt; true</span></span><br></pre></td></tr></table></figure>
+<p>Vue 实例会代理其数据对象上的所有属性，因此你可以直接在 Vue 实例上进行数据操作，这些变化会同步到数据对象里：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vm.a   <span class="comment">// -&gt; 1</span></span><br><span class="line">vm.a = <span class="number">2</span></span><br><span class="line">data.a <span class="comment">// -&gt; 2</span></span><br><span class="line">data.a = <span class="number">3</span></span><br><span class="line">vm.a   <span class="comment">// -&gt; 3</span></span><br></pre></td></tr></table></figure>
+<p>注意以 <code>_</code> 或 <code>$</code> 开头的属性将不会被代理在 Vue 实例上，因为它们会和 Vue 的内部属性和 API 方法产生冲突。你只能通过 <code>vm.$data._property</code> 的方式访问它们。</p>
+<p>数据对象必须是合法的 JSON 对象 (不能有循环引用)。使用时和普通对象并没有区别，<code>JSON.stringify</code> 序列化的结果也完全一样。同时，同一个数据对象可以被多个 Vue 实例共享。</p>
+<p>这里有一个特殊的情况，就是在 <code>Vue.extend()</code> 中使用 <code>data</code> 选项时，由于我们不想让同一个数据对象被所有同一个构造函数所创建实例的共享，所以必须提供一个工厂函数来返回一个全新的对象:</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> MyComponent = Vue.extend(&#123;</span><br><span class="line">  data: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">return</span> &#123;</span><br><span class="line">      message: <span class="string">'some default data.'</span>,</span><br><span class="line">      object: &#123;</span><br><span class="line">        fresh: <span class="literal">true</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p class="tip">在内部, Vue.js 会在被观测的数据对象上创建一个隐藏属性 <code>__ob__</code>， 然后通过递归遍历，将所有可枚举的属性转化为 getters 和 setters，从而实现依赖收集。</p>
+
+<h3 id="props">props</h3><ul>
+<li><strong>Type:</strong> <code>Array | Object</code></li>
+</ul>
+<p>props 代表了当前组件预期从父组件处获得的外部数据。props 选项有一个简单的基于数组的写法，也有一个可选的基于对象的写法。对象写法让你对每个 prop 进行单独的高级配置，比如类型检查、自定义验证和默认值等等。</p>
+<p><strong>示例:</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'param-demo'</span>, &#123;</span><br><span class="line">  props: [<span class="string">'size'</span>, <span class="string">'myMessage'</span>], <span class="comment">// 数组写法</span></span><br><span class="line">  compiled: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.size)    <span class="comment">// -&gt; 100</span></span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.myMessage) <span class="comment">// -&gt; 'hello!'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>这里需要注意，因为 HTML 特性是大小写不敏感的，所以当一个 prop 作为特性出现在模板里的时候，你需要使用连字符格式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- myMessage 需要写成 my-message --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">param-demo</span> <span class="attribute">size</span>=<span class="value">"100"</span> <span class="attribute">my-message</span>=<span class="value">"hello!"</span>&gt;</span><span class="tag">&lt;/<span class="title">param-demo</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>基于对象的写法如下所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Vue.component(<span class="string">'prop-validation-demo'</span>, &#123;</span><br><span class="line">  props: &#123;</span><br><span class="line">    size: <span class="built_in">Number</span>,</span><br><span class="line">    name: &#123;</span><br><span class="line">      type: <span class="built_in">String</span>,</span><br><span class="line">      required: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>下面的组件用法会导致两个警告： “size” 的类型不匹配，以及缺少必需的 prop “name” 。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">prop-validation-demoo</span> <span class="attribute">size</span>=<span class="value">"hello"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">prop-validation-demo</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>更多关于数据传递的细节，请阅读教程中的以下章节：</p>
+<ul>
+<li><a href="/guide/components.html#传递回调作为_prop">传递回调 prop</a></li>
+<li><a href="/guide/components.html#prop_绑定类型">prop 绑定类型</a></li>
+<li><a href="/guide/components.html#prop_验证规则">prop 验证规则</a></li>
+</ul>
+<h4 id="关于连字符格式">关于连字符格式</h4><p>HTML 特性名大小写不敏感，所以我们在模板中通常使用连字符格式代替驼峰格式。在使用连字符格式的 <code>props</code> 特性的时候，需要注意一些特殊情况：</p>
+<ol>
+<li><p>如果该特性是一个数据特性， <code>data-</code> 前缀会被自动去掉。比如 <code>data-size</code> 会被解析为 <code>vm.size</code>。</p>
+</li>
+<li><p>如果该特性仍然包含连字符 (<code>-</code>)，它会被驼峰化。比如 <code>my-prop</code> 会被解析为 <code>vm.myProp</code>。这是因为在模板里访问包含连字符的顶层属性不太方便：表达式 <code>my-param</code> 将会被解析为一个减法表达式，除非你使用尴尬的 <code>this[&#39;my-param&#39;]</code> 写法。</p>
+</li>
+</ol>
+<h3 id="methods">methods</h3><ul>
+<li><strong>类型：</strong> <code>Object</code></li>
+</ul>
+<p>Methods 选项中包含的方法函数将会被混入到 Vue 实例中。你可以直接在 Vue 实例上访问这些方法，也可以在指令表达式里使用他们。 所有方法的 <code>this</code> 上下文都指向其所属的 Vue 实例。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data: &#123; a: <span class="number">1</span> &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    plus: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">this</span>.a++</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">vm.plus()</span><br><span class="line">vm.a <span class="comment">// 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="computed">computed</h3><ul>
+<li><strong>类型：</strong> <code>Object</code></li>
+</ul>
+<p>Computed 选项中所包含的内容将会被作为<strong>计算属性</strong>混入到 Vue 实例中。所有计算属性的 getter/setter 函数中 <code>this</code> 上下文都指向其所属的 Vue 实例。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data: &#123; a: <span class="number">1</span> &#125;,</span><br><span class="line">  computed: &#123;</span><br><span class="line">    <span class="comment">// 只需要 getter 时，直接用一个函数即可</span></span><br><span class="line">    aDouble: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="keyword">return</span> <span class="keyword">this</span>.a * <span class="number">2</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 同时提供 getter 与 setter</span></span><br><span class="line">    aPlus: &#123;</span><br><span class="line">      get: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">this</span>.a + <span class="number">1</span></span><br><span class="line">      &#125;,</span><br><span class="line">      set: <span class="function"><span class="keyword">function</span> (<span class="params">v</span>) </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.a = v - <span class="number">1</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">vm.aPlus   <span class="comment">// -&gt; 2</span></span><br><span class="line">vm.aPlus = <span class="number">3</span></span><br><span class="line">vm.a       <span class="comment">// -&gt; 2</span></span><br><span class="line">vm.aDouble <span class="comment">// -&gt; 4</span></span><br></pre></td></tr></table></figure>
+<h2 id="DOM">DOM</h2><h3 id="el">el</h3><ul>
+<li><strong>类型：</strong> <code>String | HTMLElement | Function</code></li>
+<li><strong>限制：</strong> 在 <code>Vue.extend()</code> 中使用时只接受 <code>Function</code> 类型。</li>
+</ul>
+<p>为 Vue 实例提供一个作为挂载点的 DOM 元素。选项的值可以是一个 CSS 选择器，一个 HTML 元素，或是一个创建并返回 HTML 元素的函数。这个元素主要是起一个挂载点的作用：如果同时提供了模板选项，则该元素将被模板的内容替换 (除非 replace 选项为 false）。</p>
+<p>在 <code>Vue.extend()</code> 中，此选项必须提供一个函数，以避免所有的实例共享同一个元素。</p>
+<p>如果在初始化时提供了这个选项，实例将立即进入编译阶段。不然则需要手动调用 <code>vm.$mount()</code> 才能触发编译。</p>
+<h3 id="template">template</h3><ul>
+<li><strong>类型：</strong> <code>String</code></li>
+</ul>
+<p>此选项所提供的字符串模板会被用来生成 Vue 实例所管理的 HTML 内容。默认情况下，该模板会<strong>替代</strong>挂载的目标元素。当 <code>replace</code> 选项被设置为 <code>false</code> 时，模板则会被插入到挂载的元素内部。这两种情况下，挂载元素内部任何存在的原始内容都会被忽略，除非模板里包含了 <a href="/guide/components.html#内容插入">内容插入点</a>。</p>
+<p>如果该字符串以 <code>#</code> 开头，它将会被当做 CSS 的 ID 选择器处理，并使用被选取元素的 <code>innerHTML</code> 作为字符串模板。利用这个功能，可以使用常见的 <code>&lt;script type=&quot;x-template&quot;&gt;</code> 方式来引入模板。</p>
+<p>注意，如果一个模板包含多个顶层节点，那么该实例将会成为一个 <a href="/guide/best-practices.html#片段实例">片段实例</a> - 也即没有单独根节点的实例。</p>
+<p class="tip">Vue.js 使用基于 DOM 的模板编译机制。编译器遍历所有 DOM 元素，查找指令并创建数据绑定。这意味着所有的 Vue.js 模板都是可以解析的 HTML，HTML 被浏览器解析后生成 DOM。Vue.js 将字符串模板转为 DOM 片段并缓存，因此在创建新的 Vue 实例时，只需要直接复制这些片段即可。如果想让模板是完全符合标准的 HTML，你可以将指令前缀设置为 <code>data-</code>。</p>
+
+<h3 id="replace">replace</h3><ul>
+<li><strong>类型：</strong> <code>Boolean</code>  </li>
+<li><strong>默认值：</strong> <code>true</code></li>
+<li><strong>限制：</strong> 需要和 <strong>template</strong> 选项协同使用</li>
+</ul>
+<p>是否用模板替换正在被挂载的元素。如果设置为 <code>false</code> ，该模板将会覆盖元素内部的内容，而不是替代元素本身。</p>
+<p><strong>示例</strong>:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"replace"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#replace'</span>,</span><br><span class="line">  template: <span class="string">'&lt;p&gt;replaced&lt;/p&gt;'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>编译结果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>replaced<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>相比之下, 当 <code>replace</code> 被设置成 <code>false</code> 时：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"insert"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#insert'</span>,</span><br><span class="line">  replace: <span class="literal">false</span>,</span><br><span class="line">  template: <span class="string">'&lt;p&gt;inserted&lt;/p&gt;'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>编译结果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"insert"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">p</span>&gt;</span>inserted<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="生命周期">生命周期</h2><p>所有生命周期钩子函数的 <code>this</code> 上下文都指向其所属的 Vue 实例。除了调用选项中的钩子函数之外，Vue 实例也会触发对应的事件，事件的形式为 <code>&quot;hook:&lt;hookName&gt;&quot;</code>。以 <code>created</code> 钩子为例，将会触发 <code>hook:created</code> 事件。</p>
+<h3 id="created">created</h3><ul>
+<li><strong>类型：</strong> <code>Function</code></li>
+</ul>
+<p>在实例被创建的时候同步调用。在这个阶段，实例已经完成了包含以下内容的准备工作：数据观察，计算属性，方法，以及事件回调。但 DOM 编译还没开始，<code>vm.$el</code> 此时尚不可用。</p>
+<h3 id="beforeCompile">beforeCompile</h3><ul>
+<li><strong>类型：</strong> <code>Function</code></li>
+</ul>
+<p>在编译开始之前调用。</p>
+<h3 id="compiled">compiled</h3><ul>
+<li><strong>类型：</strong> <code>Function</code></li>
+</ul>
+<p>在编译完成后调用。在这个阶段，所有的指令都已经完成绑定，数据变化会触发DOM更新。但此时尚不能保证 <code>$el</code> 已经被插入到DOM中。</p>
+<h3 id="ready">ready</h3><ul>
+<li><strong>类型：</strong> <code>Function</code></li>
+</ul>
+<p>在编译完成后<strong>并且</strong> <code>$el</code> 第一次插入文档时调用，也就是刚好在第一次 <code>attached</code> 钩子之后调用。注意只有通过指令或 Vue 实例方法，比如 <code>$appendTo()</code> 插入才会触发 ready。</p>
+<h3 id="attached">attached</h3><ul>
+<li><strong>类型：</strong> <code>Function</code></li>
+</ul>
+<p>当 <code>vm.$el</code> 被一个指令或是 vm 实例方法（例如<code>$appendTo()</code>）插入到DOM里的时候调用。注意直接操作 <code>vm.$el</code> <strong>不会</strong>触发这个事件。</p>
+<h3 id="detached">detached</h3><ul>
+<li><strong>类型：</strong> <code>Function</code></li>
+</ul>
+<p>当 <code>vm.$el</code> 被一个指令或是 vm 实例方法从 DOM 里移除的时候调用。注意直接操作 <code>vm.$el</code> <strong>不会</strong>触发这个事件。</p>
+<h3 id="beforeDestroy">beforeDestroy</h3><ul>
+<li><strong>类型：</strong> <code>Function</code></li>
+</ul>
+<p>在一个 Vue 实例被销毁之前调用。这个时候，实例的绑定和指令仍工作正常。</p>
+<h3 id="destroyed">destroyed</h3><ul>
+<li><strong>类型：</strong> <code>Function</code></li>
+</ul>
+<p>在一个 Vue 实例被销毁之后调用。当这个钩子被调用时，该 Vue 实例的所有指令都已经被解除绑定，所有子实例也已经被销毁。</p>
+<p>注意如果有一个离开过渡效果，<code>destroyed</code> 会在过渡效果结束<strong>之后</strong>才被调用。</p>
+<h2 id="资源">资源</h2><p>以下选项用于注册一个组件的私有资源。这些资源只能被该 Vue 实例及其子实例访问。所有的资源选项都应该是一个对象，键名即是该资源的 id，值则是对应的资源本身。</p>
+<h3 id="directives">directives</h3><ul>
+<li><strong>类型：</strong> <code>Object</code></li>
+</ul>
+<p>需要注册的指令。更多细节请参考 <a href="../guide/custom-directive.html">自定义指令</a>.</p>
+<h3 id="elementDirectives">elementDirectives</h3><ul>
+<li><strong>类型：</strong> <code>Object</code></li>
+</ul>
+<p>需要注册的元素指令。更多细节请参考 <a href="/guide/custom-directive.html#元素指令">元素指令</a>。</p>
+<h3 id="filters">filters</h3><ul>
+<li><strong>类型：</strong> <code>Object</code></li>
+</ul>
+<p>需要注册的过滤器。更多细节请参考 <a href="../guide/custom-filter.html">自定义过滤器</a>.</p>
+<h3 id="components">components</h3><ul>
+<li><strong>类型：</strong> <code>Object</code></li>
+</ul>
+<p>需要注册的组件。更多细节请参考 <a href="../guide/components.html">组件系统</a>.</p>
+<h3 id="transitions">transitions</h3><ul>
+<li><strong>类型：</strong> <code>Object</code></li>
+</ul>
+<p>需要注册的过渡效果。更多细节请参考 <a href="../guide/transitions.html">过渡效果</a>。</p>
+<h3 id="partials">partials</h3><ul>
+<li><strong>Type:</strong> <code>Object</code></li>
+</ul>
+<p>需要注册的模板片段。更多细节请参考 <a href="/api/elements.html#partial">Partial</a>。</p>
+<h2 id="其他">其他</h2><h3 id="inherit">inherit</h3><ul>
+<li><strong>类型：</strong> <code>Boolean</code></li>
+<li><strong>默认值:</strong> <code>false</code></li>
+</ul>
+<p>是否继承父组件的数据作用域. 当设置为 <code>true</code> 的时候你可以：</p>
+<ol>
+<li>在当前组件模板里绑定父组件的数据属性；</li>
+<li>通过原型继承直接访问父组件的属性。</li>
+</ol>
+<p>需要注意，当使用 <code>inherit: true</code> 的时候，<strong>子实例也可以改变父实例的属性值</strong>，因为所有 Vue 实例的数据属性都是 getter/setters。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> parent = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data: &#123; a: <span class="number">1</span> &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">var</span> child = parent.$addChild(&#123;</span><br><span class="line">  inherit: <span class="literal">true</span>,</span><br><span class="line">  data: &#123; b: <span class="number">2</span> &#125;</span><br><span class="line">&#125;)</span><br><span class="line">child.a  <span class="comment">// -&gt; 1</span></span><br><span class="line">child.b  <span class="comment">// -&gt; 2</span></span><br><span class="line"><span class="comment">// 下面这行将会修改 parent.a 的值，</span></span><br><span class="line"><span class="comment">// 而不是在子实例上创建一个新的属性!</span></span><br><span class="line">child.a = <span class="number">2</span></span><br><span class="line">parent.a <span class="comment">// -&gt; 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="events">events</h3><p>注册事件回调。该选项对象的键值是要注册的事件名，值就是相应的回调函数值。注意这里监听的是 Vue 的事件而不是 DOM 事件。值也可以是一个存在于当前组件上的方法名字符串。Vue实例会在初始化的时候对每一个事件/回调调用 <code>vm.$on()</code>。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  events: &#123;</span><br><span class="line">    <span class="string">'hook:created'</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'created!'</span>)</span><br><span class="line">    &#125;,</span><br><span class="line">    greeting: <span class="function"><span class="keyword">function</span> (<span class="params">msg</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(msg)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 也可以用方法名字符串</span></span><br><span class="line">    bye: <span class="string">'sayGoodbye'</span></span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line">    sayGoodbye: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'goodbye!'</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;) <span class="comment">// -&gt; created!</span></span><br><span class="line">vm.$emit(<span class="string">'greeting'</span>, <span class="string">'hi!'</span>) <span class="comment">// -&gt; hi!</span></span><br><span class="line">vm.$emit(<span class="string">'bye'</span>)             <span class="comment">// -&gt; goodbye!</span></span><br></pre></td></tr></table></figure>
+<h3 id="watch">watch</h3><ul>
+<li><strong>类型</strong>: <code>Object</code></li>
+</ul>
+<p>注册数据观察回调。该选项对象的键名是要监听的表达式，而值是对应的回调函数。值也可以是一个方法名字符串，或者是一个包含额外选项的对象。 Vue 实例将会在初始化的时候对该对象的每个条目调用 <code>$watch()</code> 。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    a: <span class="number">1</span></span><br><span class="line">  &#125;,</span><br><span class="line">  watch: &#123;</span><br><span class="line">    <span class="string">'a'</span>: <span class="function"><span class="keyword">function</span> (<span class="params">val, oldVal</span>) </span>&#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'new: %s, old: %s'</span>, val, oldVal)</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 方法名字符串</span></span><br><span class="line">    <span class="string">'b'</span>: <span class="string">'someMethod'</span>,</span><br><span class="line">    <span class="comment">// 深度观察</span></span><br><span class="line">    <span class="string">'c'</span>: &#123;</span><br><span class="line">      handler: <span class="function"><span class="keyword">function</span> (<span class="params">val, oldVal</span>) </span>&#123; <span class="comment">/* ... */</span> &#125;,</span><br><span class="line">      deep: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line">vm.a = <span class="number">2</span> <span class="comment">// -&gt; new: 2, old: 1</span></span><br></pre></td></tr></table></figure>
+<h3 id="mixins">mixins</h3><ul>
+<li><strong>类型</strong>: <code>Array</code></li>
+</ul>
+<p><code>mixins</code> 接受一个 mixin 对象数组，并会将每个 mixin 所包含的内容混入到当前组件中。这些混入对象可以像一般的实例对象一样包含实例选项，选项将被合并，合并逻辑同 <code>Vue.extend()</code>。举例来说，如果混入对象有一个 <code>created</code> 钩子，组件本身也有一个，则两个钩子都会被调用。</p>
+<p>混入的钩子函数会被按照它们的出现顺序调用，并且会在宿主组件本身的钩子函数之前被调用。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> mixin = &#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="number">1</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  created: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123; <span class="built_in">console</span>.log(<span class="number">2</span>) &#125;,</span><br><span class="line">  mixins: [mixin]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// -&gt; 1</span></span><br><span class="line"><span class="comment">// -&gt; 2</span></span><br></pre></td></tr></table></figure>
+<h3 id="name">name</h3><ul>
+<li><strong>类型</strong>: <code>String</code></li>
+<li><strong>限制:</strong> 仅在使用 <code>Vue.extend()</code> 的时候有效。</li>
+</ul>
+<p>当在控制台里观察一个扩展过的 Vue 组件的时候，默认的构造函数名是 <code>VueComponent</code> ，并不是很有用。但你可以在使用 <code>Vue.extend()</code> 的时候添加一个 <code>name</code> 选项来自定义在控制台里输出的构造函数名。这个字符串会被驼峰化，然后作为组件的构造函数的名字使用。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> Ctor = Vue.extend(&#123;</span><br><span class="line">  name: <span class="string">'cool-stuff'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Ctor()</span><br><span class="line"><span class="built_in">console</span>.log(vm) <span class="comment">// -&gt; CoolStuff &#123;$el: null, ...&#125;</span></span><br></pre></td></tr></table></figure>
+
+    <div class="footer">发现了问题或想要贡献？来 Github 给 Vue.js <a href="https://github.com/vuejs/vuejs.org" target="_blank">英文站点</a>或<a href="https://github.com/Jinjiang/vuejs.org/tree/lang-zh" target="_blank">中文翻译</a>来个 Fork 吧！</div>
+</div>
+                
+            </div>
+            <script src="/js/smooth-scroll.min.js"></script>
+            <script src="/js/common.js"></script>
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        </script>
+    </body>
+</html>

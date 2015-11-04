@@ -1,0 +1,257 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>自定义指令 - vue.js</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Source+Code+Pro|Dosis:300,500' rel='stylesheet' type='text/css'> -->
+        <link rel="icon" href="/images/logo.png" type="image/x-icon">
+        <script>
+            window.PAGE_TYPE = "教程"
+        </script>
+        <link rel="stylesheet" href="/css/page.css" type="text/css">
+        <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46852172-1', 'vuejs.org');
+  ga('send', 'pageview');
+</script>
+        <script src="/js/vue.js"></script>
+    </head>
+    <body>
+        <div id="mobile-bar">
+            <a class="menu-button"></a>
+            <a class="logo" href="/"></a>
+        </div>
+        
+            <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Vue.js</span>
+    </a>
+    <ul id="nav">
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query" class="st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">教程</a></li>
+<li><a href="/api/" class="nav-link">API</a></li>
+<li><a href="/examples/" class="nav-link">示例</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+<li><a href="https://github.com/yyx990803/vue" target="_blank" class="nav-link">GitHub</a></li>
+
+    </ul>
+</div>
+            <div id="main">
+                
+                    
+    <div class="sidebar">
+    <ul class="main-menu">
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query" class="st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link current">教程</a></li>
+<li><a href="/api/" class="nav-link">API</a></li>
+<li><a href="/examples/" class="nav-link">示例</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+<li><a href="https://github.com/yyx990803/vue" target="_blank" class="nav-link">GitHub</a></li>
+
+    </ul>
+    <div class="list">
+        <h2>教程</h2>
+        <ul class="menu-root">
+            
+                <li>
+                    <a href="/guide/installation.html" class="sidebar-link">安装</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/index.html" class="sidebar-link">起步</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/directives.html" class="sidebar-link">指令</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/filters.html" class="sidebar-link">过滤器</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/list.html" class="sidebar-link">列表渲染</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/events.html" class="sidebar-link">事件监听</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/forms.html" class="sidebar-link">处理表单</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/computed.html" class="sidebar-link">计算属性</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/custom-directive.html" class="sidebar-link current">自定义指令</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/custom-filter.html" class="sidebar-link">自定义过滤器</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/components.html" class="sidebar-link">组件系统</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/transitions.html" class="sidebar-link">过渡效果</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/application.html" class="sidebar-link">创建大型应用</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/extending.html" class="sidebar-link">扩展 Vue</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/best-practices.html" class="sidebar-link new">细节与最佳实践</a>
+                </li>
+            
+                <li>
+                    <a href="/guide/faq.html" class="sidebar-link">常见问题</a>
+                </li>
+            
+            <li><a href="http://legacy.vuejs.org">旧版 0.11 文档</a></li>
+            <li style="margin:10px 0 3px">
+              <script data-gittip-username="yyx990803"
+                data-gittip-widget="button"
+                src="//gttp.co/v1.js"></script>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="content 教程 with-sidebar">
+    <h1>自定义指令</h1>
+    <div id="ad">
+        <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+    </div>
+    <h2 id="基础">基础</h2><p>Vue.js 允许你注册自定义指令，实质上是让你教 Vue 一些新技巧：怎样将数据的变化映射到 DOM 的行为。你可以使用 <code>Vue.directive(id, definition)</code> 的方法传入<strong>指令id</strong>和<strong>定义对象</strong>来注册一个全局自定义指令。定义对象需要提供一些钩子函数（全部可选）：</p>
+<ul>
+<li><strong>bind</strong>: 仅调用一次，当指令第一次绑定元素的时候。</li>
+<li><strong>update</strong>: 第一次是紧跟在 bind 之后调用，获得的参数是绑定的初始值；以后每当绑定的值发生变化就会被调用，获得新值与旧值两个参数。</li>
+<li><strong>unbind</strong>：仅调用一次，当指令解绑元素的时候。</li>
+</ul>
+<p><strong>Example</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'my-directive'</span>, &#123;</span><br><span class="line">  bind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 做绑定的准备工作</span></span><br><span class="line">    <span class="comment">// 比如添加事件监听器，或是其他只需要执行一次的复杂操作</span></span><br><span class="line">  &#125;,</span><br><span class="line">  update: <span class="function"><span class="keyword">function</span> (<span class="params">newValue, oldValue</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 根据获得的新值执行对应的更新</span></span><br><span class="line">    <span class="comment">// 对于初始值也会被调用一次</span></span><br><span class="line">  &#125;,</span><br><span class="line">  unbind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 做清理工作</span></span><br><span class="line">    <span class="comment">// 比如移除在 bind() 中添加的事件监听器</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>一旦注册好自定义指令，你就可以在 Vue.js 模板中像这样来使用它（需要添加 Vue.js 的指令前缀，默认为 <code>v-</code>）：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">v-my-directive</span>=<span class="value">"someValue"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果你只需要 <code>update</code> 函数，你可以只传入一个函数，而不用传定义对象：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'my-directive'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="comment">// 这个函数会被作为 update() 函数使用</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>所有的钩子函数会被复制到实际的<strong>指令对象</strong>中，而这个指令对象将会是所有钩子函数的 <code>this</code>上下文环境。指令对象上暴露了一些有用的公开属性：</p>
+<ul>
+<li><strong>el</strong>: 指令绑定的元素</li>
+<li><strong>vm</strong>: 拥有该指令的上下文 ViewModel</li>
+<li><strong>expression</strong>: 指令的表达式，不包括参数和过滤器</li>
+<li><strong>arg</strong>: 指令的参数</li>
+<li><strong>raw</strong>: 未被解析的原始表达式</li>
+<li><strong>name</strong>: 不带前缀的指令名</li>
+</ul>
+<p class="tip">这些属性是只读的，不要修改它们。你也可以给指令对象附加自定义的属性，但是注意不要覆盖已有的内部属性。</p>
+
+<p>使用指令对象属性的示例：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"demo"</span> <span class="attribute">v-demo</span>=<span class="value">"LightSlateGray : msg"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'demo'</span>, &#123;</span><br><span class="line">  bind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.el.style.color = <span class="string">'#fff'</span></span><br><span class="line">    <span class="keyword">this</span>.el.style.backgroundColor = <span class="keyword">this</span>.arg</span><br><span class="line">  &#125;,</span><br><span class="line">  update: <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.el.innerHTML =</span><br><span class="line">      <span class="string">'name - '</span>       + <span class="keyword">this</span>.name + <span class="string">'&lt;br&gt;'</span> +</span><br><span class="line">      <span class="string">'raw - '</span>        + <span class="keyword">this</span>.raw + <span class="string">'&lt;br&gt;'</span> +</span><br><span class="line">      <span class="string">'expression - '</span> + <span class="keyword">this</span>.expression + <span class="string">'&lt;br&gt;'</span> +</span><br><span class="line">      <span class="string">'argument - '</span>   + <span class="keyword">this</span>.arg + <span class="string">'&lt;br&gt;'</span> +</span><br><span class="line">      <span class="string">'value - '</span>      + value</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">var</span> demo = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">  el: <span class="string">'#demo'</span>,</span><br><span class="line">  data: &#123;</span><br><span class="line">    msg: <span class="string">'hello!'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p><strong>Result</strong></p>
+<p><div id="demo" v-demo="LightSlateGray : msg"></div></p>
+<script>
+Vue.directive('demo', {
+  bind: function () {
+    this.el.style.color = '#fff'
+    this.el.style.backgroundColor = this.arg
+  },
+  update: function (value) {
+    this.el.innerHTML =
+      'name - ' + this.name + '<br>' +
+      'raw - ' + this.raw + '<br>' +
+      'expression - ' + this.expression + '<br>' +
+      'argument - ' + this.arg + '<br>' +
+      'value - ' + value
+  }
+})
+var demo = new Vue({
+  el: '#demo',
+  data: {
+    msg: 'hello!'
+  }
+})
+</script>
+
+<h3 id="多重从句">多重从句</h3><p>同一个特性内部，逗号分隔的多个从句将被绑定为多个指令实例。在下面的例子中，指令会被创建和调用两次：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">v-demo</span>=<span class="value">"color: 'white', text: 'hello!'"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果想要用单个指令实例处理多个参数，可以利用字面量对象作为表达式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">v-demo</span>=<span class="value">"&#123;color: 'white', text: 'hello!'&#125;"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'demo'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">value</span>) </span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(value) <span class="comment">// Object &#123;color: 'white', text: 'hello!'&#125;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="字面指令">字面指令</h2><p>如果在创建自定义指令的时候传入 <code>isLiteral: true</code> ，那么特性值就会被看成直接字符串，并被赋值给该指令的 <code>expression</code>。字面指令不会试图建立数据监视。</p>
+<p>Example:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">v-literal-dir</span>=<span class="value">"foo"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'literal-dir'</span>, &#123;</span><br><span class="line">  isLiteral: <span class="literal">true</span>,</span><br><span class="line">  bind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.expression) <span class="comment">// 'foo'</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h3 id="动态字面指令">动态字面指令</h3><p>然而，在字面指令含有 Mustache 标签的情形下，指令的行为如下：</p>
+<ul>
+<li><p>指令实例会有一个属性，<code>this._isDynamicLiteral</code> 被设为 <code>true</code>；</p>
+</li>
+<li><p>如果没有提供 <code>update</code> 函数，Mustache 表达式只会被求值一次，并将该值赋给 <code>this.expression</code> 。不会对表达式进行数据监视。</p>
+</li>
+<li><p>如果提供了 <code>update</code> 函数，指令<strong>将</strong>会为表达式建立一个数据监视，并且在计算结果变化的时候调用 <code>update</code>。</p>
+</li>
+</ul>
+<h2 id="双向指令">双向指令</h2><p>如果你的指令想向 Vue 实例写回数据，你需要传入 <code>twoWay: true</code> 。该选项允许在指令中使用 <code>this.set(value)</code>。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'example'</span>, &#123;</span><br><span class="line">  twoWay: <span class="literal">true</span>,</span><br><span class="line">  bind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.handler = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">      <span class="comment">// 把数据写回 vm</span></span><br><span class="line">      <span class="comment">// 如果指令这样绑定 v-example="a.b.c",</span></span><br><span class="line">      <span class="comment">// 这里将会给 `vm.a.b.c` 赋值</span></span><br><span class="line">      <span class="keyword">this</span>.set(<span class="keyword">this</span>.el.value)</span><br><span class="line">    &#125;.bind(<span class="keyword">this</span>)</span><br><span class="line">    <span class="keyword">this</span>.el.addEventListener(<span class="string">'input'</span>, <span class="keyword">this</span>.handler)</span><br><span class="line">  &#125;,</span><br><span class="line">  unbind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="keyword">this</span>.el.removeEventListener(<span class="string">'input'</span>, <span class="keyword">this</span>.handler)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="内联语句">内联语句</h2><p>传入 <code>acceptStatement: true</code> 可以让自定义指令像 <code>v-on</code> 一样接受内联语句：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">v-my-directive</span>=<span class="value">"a++"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'my-directive'</span>, &#123;</span><br><span class="line">  acceptStatement: <span class="literal">true</span>,</span><br><span class="line">  update: <span class="function"><span class="keyword">function</span> (<span class="params">fn</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// the passed in value is a function which when called,</span></span><br><span class="line">    <span class="comment">// will execute the "a++" statement in the owner vm's</span></span><br><span class="line">    <span class="comment">// scope.</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>但是请明智地使用此功能，因为通常我们希望避免在模板中产生副作用。</p>
+<h2 id="深度数据观察">深度数据观察</h2><p>如果你希望在一个对象上使用自定义指令，并且当对象内部嵌套的属性发生变化时也能够触发指令的 <code>update</code> 函数，那么你就要在指令的定义中传入 <code>deep: true</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">v-my-directive</span>=<span class="value">"obj"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.directive(<span class="string">'my-directive'</span>, &#123;</span><br><span class="line">  deep: <span class="literal">true</span>,</span><br><span class="line">  update: <span class="function"><span class="keyword">function</span> (<span class="params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 当 obj 内部嵌套的属性变化时也会调用此函数</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="指令优先级">指令优先级</h2><p>你可以选择给指令提供一个优先级数（默认是0）。同一个元素上优先级越高的指令会比其他的指令处理得早一些。优先级一样的指令会按照其在元素特性列表中出现的顺序依次处理，但是不能保证这个顺序在不同的浏览器中是一致的。</p>
+<p>通常来说作为用户，你并不需要关心内置指令的优先级，如果你感兴趣的话，可以参阅源码。逻辑控制指令 <code>v-repeat</code>, <code>v-if</code> 被视为 “终结性指令”，它们在编译过程中始终拥有最高的优先级。</p>
+<h2 id="元素指令">元素指令</h2><p>有时候，我们可能想要我们的指令可以以自定义元素的形式被使用，而不是作为一个特性。这与 Angular 的 <code>E</code> 类指令的概念非常相似。元素指令可以看做是一个轻量的自定义组件（后面会讲到）。你可以像下面这样注册一个自定义的元素指令：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Vue.elementDirective(<span class="string">'my-directive'</span>, &#123;</span><br><span class="line">  <span class="comment">// 和普通指令的 API 一致</span></span><br><span class="line">  bind: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    <span class="comment">// 对 this.el 进行操作...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>使用时我们不再用这样的写法:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">v-my-directive</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>而是写成:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">my-directive</span>&gt;</span><span class="tag">&lt;/<span class="title">my-directive</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>元素指令不能接受参数或表达式，但是它可以读取元素的特性，来决定它的行为。</p>
+<p>与通常的指令有个很大的不同，元素指令是<strong>终结性</strong>的，这意味着，一旦 Vue 遇到一个元素指令，它将跳过对该元素和其子元素的编译 - 即只有该元素指令本身可以操作该元素及其子元素。</p>
+<p>下面，我们来看怎样写一个 <a href="../guide/custom-filter.html">自定义过滤器</a>。</p>
+
+    <div class="footer">发现了问题或想要贡献？来 Github 给 Vue.js <a href="https://github.com/vuejs/vuejs.org" target="_blank">英文站点</a>或<a href="https://github.com/Jinjiang/vuejs.org/tree/lang-zh" target="_blank">中文翻译</a>来个 Fork 吧！</div>
+</div>
+                
+            </div>
+            <script src="/js/smooth-scroll.min.js"></script>
+            <script src="/js/common.js"></script>
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        </script>
+    </body>
+</html>

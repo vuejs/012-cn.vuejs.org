@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>vue.js</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Source+Code+Pro|Dosis:300,500' rel='stylesheet' type='text/css'> -->
+        <link rel="icon" href="/images/logo.png" type="image/x-icon">
+        <script>
+            window.PAGE_TYPE = ""
+        </script>
+        <link rel="stylesheet" href="/css/index.css" type="text/css">
+        <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46852172-1', 'vuejs.org');
+  ga('send', 'pageview');
+</script>
+        <script src="/js/vue.js"></script>
+    </head>
+    <body>
+        <div id="mobile-bar">
+            <a class="menu-button"></a>
+            <a class="logo" href="/"></a>
+        </div>
+        
+            <div id="hero">
+    <div class="inner">
+        <ul id="nav">
+            <li><a href="/guide/" class="nav-link">教程</a></li>
+            <li><a href="/api/" class="nav-link">API</a></li>
+            <li><a href="/examples/" class="nav-link">示例</a></li>
+            <li><a href="http://vuejs.org/blog/" target="_blank" class="nav-link">Blog</a></li>
+            <li><a href="http://vuejs.org/" target="_blank" class="nav-link">English</a></li>
+            <li><a href="http://jp.vuejs.org" class="nav-link">日本語</a></li>
+        </ul>
+        <img id="logo" src="/images/logo.png">
+        <h1>Vue.js</h1>
+        <p class="desc">Vue.js 是一个用于创建 Web 交互界面的库。<br>它让你通过简单而灵活的 API 创建由数据驱动的 UI 组件。</p>
+        <p class="buttons">
+            <a href="/guide/installation.html" class="button">安装 v0.12.16</a>
+            <a href="https://github.com/yyx990803/vue" target="_blank" class="button">GitHub 源码</a>
+        </p>
+        <ul id="social">
+            <li><a href="https://twitter.com/vuejs" class="twitter-follow-button" data-show-count="false" data-dnt="true">Follow @vuejs</a></li>
+            <li><iframe src="http://ghbtns.com/github-btn.html?user=yyx990803&repo=vue&type=watch&count=true"
+        allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe></li>
+            <li class="last"><a href="https://gitter.im/yyx990803/vue" target="_blank"><img src="https://badges.gitter.im/Join%20Chat.svg"></a></li>
+        </ul>
+    </div>
+    <div class="down"><img src="/images/down.png"></div>
+</div>
+
+<div id="example">
+    <h2>10 秒钟看懂 Vue.js</h2>
+    <div class="block">
+        <figure class="highlight lang-html"><table><tbody><tr><td class="gutter"><pre>1
+2
+3
+4
+</pre></td><td class="code"><pre><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"demo"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">p</span>&gt;</span>{{message}}<span class="tag">&lt;/<span class="title">p</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">v-model</span>=<span class="value">"message"</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</pre></td></tr></tbody></table></figure>
+    </div>
+
+    <div class="sign">+</div>
+
+    <div class="block">
+        <figure class="highlight lang-js"><table><tbody><tr><td class="gutter"><pre>1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="keyword">var</span> demo = <span class="keyword">new</span> Vue({
+    el: <span class="string">'#demo'</span>,
+    data: {
+        message: <span class="string">'Hello Vue.js!'</span>
+    }
+})
+</pre></td></tr></tbody></table></figure>
+    </div>
+
+    <div class="sign">=</div>
+
+    <div class="block result">
+        <div id="demo">
+            <p>{{message}}</p>
+            <input v-model="message">
+        </div>
+        <script>
+        var demo = new Vue({
+            el: '#demo',
+            data: {
+                message: 'Hello Vue.js!'
+            }
+        })
+        </script>
+    </div>
+</div>
+<div id="features">
+    <div class="feats">
+        <div class="feat">
+            <h2><span class="icon simple"></span>简洁</h2>
+            <p>HTML 模板 + JSON 数据，再创建一个 Vue 实例，就这么简单。</p>
+        </div>
+        <div class="feat">
+            <h2><span class="icon powerful"></span>数据驱动</h2>
+            <p>自动追踪依赖的模板表达式和计算属性 (computed properties)。</p>
+        </div>
+        <div class="feat">
+            <h2><span class="icon composable"></span>组件化</h2>
+            <p>用解耦、可复用的组件来构造你的界面。</p>
+        </div>
+        <div class="feat">
+            <h2><span class="icon compact"></span>轻量</h2>
+            <p>~22kb min+gzip，无依赖。</p>
+        </div>
+        <div class="feat">
+            <h2><span class="icon fast"></span>快速</h2>
+            <p>精确有效的异步批量 DOM 更新。</p>
+        </div>
+        <div class="feat">
+            <h2><span class="icon module"></span>模块友好</h2>
+            <p>通过 NPM、Bower 或 Duo 安装，无缝融入你的工作流</p>
+        </div>
+    </div>
+</div>
+<div id="why">
+    <h2>如果你喜欢下面这些，那你一定会喜欢 Vue.js：</h2>
+    <ul>
+        <li>可扩展的数据绑定机制</li>
+        <li>原生对象即模型</li>
+        <li>简洁明了的 API</li>
+        <li>组件化 UI 构建</li>
+        <li>多个轻量库搭配使用</li>
+    </ul>
+</div>
+<div id="footer">
+    <a class="start" href="/guide/index.html">立刻上手</a>
+    <p>基于 <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a> 发布</p>
+    <p>中文翻译:
+
+    <a href="https://github.com/chaoren1641" target="_blank">chaoren1641</a>
+    <a href="https://github.com/etanxing" target="_blank">etanxing</a>
+    <a href="https://github.com/fengliu222" target="_blank">fengliu222</a>
+    <a href="https://github.com/fkysly" target="_blank">fkysly</a>
+    <a href="https://github.com/FTAndy" target="_blank">FTAndy</a>
+    <a href="https://github.com/Garfielt" target="_blank">Garfielt</a>
+    <a href="https://github.com/getive" target="_blank">getive</a>
+    <a href="https://github.com/Jinjiang" target="_blank">Jinjiang</a>
+    <a href="https://github.com/kunth" target="_blank">kunth</a>
+    <a href="https://github.com/luin" target="_blank">luin</a>
+    <a href="https://github.com/lvdou" target="_blank">lvdou</a>
+    <a href="https://github.com/nkCoding" target="_blank">nkCoding</a>
+    <a href="https://github.com/skyline0705" target="_blank">skyline0705</a>
+    <a href="https://github.com/SoAanyip" target="_blank">SoAanyip</a>
+    <a href="https://github.com/Suixinlei" target="_blank">Suixinlei</a>
+    <a href="https://github.com/titancat" target="_blank">titancat</a>
+    <a href="https://github.com/XfLoops" target="_blank">XfLoops</a>
+
+    <p>Copyright (c) 2015 <a href="http://evanyou.me" target="_blank">Evan You</a></p>
+</div>
+
+<!-- Twitter follow button script -->
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        </script>
+    </body>
+</html>

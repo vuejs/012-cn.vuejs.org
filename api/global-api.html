@@ -1,0 +1,200 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>全局 API - vue.js</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Source+Code+Pro|Dosis:300,500' rel='stylesheet' type='text/css'> -->
+        <link rel="icon" href="/images/logo.png" type="image/x-icon">
+        <script>
+            window.PAGE_TYPE = "api"
+        </script>
+        <link rel="stylesheet" href="/css/page.css" type="text/css">
+        <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46852172-1', 'vuejs.org');
+  ga('send', 'pageview');
+</script>
+        <script src="/js/vue.js"></script>
+    </head>
+    <body>
+        <div id="mobile-bar">
+            <a class="menu-button"></a>
+            <a class="logo" href="/"></a>
+        </div>
+        
+            <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Vue.js</span>
+    </a>
+    <ul id="nav">
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query" class="st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link">教程</a></li>
+<li><a href="/api/" class="nav-link current">API</a></li>
+<li><a href="/examples/" class="nav-link">示例</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+<li><a href="https://github.com/yyx990803/vue" target="_blank" class="nav-link">GitHub</a></li>
+
+    </ul>
+</div>
+            <div id="main">
+                
+                    
+    <div class="sidebar">
+    <ul class="main-menu">
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query" class="st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link">教程</a></li>
+<li><a href="/api/" class="nav-link current">API</a></li>
+<li><a href="/examples/" class="nav-link">示例</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+<li><a href="https://github.com/yyx990803/vue" target="_blank" class="nav-link">GitHub</a></li>
+
+    </ul>
+    <div class="list">
+        <h2>Api</h2>
+        <ul class="menu-root">
+            
+                <li>
+                    <a href="/api/index.html" class="sidebar-link">概述</a>
+                </li>
+            
+                <li>
+                    <a href="/api/options.html" class="sidebar-link">组件选项</a>
+                </li>
+            
+                <li>
+                    <a href="/api/instance-properties.html" class="sidebar-link">实例属性</a>
+                </li>
+            
+                <li>
+                    <a href="/api/instance-methods.html" class="sidebar-link">实例方法</a>
+                </li>
+            
+                <li>
+                    <a href="/api/global-api.html" class="sidebar-link current">全局 API</a>
+                </li>
+            
+                <li>
+                    <a href="/api/directives.html" class="sidebar-link">指令</a>
+                </li>
+            
+                <li>
+                    <a href="/api/filters.html" class="sidebar-link">过滤器</a>
+                </li>
+            
+                <li>
+                    <a href="/api/elements.html" class="sidebar-link new">特殊元素</a>
+                </li>
+            
+            <li><a href="http://legacy.vuejs.org">旧版 0.11 文档</a></li>
+            <li style="margin:10px 0 3px">
+              <script data-gittip-username="yyx990803"
+                data-gittip-widget="button"
+                src="//gttp.co/v1.js"></script>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="content api with-sidebar">
+    <h1>全局 API</h1>
+    <div id="ad">
+        <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+    </div>
+    <h3 id="Vue-config">Vue.config</h3><p><code>Vue.config</code> 是包含 Vue 全局设置的对象。下面列出了所有可设置变量及其默认值：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="comment">// 启动调试模式。详见下文</span></span><br><span class="line">  debug: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 启用严格模式，详见下文</span></span><br><span class="line">  strict: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// 指令的特性前缀</span></span><br><span class="line">  prefix: <span class="string">'v-'</span>,</span><br><span class="line">  <span class="comment">// 插入分隔符</span></span><br><span class="line">  <span class="comment">// 对于插入HTML，添加一个额外的最外层字符</span></span><br><span class="line">  delimiters: [<span class="string">'&#123;&amp;#123;'</span>, <span class="string">'&amp;#125;&#125;'</span>],</span><br><span class="line">  <span class="comment">// 抑制 warnings？</span></span><br><span class="line">  silent: <span class="literal">false</span>,</span><br><span class="line">  <span class="comment">// 插入 mustache 绑定?</span></span><br><span class="line">  interpolate: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// (对 directives 和 watchers) 使用异步更新？</span></span><br><span class="line">  <span class="keyword">async</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="comment">// 允许改变所观察的Array的原型链？</span></span><br><span class="line">  proto: <span class="literal">true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以直接对其修改，例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Vue.config.debug = <span class="literal">true</span> <span class="comment">// 开启调试模式</span></span><br></pre></td></tr></table></figure>
+<h4 id="调试模式">调试模式</h4><p>当 <code>Vue.config.debug</code> 设置为 true 时，Vue 会</p>
+<ol>
+<li>打印所有警告的栈的追踪记录</li>
+<li>让所有 DOM 里的锚结点都采用注释结点。这会让审查元素结构变得更容易。</li>
+</ol>
+<p class="tip">调试模式在压缩过的生产版本中是不可用的。</p>
+
+<h4 id="严格模式">严格模式</h4><p>默认情况下，Vue 组件从继承链（通过 <code>Vue.extend()</code> 创建）和它在视图里的父组件那里继承所有的资源。在严格模式下，组件只能继承从类继承的资源，不能从父视图层次继承。当启用了严格的模式时，资源应该是全局性的，或者是依赖于需要它们的组件。使用严格模式，能更好的封装组件和增加大型的项目的可重用性。</p>
+<h4 id="改变分隔符_(Delimiters)">改变分隔符 (Delimiters)</h4><p>如果设置了文本插值的分隔符，HTML 插值的分隔符也将改变。只需要用文本分隔符符最外面的字符再包裹一层：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Vue.config.delimiters = [<span class="string">'(%'</span>, <span class="string">'%)'</span>]</span><br><span class="line"><span class="comment">// (% %) 是文本插值的标签</span></span><br><span class="line"><span class="comment">// 则 ((% %)) 是 HTML 插值的标签</span></span><br></pre></td></tr></table></figure>
+<h3 id="Vue-extend(_options_)">Vue.extend( options )</h3><ul>
+<li><strong>options</strong> <code>Object</code></li>
+</ul>
+<p>创建一个 Vue 的子类。所有的<a href="../api/options.html">实例化选项</a>都可以在此通用。其中需要特殊提及的是 <code>el</code> 和 <code>data</code>，在这里它们必须以函数形式出现。</p>
+<p>直接用对象形式提供的组件在实例化之前 Vue 会在内部对其隐式调用 <code>Vue.extend()</code>。关于组件更多的细节，参见<a href="../guide/components.html">组件系统</a>。</p>
+<p><strong>例子</strong></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">div</span> <span class="attribute">id</span>=<span class="value">"mount-point"</span>&gt;</span><span class="tag">&lt;/<span class="title">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建可复用的 Profile 组件构造函数</span></span><br><span class="line"><span class="keyword">var</span> Profile = Vue.extend(&#123;</span><br><span class="line">  template: <span class="string">'&lt;p&gt;&#123;&#123;firstName&#125;&#125; &#123;&#123;lastName&#125;&#125; aka &#123;&#123;alias&#125;&#125;&lt;/p&gt;'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 创建一个 Profile 组件的实例</span></span><br><span class="line"><span class="keyword">var</span> profile = <span class="keyword">new</span> Profile(&#123;</span><br><span class="line">  data: &#123;</span><br><span class="line">    firstName : <span class="string">'Walter'</span>,</span><br><span class="line">    lastName  : <span class="string">'White'</span>,</span><br><span class="line">    alias     : <span class="string">'Heisenberg'</span></span><br><span class="line">  &#125;  </span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 挂载到元素上</span></span><br><span class="line">profile.$mount(<span class="string">'#mount-point'</span>)</span><br></pre></td></tr></table></figure>
+<p>结果：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">p</span>&gt;</span>Walter White aka Heisenberg<span class="tag">&lt;/<span class="title">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="Vue-nextTick(_callback_)">Vue.nextTick( callback )</h3><ul>
+<li><strong>callback</strong> <code>Function</code></li>
+</ul>
+<p>延迟执行回调到下一次 DOM 更新循环。在修改数据后调用它，等待 DOM 更新。详见 <a href="/guide/best-practices.html#理解异步更新">理解异步更新</a>。</p>
+<h3 id="Vue-directive(_id,_[definition]_)">Vue.directive( id, [definition] )</h3><ul>
+<li><strong>id</strong> <code>String</code></li>
+<li><strong>definition</strong> <code>Function</code> or <code>Object</code> <em>optional</em></li>
+</ul>
+<p>注册或取得一个全局自定义指令。详情见<a href="../guide/custom-directive.html">编写自定义指令</a>。</p>
+<h3 id="Vue-elementDirective(_id,_[definition]_)">Vue.elementDirective( id, [definition] )</h3><ul>
+<li><strong>id</strong> <code>String</code></li>
+<li><strong>definition</strong> <code>Function</code> or <code>Object</code> <em>optional</em></li>
+</ul>
+<p>注册或取得一个全局自定义元素指令。详情见<a href="../guide/custom-directive.html#元素指令">元素指令</a>。</p>
+<h3 id="Vue-filter(_id,_[definition]_)">Vue.filter( id, [definition] )</h3><ul>
+<li><strong>id</strong> <code>String</code></li>
+<li><strong>definition</strong> <code>Function</code> <em>optional</em></li>
+</ul>
+<p>注册或取得一个全局自定义过滤器。详情见<a href="../guide/custom-filter.html">编写自定义过滤器</a>。</p>
+<h3 id="Vue-component(_id,_[definition]_)">Vue.component( id, [definition] )</h3><ul>
+<li><strong>id</strong> <code>String</code></li>
+<li><strong>definition</strong> <code>Function Constructor</code> or <code>Object</code> <em>optional</em></li>
+</ul>
+<p>注册或取得一个全局自定义组件。详情见<a href="../guide/components.html">组件系统</a>。</p>
+<h3 id="Vue-transition(_id,_[definition]_)">Vue.transition( id, [definition] )</h3><ul>
+<li><strong>id</strong> <code>String</code></li>
+<li><strong>definition</strong> <code>Object</code> <em>optional</em></li>
+</ul>
+<p>注册或取得一个全局 JavaScript 过渡效果定义。详见教程中<a href="../guide/transitions.html#JavaScript_Functions">JavaScript 过渡效果</a>的相关章节。</p>
+<h3 id="Vue-partial(_id,_[definition]_)">Vue.partial( id, [definition] )</h3><ul>
+<li><strong>id</strong> <code>String</code></li>
+<li><strong>definition</strong> <code>String | Node</code> <em>optional</em></li>
+</ul>
+<p>注册或获取全局的分模板（partial）。详见 <a href="/api/elements.html#partial">Partial</a>。</p>
+<h3 id="Vue-use(_plugin,_[args…]_)">Vue.use( plugin, [args…] )</h3><ul>
+<li><strong>plugin</strong> <code>Object</code> or <code>Function</code></li>
+<li><strong>args…</strong> <em>optional</em></li>
+</ul>
+<p>加载一个 Vue.js 的插件。如果该插件是一个对象，它必须有一个可调用的 <code>install</code> 方法。如果它本身就是一个函数，它会直接被作为安装函数来调用。Vue 会将其本身作为一个参数传递到安装函数里。详见<a href="../guide/extending.html#使用插件进行扩展">插件</a>。</p>
+<h3 id="Vue-util">Vue.util</h3><p>公开内部的 <code>util</code> 模块。该模块包含一些常用的工具函数。此模块只是为了方便编写高级插件/指令，因此你必须查看源码来了解其中细节。</p>
+
+    <div class="footer">发现了问题或想要贡献？来 Github 给 Vue.js <a href="https://github.com/vuejs/vuejs.org" target="_blank">英文站点</a>或<a href="https://github.com/Jinjiang/vuejs.org/tree/lang-zh" target="_blank">中文翻译</a>来个 Fork 吧！</div>
+</div>
+                
+            </div>
+            <script src="/js/smooth-scroll.min.js"></script>
+            <script src="/js/common.js"></script>
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        </script>
+    </body>
+</html>

@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>概述 - vue.js</title>
+        <meta charset="utf-8">
+        <meta name="description" content="Vue.js - Intuitive, Fast and Composable MVVM for building interactive interfaces.">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <!-- <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600|Source+Code+Pro|Dosis:300,500' rel='stylesheet' type='text/css'> -->
+        <link rel="icon" href="/images/logo.png" type="image/x-icon">
+        <script>
+            window.PAGE_TYPE = "api"
+        </script>
+        <link rel="stylesheet" href="/css/page.css" type="text/css">
+        <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-46852172-1', 'vuejs.org');
+  ga('send', 'pageview');
+</script>
+        <script src="/js/vue.js"></script>
+    </head>
+    <body>
+        <div id="mobile-bar">
+            <a class="menu-button"></a>
+            <a class="logo" href="/"></a>
+        </div>
+        
+            <div id="header">
+    <a id="logo" href="/">
+        <img src="/images/logo.png">
+        <span>Vue.js</span>
+    </a>
+    <ul id="nav">
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query" class="st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link">教程</a></li>
+<li><a href="/api/" class="nav-link current">API</a></li>
+<li><a href="/examples/" class="nav-link">示例</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+<li><a href="https://github.com/yyx990803/vue" target="_blank" class="nav-link">GitHub</a></li>
+
+    </ul>
+</div>
+            <div id="main">
+                
+                    
+    <div class="sidebar">
+    <ul class="main-menu">
+        <li>
+  <form id="search-form">
+    <input type="text" id="search-query" class="st-default-search-input">
+  </form>
+</li>
+<li><a href="/guide/" class="nav-link">教程</a></li>
+<li><a href="/api/" class="nav-link current">API</a></li>
+<li><a href="/examples/" class="nav-link">示例</a></li>
+<li><a href="/blog/" class="nav-link">Blog</a></li>
+<li><a href="https://github.com/yyx990803/vue" target="_blank" class="nav-link">GitHub</a></li>
+
+    </ul>
+    <div class="list">
+        <h2>Api</h2>
+        <ul class="menu-root">
+            
+                <li>
+                    <a href="/api/index.html" class="sidebar-link current">概述</a>
+                </li>
+            
+                <li>
+                    <a href="/api/options.html" class="sidebar-link">组件选项</a>
+                </li>
+            
+                <li>
+                    <a href="/api/instance-properties.html" class="sidebar-link">实例属性</a>
+                </li>
+            
+                <li>
+                    <a href="/api/instance-methods.html" class="sidebar-link">实例方法</a>
+                </li>
+            
+                <li>
+                    <a href="/api/global-api.html" class="sidebar-link">全局 API</a>
+                </li>
+            
+                <li>
+                    <a href="/api/directives.html" class="sidebar-link">指令</a>
+                </li>
+            
+                <li>
+                    <a href="/api/filters.html" class="sidebar-link">过滤器</a>
+                </li>
+            
+                <li>
+                    <a href="/api/elements.html" class="sidebar-link new">特殊元素</a>
+                </li>
+            
+            <li><a href="http://legacy.vuejs.org">旧版 0.11 文档</a></li>
+            <li style="margin:10px 0 3px">
+              <script data-gittip-username="yyx990803"
+                data-gittip-widget="button"
+                src="//gttp.co/v1.js"></script>
+            </li>
+        </ul>
+    </div>
+</div>
+
+
+<div class="content api with-sidebar">
+    <h1>概述</h1>
+    <div id="ad">
+        <script async type="text/javascript" src="//cdn.carbonads.com/carbon.js?zoneid=1673&serve=C6AILKT&placement=vuejs" id="_carbonads_js"></script>
+    </div>
+    <h2 id="Vue_构造函数">Vue 构造函数</h2><p><code>Vue</code> 的构造函数是 Vue.js 的核心。它允许你创建 Vue 实例。创建一个 Vue 实例非常简单：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123; <span class="comment">/* options */</span> &#125;)</span><br></pre></td></tr></table></figure>
+<p>当你初始化一个 Vue 实例时，你需要传递一个选项对象。这个对象可以包括目标 DOM 元素，初始 data 对象，mixin 方法，生命周期钩子函数等内容。完整的选项列表详见 <a href="../api/options.html">组件选项</a>。</p>
+<p>每个 Vue 实例本质上就是一个 ViewModel (因此在本文档中你会看到好多变量名叫 <code>vm</code>)。每个实例都有一个对应的 DOM 节点 <code>vm.$el</code>，它大致相当于 MVVM 中的 V。每个实例也有一个 JavaScript 数据对象 <code>vm.$data</code>，相对应的就是 MVVM 中的 M。改变 M 会触发 V 的更新。对于双向绑定，用户在 V 当中触发的事件会导致 M 的状态变化。Vue 实例上暴露的全部属性详见 <a href="../api/instance-properties.html">实例属性</a>。</p>
+<p>每个 Vue 实例也有不少 <a href="../api/instance-methods.html">实例方法</a>，包括数据监视，事件通讯和 DOM 操作等等。</p>
+<p><code>Vue</code> 构造函数本身也暴露了 <a href="../api/global-api.html">全局 API</a>，这些 API 可以让你扩展 <code>Vue</code> 的子类，配置全局选项，注册全局组件、指令、过滤器这些自定义资源等等。</p>
+<h2 id="实例初始化">实例初始化</h2><p>如果你在实例化中提供了 <code>el</code> 选项，Vue 实例将会立即进入编译阶段。否则，编译工作直到其 <code>vm.$mount()</code> 被调用时才会开始。在编译阶段，Vue 会递归遍历模板中的 DOM 节点并收集其中的指令，将其数据和这些指令所对应的 DOM 节点 “链接” 起来。一旦链接完毕，这些 DOM 节点就算是被 Vue 实例正式接管了。一个 DOM 节点只能被一个 Vue 实例管理，并且不能被多次编译。</p>
+<h2 id="数据代理">数据代理</h2><p>每一个 Vue 实例都会对其 <code>$data</code> 对象上的所有属性进行代理。假如你的数据对象上有个属性叫 msg，你可以通过 <code>vm.$data.msg</code> 来访问这个属性，也可以通过 <code>vm.msg</code> 来访问它。看起来有点神奇，但这完全是可选的，你可以选择只使用 <code>vm.$data.msg</code> 这种方式来访问。但是，不论你的偏好如何，都需要注意 <code>vm</code> 和 <code>vm.$data</code> 之间的区别，因为前者是一个 Vue 实例，和纯粹的数据对象还是有区别的。</p>
+<p>还有一点值得注意的是数据对象 (data objects) 并不一定只能被一个 Vue 实例观察。我们完全可以让多个 vm 实例可以观察同一个数据对象。当多个组件需要共享一些全局状态的时候，这个特性就非常有用。</p>
+
+    <div class="footer">发现了问题或想要贡献？来 Github 给 Vue.js <a href="https://github.com/vuejs/vuejs.org" target="_blank">英文站点</a>或<a href="https://github.com/Jinjiang/vuejs.org/tree/lang-zh" target="_blank">中文翻译</a>来个 Fork 吧！</div>
+</div>
+                
+            </div>
+            <script src="/js/smooth-scroll.min.js"></script>
+            <script src="/js/common.js"></script>
+        
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                FastClick.attach(document.body);
+            }, false);
+        </script>
+    </body>
+</html>
